@@ -5,14 +5,14 @@ def doit(weights):
     for irred in maeda_parallel(weights):
         print irred
               
-@parallel(ncpus=10)
+@parallel(ncpus=5)
 def maeda_parallel(k):
     stk = str(k)
     filename = 'data/' + '0'*(5-len(stk)) + stk
     if os.path.exists(filename):
         irred = None
     else:
-        irred = maeda(weight=k, verbose=True, filename=filename)
+        irred = maeda_modular(weight=k, verbose=True, filename=filename)
     return irred
 
 def maeda(weight, verbose=True, filename=None):
@@ -84,22 +84,93 @@ def maeda(weight, verbose=True, filename=None):
         del f
     return isirred         
 
-def maeda_modular(weight, basis, verbose=True, filename=None):
+def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
     import time as time
+    time0 = time.time()
     count = 0
-    while True:
+    dim = dimension_cusp_forms(1, weight)
+    prec = 2*(dim + 2)
+    #b = CuspForms(1, weight).q_expansion_basis(prec=prec)
+    b = victor_miller_basis(weight, prec=prec, cusp_only=True)
+    time1 = time.time()
+    time_str = ''
+    st = "# basis computed in              %9.3f seconds"%(time1-time0)
+    print(st)
+    time_str += st + '\n'
+    M = hecke_operator_on_basis(b, 2, weight)
+    time2 = time.time()
+    st = "# matrix of T_2 computed in      %9.3f seconds"%(time2-time1)
+    print(st)
+    time_str += st + '\n'
+    type1_prime = None
+    type2_prime = None
+    type3_prime = None
+    while ((type1_prime is None) or (type2_prime is None) or
+        (type3_prime is None)):
         count += 1
-        p = random_prime(2^20)
+        p = random_prime(PRIME_BOUND)
         K = GF(p)
-        bp = [f.change_ring(K) for f in b]
-        M = hecke_operator_on_basis(bp, 2, weight)
-        del bp
-        f = M.charpoly()
-        del M
-        isirred = f.is_irreducible()
-        del f
-        if isirred:
-            return p, count
+        Mp = M.change_ring(K)
+        f = Mp.charpoly()
+        if (type1_prime is None) and f.is_irreducible():
+            type1_prime = p
+            type1_poly = f
+            st = "# type 1 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+            print(st)
+            time_str += st + '\n'
+            if (type3_prime is None) and is_prime(f.degree()):
+                type3_prime = p
+                type3_poly = f
+                st = "# type 3 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+                print(st)
+                time_str += st + '\n'
+                continue
+        fact = f.factor()
+        lst = sorted([g[0].degree() for g in fact])
+        if (type2_prime is None) and is_type_II(lst):
+            type2_prime = p
+            type2_poly = f
+            st = "# type 2 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+            print(st)
+            time_str += st + '\n'
+        if (type3_prime is None) and is_type_III(lst):
+            type3_prime = p
+            type3_poly = f
+            st = "# type 3 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+            print(st)
+            time_str += st + '\n'
+    if not filename is None:
+        file = open(filename, 'w')
+        file.write("# weight %s\n" %weight)
+        file.write("# total time taken (in seconds): %9.3f\n" %(time.time() - time0))
+        file.write(time_str)
+        file.write("# %s\n" %version())
+        file.write("# %s\n" %(' '.join(os.uname()[:3]) + ' ' + os.uname()[4]))
+        file.write("# %s\n" %(time.asctime()))
+        file.write("# type 1 prime and polynomial\n")
+        file.write("%s\n" %type1_prime)
+        file.write("%s\n" %type1_poly)
+        file.write("# type 2 prime and polynomial\n")
+        file.write("%s\n" %type2_prime)
+        file.write("%s\n" %type2_poly)
+        file.write("# type 3 prime and polynomial\n")
+        file.write("%s\n" %type3_prime)
+        file.write("%s\n" %type3_poly)
+        file.close()     
+    return True
+
+def is_type_II(lst):
+    mylst = copy(lst)
+    if mylst.count(2) != 1:
+        return False
+    mylst.remove(2)
+    for l in mylst:
+        if (l % 2) == 0:
+            return False
+    return True
+
+def is_type_III(lst):
+    return (is_prime(lst[-1]) and (lst[-1] > sum(lst)/2))
 
 def maeda_modp(weight, p, verbose=True, filename=None):
     import time as time
