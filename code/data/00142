@@ -1,0 +1,19 @@
+# weight 142
+# total time taken (in seconds):     0.583
+# basis computed in                  0.222 seconds
+# matrix of T_2 computed in          0.053 seconds
+# type 1 found in                    0.033 seconds, after    2 tries
+# type 3 found in                    0.033 seconds, after    2 tries
+# type 2 found in                    0.307 seconds, after   14 tries
+# Sage Version 5.0.beta10, Release Date: 2012-03-23
+# Linux geom 2.6.32-02063209-generic x86_64
+# Sat Apr 21 05:21:26 2012
+# type 1 prime and polynomial
+1034809
+x^11 + 899703*x^10 + 902093*x^9 + 978150*x^8 + 888635*x^7 + 736291*x^6 + 455045*x^5 + 588749*x^4 + 347390*x^3 + 352781*x^2 + 342375*x + 891045
+# type 2 prime and polynomial
+594163
+x^11 + 578663*x^10 + 160263*x^9 + 271390*x^8 + 431674*x^7 + 7727*x^6 + 100476*x^5 + 547976*x^4 + 556432*x^3 + 499811*x^2 + 296392*x + 382027
+# type 3 prime and polynomial
+1034809
+x^11 + 899703*x^10 + 902093*x^9 + 978150*x^8 + 888635*x^7 + 736291*x^6 + 455045*x^5 + 588749*x^4 + 347390*x^3 + 352781*x^2 + 342375*x + 891045

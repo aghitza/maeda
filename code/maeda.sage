@@ -5,7 +5,7 @@ def doit(weights):
     for irred in maeda_parallel(weights):
         print irred
               
-@parallel(ncpus=5)
+@parallel(ncpus=7)
 def maeda_parallel(k):
     stk = str(k)
     filename = 'data/' + '0'*(5-len(stk)) + stk
