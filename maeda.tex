@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[style=numeric, 
+            hyperref=auto,
+            url=true,
+            isbn=false,
+            doi=false,
+            block=none,
+            maxnames=10,
+            backend=biber]{biblatex}
+\addbibresource{maeda.bib}
+\renewcommand{\bibfont}{\normalfont\small}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+\usepackage[pagewise, mathlines]{lineno}
+\linenumbers
+\modulolinenumbers[2]
+
+\usepackage{gitinfo}
+\usepackage[english]{isodate}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\CC}{\mathbb C}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\HH}{\mathbb H}
+\renewcommand{\SS}{\mathfrak S}
+
+\newcommand{\bound}{10\,000}
+
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\SL}{{\rm SL}}
+
+\title{Experimental evidence for Maeda's conjecture on modular forms}
+\author{
+Alexandru Ghitza\footnote{Research of the first author was supported by 
+a Discovery Grant from the Australian Research Council.}  
+{} and 
+Angus McAndrew\\
+Department of Mathematics and Statistics\\
+University of Melbourne\\
+{\tt aghitza@gmail.com}, {\tt mcandrew@student.unimelb.edu.au}
+}
+\date{}
+
+
+\begin{document}
+\thispagestyle{empty}
+
+\maketitle
+\begin{abstract}
+  We describe a computational verification of Maeda's conjecture for
+  all weights less than $\bound$.
+\end{abstract}
+
+
+\section{Introduction}
+
+Motivation.
+
+Define modular forms of level 1 and Hecke operators.
+
+\begin{conjecture}[Maeda~\cite{Maeda}]
+\end{conjecture}
+
+Describe (relevant) previous results.
+
+\section{The basic lemma and density estimates}
+
+State and prove the basic lemma of Buzzard-Conrey-Farmer,
+see~\cite{Buzzard} and~\cite[Lemma~4]{ConreyFarmer}.
+
+State and prove density estimates for the three types of primes
+occurring in the basic lemma.  These use the result of Frobenius on
+splitting of primes, so we should state that as well.
+
+\section{Implementation and results}
+We implemented the basic approach described in the previous section
+using the mathematical software Sage~\cite{Sage}.
+
+Describe implementation.
+
+\begin{theorem}[Maeda's conjecture holds for weights $\leq \bound$]
+  Let $k\leq \bound$ and let $F$ be the characteristic polynomial of the
+  Hecke operator $T_2$ acting on the space $S_k$ of cusp forms of weight
+  $k$ and level $1$.  Then $F$ is irreducible over $\QQ$ and the Galois
+  group of its splitting field is the full symmetric group $\SS_d$, 
+  where $d$ is the dimension of the space $S_k$.
+\end{theorem}
+
+
+Describe the probability distribution we observe for the different types
+of primes.
+
+State some corollaries (look in the references for some nice
+consequences).
+
+
+\printbibliography
+
+\end{document}
+
+
