@@ -5,14 +5,23 @@ def doit(weights):
     for irred in maeda_parallel(weights):
         print irred
               
-@parallel(ncpus=7)
+@parallel(ncpus=3)
 def maeda_parallel(k):
     stk = str(k)
     filename = 'data/' + '0'*(5-len(stk)) + stk
-    if os.path.exists(filename):
+    lockfilename = filename + '.lock'
+    if os.path.exists(filename) or os.path.exists(lockfilename):
         irred = None
     else:
+        import time as time
+        import socket as socket
+        lockfile = open(lockfilename, 'w')
+        lockfile.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
+        lockfile.write(' ' + socket.gethostname())
+        lockfile.write('\n')
+        lockfile.close()
         irred = maeda_modular(weight=k, verbose=True, filename=filename)
+        os.remove(lockfilename)
     return irred
 
 def maeda(weight, verbose=True, filename=None):
