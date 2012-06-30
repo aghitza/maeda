@@ -4,6 +4,13 @@ def doit(weights):
     ni = os.nice(19)
     for irred in maeda_parallel(weights):
         print irred
+
+def doit_consec(weights):
+    """
+    """
+    ni = os.nice(19)
+    for irred in maeda_parallel_consec(weights):
+        print irred
               
 @parallel(ncpus=3)
 def maeda_parallel(k):
@@ -21,6 +28,25 @@ def maeda_parallel(k):
         lockfile.write('\n')
         lockfile.close()
         irred = maeda_modular(weight=k, verbose=True, filename=filename)
+        os.remove(lockfilename)
+    return irred
+
+@parallel(ncpus=10)
+def maeda_parallel_consec(k):
+    stk = str(k)
+    filename = 'data-consec/' + '0'*(5-len(stk)) + stk
+    lockfilename = filename + '.lock'
+    if os.path.exists(filename) or os.path.exists(lockfilename):
+        irred = None
+    else:
+        import time as time
+        import socket as socket
+        lockfile = open(lockfilename, 'w')
+        lockfile.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
+        lockfile.write(' ' + socket.gethostname())
+        lockfile.write('\n')
+        lockfile.close()
+        irred = maeda_modular_consec(weight=k, verbose=True, filename=filename)
         os.remove(lockfilename)
     return irred
 
@@ -134,6 +160,86 @@ def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
                 print(st)
                 time_str += st + '\n'
                 continue
+        if not f.is_squarefree():
+            continue
+        fact = f.factor()
+        lst = sorted([g[0].degree() for g in fact])
+        if (type2_prime is None) and is_type_II(lst):
+            type2_prime = p
+            type2_poly = f
+            st = "# type 2 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+            print(st)
+            time_str += st + '\n'
+        if (type3_prime is None) and is_type_III(lst):
+            type3_prime = p
+            type3_poly = f
+            st = "# type 3 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+            print(st)
+            time_str += st + '\n'
+    if not filename is None:
+        file = open(filename, 'w')
+        file.write("# weight %s\n" %weight)
+        file.write("# total time taken (in seconds): %9.3f\n" %(time.time() - time0))
+        file.write(time_str)
+        file.write("# %s\n" %version())
+        file.write("# %s\n" %(' '.join(os.uname()[:3]) + ' ' + os.uname()[4]))
+        file.write("# %s\n" %(time.asctime()))
+        file.write("# type 1 prime and polynomial\n")
+        file.write("%s\n" %type1_prime)
+        file.write("%s\n" %type1_poly)
+        file.write("# type 2 prime and polynomial\n")
+        file.write("%s\n" %type2_prime)
+        file.write("%s\n" %type2_poly)
+        file.write("# type 3 prime and polynomial\n")
+        file.write("%s\n" %type3_prime)
+        file.write("%s\n" %type3_poly)
+        file.close()     
+    return True
+
+def maeda_modular_consec(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
+    import time as time
+    time0 = time.time()
+    count = 0
+    dim = dimension_cusp_forms(1, weight)
+    prec = 2*(dim + 2)
+    #b = CuspForms(1, weight).q_expansion_basis(prec=prec)
+    b = victor_miller_basis(weight, prec=prec, cusp_only=True)
+    time1 = time.time()
+    time_str = ''
+    st = "# basis computed in              %9.3f seconds"%(time1-time0)
+    print(st)
+    time_str += st + '\n'
+    M = hecke_operator_on_basis(b, 2, weight)
+    time2 = time.time()
+    st = "# matrix of T_2 computed in      %9.3f seconds"%(time2-time1)
+    print(st)
+    time_str += st + '\n'
+    type1_prime = None
+    type2_prime = None
+    type3_prime = None
+    p = 1
+    while ((type1_prime is None) or (type2_prime is None) or
+        (type3_prime is None)):
+        count += 1
+        p = next_prime(p)
+        K = GF(p)
+        Mp = M.change_ring(K)
+        f = Mp.charpoly()
+        if (type1_prime is None) and f.is_irreducible():
+            type1_prime = p
+            type1_poly = f
+            st = "# type 1 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+            print(st)
+            time_str += st + '\n'
+            if (type3_prime is None) and is_prime(f.degree()):
+                type3_prime = p
+                type3_poly = f
+                st = "# type 3 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
+                print(st)
+                time_str += st + '\n'
+                continue
+        if not f.is_squarefree():
+            continue
         fact = f.factor()
         lst = sorted([g[0].degree() for g in fact])
         if (type2_prime is None) and is_type_II(lst):
@@ -180,6 +286,46 @@ def is_type_II(lst):
 
 def is_type_III(lst):
     return (is_prime(lst[-1]) and (lst[-1] > sum(lst)/2))
+
+def check_results(pathname):
+    for fname in sorted(os.listdir(pathname)):
+        print("%s"%fname)
+        fullname = pathname + fname
+        resfile = open(fullname, 'r')
+        for _ in range(11):
+            resfile.readline()
+        p = ZZ(resfile.readline().strip('\n'))
+        R.<x> = GF(p)[]
+        poly = resfile.readline().strip('\n')
+        f = R(poly)
+        if not f.is_irreducible():
+            print("%s: type 1 is reducible"%fname)
+        resfile.readline()
+        p = ZZ(resfile.readline().strip('\n'))
+        R.<x> = GF(p)[]
+        poly = resfile.readline().strip('\n')
+        f = R(poly)
+        if not f.is_squarefree():
+            print("%s: type 2 is not squarefree"%fname)
+        else:
+            fact = f.factor()
+            lst = sorted([g[0].degree() for g in fact])
+            if not is_type_II(lst):
+                print("%s: type 2 is not the right shape"%fname)
+        resfile.readline()
+        p = ZZ(resfile.readline().strip('\n'))
+        R.<x> = GF(p)[]
+        poly = resfile.readline().strip('\n')
+        f = R(poly)
+        if not f.is_squarefree():
+            print("%s: type 3 is not squarefree"%fname)
+        else:
+            fact = f.factor()
+            lst = sorted([g[0].degree() for g in fact])
+            if not is_type_III(lst):
+                print("%s: type 3 is not the right shape"%fname)
+        resfile.close()
+
 
 def maeda_modp(weight, p, verbose=True, filename=None):
     import time as time
