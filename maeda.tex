@@ -85,6 +85,9 @@ University of Melbourne\\
 
 TODO: Motivation.
 
+TODO: Good reference for basic stuff about modular forms in level $1$.
+(Serre's "Course in arithmetic"?  Zagier's survey?)
+
 Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
 holomorphic function
 \begin{equation*}
@@ -117,7 +120,13 @@ effect on the Fourier expansion $f(q)=\sum a_nq^n$ of $f\in S_k$ is given by
   (T_m f)(q)=\sum_{n=1}^\infty \left(\sum_{d\mid\gcd(m,n)}d^{k-1}a(mn/d^2)\right)q^n.
 \end{equation*}
 
-TODO: $S_k$ has dimension $d=\ldots$.
+The complex vector space $S_k$ has dimension 
+\begin{equation*}
+  d=\begin{cases}
+    \left[\frac{k}{12}\right]-1 & \text{if }k\equiv 2\pmod{12},\\
+    \left[\frac{k}{12}\right] & \text{if }k\not\equiv 2\pmod{12}.
+  \end{cases}
+\end{equation*}
 
 \begin{conjecture}[Maeda~\cite{Maeda}]
   Let $m>1$ and 
