@@ -47,6 +47,7 @@
 \newcommand{\FF}{\mathbb{F}}
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\HH}{\mathcal{H}}
+\newcommand{\NN}{\mathbb{N}}
 \renewcommand{\SS}{\mathfrak{S}}
 \renewcommand{\Im}{\operatorname{Im}}
 
@@ -82,7 +83,7 @@ University of Melbourne\\
 
 \section{Introduction}
 
-Motivation.
+TODO: Motivation.
 
 Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
 holomorphic function
@@ -109,21 +110,31 @@ satisfying
 \end{itemize}
 
 We say that a modular form $f$ is a \emph{cusp form} if $a_0=0$.  The cusp
-forms of weight $k$ form a vector space $S_k$.
+forms of weight $k$ form a vector space $S_k$.  These vector spaces are
+equipped with a family of \emph{Hecke operators} $T_m$ (for $m\in\NN$), whose
+effect on the Fourier expansion $f(q)=\sum a_nq^n$ of $f\in S_k$ is given by
+\begin{equation*}
+  (T_m f)(q)=\sum_{n=1}^\infty \left(\sum_{d\mid\gcd(m,n)}d^{k-1}a(mn/d^2)\right)q^n.
+\end{equation*}
 
-Define Hecke operators.
+TODO: $S_k$ has dimension $d=\ldots$.
 
 \begin{conjecture}[Maeda~\cite{Maeda}]
+  Let $m>1$ and 
+  let $F$ be the characteristic polynomial of the Hecke operator $T_m$ acting
+  on $S_k$.  Then $F$ is irreducible over $\QQ$ and the Galois group of its
+  splitting field is the full symmetric group $\SS_d$, where $d$ is the
+  dimension of $S_k$.
 \end{conjecture}
 
-Describe (relevant) previous results.
+TODO: Describe (relevant) previous results.
 
 \section{The basic lemma and density estimates}
 
-State and prove the basic lemma of Buzzard-Conrey-Farmer,
+TODO: State and prove the basic lemma of Buzzard-Conrey-Farmer,
 see~\cite{Buzzard} and~\cite[Lemma~4]{ConreyFarmer}.
 
-State and prove density estimates for the three types of primes
+TODO: State and prove density estimates for the three types of primes
 occurring in the basic lemma.  These use the result of Frobenius on
 splitting of primes, so we should state that as well.
 
@@ -131,7 +142,7 @@ splitting of primes, so we should state that as well.
 We implemented the basic approach described in the previous section
 using the mathematical software Sage, see~\cite{Sage}.
 
-Describe implementation.
+TODO: Describe implementation.
 
 \begin{theorem}[Maeda's conjecture holds for weights $\leq \bound$]
   Let $k\leq \bound$ and let $F$ be the characteristic polynomial of the
@@ -142,10 +153,10 @@ Describe implementation.
 \end{theorem}
 
 
-Describe the probability distribution we observe for the different types
+TODO: Describe the probability distribution we observe for the different types
 of primes.
 
-State some corollaries (look in the references for some nice
+TODO: State some corollaries (look in the references for some nice
 consequences).
 
 
