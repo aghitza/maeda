@@ -39,15 +39,16 @@
 
 \numberwithin{equation}{section}
 \numberwithin{table}{section}
-\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumi}{(\arabic{enumi})}
 \newcommand{\longto}{\longrightarrow}
 
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\FF}{\mathbb{F}}
 \newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\HH}{\mathcal{H}}
 \newcommand{\NN}{\mathbb{N}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cH}{\mathcal{H}}
 \renewcommand{\SS}{\mathfrak{S}}
 \renewcommand{\Im}{\operatorname{Im}}
 
@@ -76,8 +77,8 @@ University of Melbourne\\
 
 \maketitle
 \begin{abstract}
-  We describe a computational verification of Maeda's conjecture for
-  all weights less than $\bound$.
+  We describe a computational verification of Maeda's conjecture for the Hecke
+  operator $T_2$ in all weights less than $\bound$.
 \end{abstract}
 
 
@@ -91,18 +92,18 @@ details, the reader is invited to consult~\cite{Stein}.
 Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
 holomorphic function
 \begin{equation*}
-  f\colon\HH\longto\CC, \quad\text{where }
-  \HH=\{z\in\CC\mid \Im z>0\},
+  f\colon\cH\longto\CC, \quad\text{where }
+  \cH=\{z\in\CC\mid \Im z>0\},
 \end{equation*}
 satisfying
 \begin{itemize}
-  \item Modularity: for all $z\in\HH$ and all
+  \item Modularity: for all $z\in\cH$ and all
     $g=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in\SL_2(\ZZ)$,
       \begin{equation*}
         f\left(\frac{az+b}{cz+d}\right)=(cz+d)^kf(z).
       \end{equation*}
   \item Holomorphicity at $i\infty$: a holomorphic function $f$ satisfying the
-    modularity condition satisfies $f(z+1)=f(z)$ for all $z\in\HH$, so it has
+    modularity condition satisfies $f(z+1)=f(z)$ for all $z\in\cH$, so it has
     a Fourier expansion
     \begin{equation*}
       f(z)=\sum_{n=-\infty}^\infty a_nq^n,\quad\text{where we set }
@@ -151,7 +152,29 @@ splitting of primes, so we should state that as well.
 We implemented the basic approach described in the previous section
 using the mathematical software Sage, see~\cite{Sage}.
 
-TODO: Describe implementation.
+Here is what we do for a fixed weight $k$:
+\begin{enumerate}
+  \item Compute the Victor Miller basis $\cB$ for $S_k$ up to precision
+    $2(d+2)$, where $d$ is the dimension of $S_k$.
+  \item Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
+    basis $\cB$ -- this is very efficient since the basis $\cB$ is
+    echelonized.
+  \item\label{itm:random} Pick a random prime $p<2^{20}$.
+  \item Reduce $M$ modulo $p$ and compute the characteristic polynomial
+    $F_p\in \FF_p[X]$.
+  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type $I$.
+  \item Factor $F_p$ over $\FF_p$ and use this factorization to decide whether
+    $p$ is a prime of type $II$ or $III$.
+  \item Repeat from step~(\ref{itm:random}) until we have found at
+    least one prime of each type.
+\end{enumerate}
+
+TODO: find out which component of Sage is used in the main steps.
+
+TODO: get timings for each main step for a large weight $k$.
+
+TODO: run a consecutive version of this algorithm (going through primes in
+order, from $p=2$ on) and see how it compares to our randomized approach.
 
 \begin{theorem}[Maeda's conjecture holds for weights $\leq \bound$]
   Let $k\leq \bound$ and let $F$ be the characteristic polynomial of the
