@@ -326,6 +326,35 @@ def check_results(pathname):
                 print("%s: type 3 is not the right shape"%fname)
         resfile.close()
 
+def get_stats(pathname):
+    type1 = dict()
+    type2 = dict()
+    type3 = dict()
+    for fname in sorted(os.listdir(pathname)):
+        print("%s"%fname)
+        if ".lock" in fname:
+            continue
+        k = ZZ(fname.lstrip('0'))
+        d = dimension_cusp_forms(1, k)
+        fullname = pathname + fname
+        resfile = open(fullname, 'r')
+        for _ in range(4):
+            resfile.readline()
+        for _ in range(3):
+            primeline = resfile.readline().strip('\n')
+            strlist = primeline.split(' ')
+            tp = ZZ(strlist[2])
+            tries = ZZ(strlist[-2])
+            if tp == 1:
+                type1[k] = tries/d*1.0
+            elif tp == 2:
+                type2[k] = tries
+            elif tp == 3:
+                type3[k] = tries
+            else:
+                raise RuntimeError("booom")
+        resfile.close()
+    return type1, type2, type3
 
 def maeda_modp(weight, p, verbose=True, filename=None):
     import time as time
