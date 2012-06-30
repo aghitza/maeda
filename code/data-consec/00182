@@ -1,0 +1,19 @@
+# weight 182
+# total time taken (in seconds):     1.999
+# basis computed in                  0.360 seconds
+# matrix of T_2 computed in          0.181 seconds
+# type 2 found in                    1.144 seconds, after   29 tries
+# type 1 found in                    1.350 seconds, after   41 tries
+# type 3 found in                    1.457 seconds, after   48 tries
+# Sage Version 5.0.rc0, Release Date: 2012-05-01
+# Linux cerelia.ms.unimelb.edu.au 2.6.18-308.4.1.el5 x86_64
+# Sat Jun 30 17:41:48 2012
+# type 1 prime and polynomial
+179
+x^14 + 106*x^12 + 15*x^11 + 38*x^10 + 143*x^9 + 127*x^8 + 145*x^7 + 83*x^6 + 174*x^5 + 124*x^4 + 64*x^3 + 23*x^2 + 67*x + 145
+# type 2 prime and polynomial
+109
+x^14 + 57*x^13 + 41*x^12 + 42*x^11 + 45*x^10 + 49*x^8 + 56*x^7 + 101*x^6 + 15*x^5 + 35*x^4 + 104*x^3 + 74*x + 98
+# type 3 prime and polynomial
+223
+x^14 + 133*x^13 + 3*x^12 + 68*x^11 + 147*x^10 + 32*x^9 + 104*x^8 + 21*x^7 + 77*x^6 + 202*x^5 + 11*x^4 + 81*x^3 + 78*x^2 + 93*x + 19
