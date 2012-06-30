@@ -1,0 +1,15 @@
+\usepackage[%
+		shash={5922124},
+		lhash={5922124268a2201ee1430d406683835b1f368f60},
+		authname={Alexandru Ghitza},
+		authemail={aghitza@alum.mit.edu},
+		authsdate={2012-06-30},
+		authidate={2012-06-30 13:02:38 +1000},
+		authudate={1341025358},
+		commname={Alexandru Ghitza},
+		commemail={aghitza@alum.mit.edu},
+		commsdate={2012-06-30},
+		commidate={2012-06-30 13:02:38 +1000},
+		commudate={1341025358},
+		refnames={ (HEAD, master)}
+	]{gitsetinfo}
