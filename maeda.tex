@@ -2,7 +2,7 @@
 
 \usepackage[english]{babel}
 \usepackage{csquotes}
-\usepackage[style=numeric, 
+\usepackage[style=alphabetic, 
             hyperref=auto,
             url=true,
             isbn=false,
@@ -24,6 +24,8 @@
 \usepackage{gitinfo}
 \usepackage[english]{isodate}
 
+\usepackage{geometry}
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{conjecture}[theorem]{Conjecture}
@@ -37,18 +39,20 @@
 \numberwithin{equation}{section}
 \numberwithin{table}{section}
 \renewcommand{\labelenumi}{(\alph{enumi})}
+\newcommand{\longto}{\longrightarrow}
 
-\newcommand{\CC}{\mathbb C}
-\newcommand{\ZZ}{\mathbb Z}
-\newcommand{\FF}{\mathbb F}
-\newcommand{\QQ}{\mathbb Q}
-\newcommand{\HH}{\mathbb H}
-\renewcommand{\SS}{\mathfrak S}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\HH}{\mathcal{H}}
+\renewcommand{\SS}{\mathfrak{S}}
+\renewcommand{\Im}{\operatorname{Im}}
 
 \newcommand{\bound}{10\,000}
 
-\newcommand{\GL}{{\rm GL}}
-\newcommand{\SL}{{\rm SL}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
 
 \title{Experimental evidence for Maeda's conjecture on modular forms}
 \author{
@@ -77,7 +81,34 @@ University of Melbourne\\
 
 Motivation.
 
-Define modular forms of level 1 and Hecke operators.
+Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
+holomorphic function
+\begin{equation*}
+  f\colon\HH\longto\CC, \quad\text{where }
+  \HH=\{z\in\CC\mid \Im z>0\},
+\end{equation*}
+satisfying
+\begin{itemize}
+  \item Modularity: for all $z\in\HH$ and all
+    $g=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in\SL_2(\ZZ)$,
+      \begin{equation*}
+        f\left(\frac{az+b}{cz+d}\right)=(cz+d)^kf(z).
+      \end{equation*}
+  \item Holomorphicity at $i\infty$: a holomorphic function $f$ satisfying the
+    modularity condition satisfies $f(z+1)=f(z)$ for all $z\in\HH$, so it has
+    a Fourier expansion
+    \begin{equation*}
+      f(z)=\sum_{n=-\infty}^\infty a_nq^n,\quad\text{where we set }
+      q=e^{2\pi i z}.
+    \end{equation*}
+    We ask for $f$ to be \emph{holomorphic at $i\infty$}, i.e. that $a_n=0$
+    for all $n<0$.
+\end{itemize}
+
+We say that a modular form $f$ is a \emph{cusp form} if $a_0=0$.  The cusp
+forms of weight $k$ form a vector space $S_k$.
+
+Define Hecke operators.
 
 \begin{conjecture}[Maeda~\cite{Maeda}]
 \end{conjecture}
@@ -95,7 +126,7 @@ splitting of primes, so we should state that as well.
 
 \section{Implementation and results}
 We implemented the basic approach described in the previous section
-using the mathematical software Sage~\cite{Sage}.
+using the mathematical software Sage, see~\cite{Sage}.
 
 Describe implementation.
 
