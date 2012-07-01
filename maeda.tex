@@ -30,6 +30,7 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -132,21 +133,120 @@ The complex vector space $S_k$ has dimension
 \begin{conjecture}[Maeda~\cite{Maeda}]
   Let $m>1$ and 
   let $F$ be the characteristic polynomial of the Hecke operator $T_m$ acting
-  on $S_k$.  Then $F$ is irreducible over $\QQ$ and the Galois group of its
-  splitting field is the full symmetric group $\SS_d$, where $d$ is the
-  dimension of $S_k$.
+  on $S_k$.  Then 
+  \begin{enumerate}
+    \item the polynomial $F$ is irreducible over $\QQ$;
+    \item the Galois group of the splitting field of $F$ is the full symmetric
+      group $\SS_d$, where $d$ is the dimension of $S_k$.
+  \end{enumerate}
 \end{conjecture}
 
-TODO: Describe (relevant) previous results.
+TODO: Describe (relevant) previous results:
+Buzzard,
+Conrey-Farmer,
+William Stein's student?,
+Chu-Wee Lim PhD thesis?,
+Ahlgren
+
 
 \section{The basic lemma and density estimates}
 
-TODO: State and prove the basic lemma of Buzzard-Conrey-Farmer,
-see~\cite{Buzzard} and~\cite[Lemma~4]{ConreyFarmer}.
+Consider a polynomial $F\in\ZZ[X]$ of degree $d$.
+Given a prime $p$, we denote by
+$F_p\in\FF_p[X]$ the reduction modulo $p$ of $F$.  We say that the prime
+$p$ is
+\begin{enumerate}
+  \item \emph{of type I} if $F_p$ is irreducible over $\FF_p$;
+  \item \emph{of type II} if $F_p$ factors over $\FF_p$ into a product of
+    distinct irreducible factors
+    \begin{equation*}
+      F_p=f_0f_1\cdots f_t
+    \end{equation*}
+    with
+    \begin{align*}
+      \deg f_0 &= 2\\
+      \deg f_j &\text{ odd for }j=1,\ldots,t;
+    \end{align*}
+  \item \emph{of type III} if $F_p$ factors over $\FF_p$ into a product of
+    distinct irreducible factors
+    \begin{equation*}
+      F_p=f_0f_1\cdots f_t
+    \end{equation*}
+    with $\deg f_0>d/2$ and prime.
+\end{enumerate}
 
-TODO: State and prove density estimates for the three types of primes
-occurring in the basic lemma.  These use the result of Frobenius on
-splitting of primes, so we should state that as well.
+Note that these types are not necessarily mutually exclusive: a prime of type I
+is clearly also of type III.
+
+The computational approach to Maeda's conjecture is based on the following
+result, first proved in a special case in~\cite{Buzzard} and then generalized
+in~\cite{ConreyFarmer}.
+
+\begin{lemma}[Buzzard-Conrey-Farmer]
+  Let $F\in\ZZ[X]$ be a monic polynomial of degree $d$.  Suppose that $F$ has
+  primes $p$, $q$ and $r$ of respective types $I$, $II$ and $III$.  Then $F$
+  is irreducible over $\QQ$ and its splitting field over $\QQ$ has full Galois
+  group $\SS_d$.
+\end{lemma}
+\begin{proof}
+  TODO
+\end{proof}
+
+TODO: reference for Frobenius's theorem
+
+\begin{theorem}[Frobenius]
+  Let $F\in\ZZ[X]$ be monic and separable (having distinct roots over
+  $\overline{\QQ}$, i.e. $\gcd(F, F^\prime)=1$).  Let $K/\QQ$ be the splitting
+  field of $F$ and let $G$ be the Galois group of $K/\QQ$.  
+  Let $\deg F=d_1+\ldots+d_t$ be a partition of $\deg F$.  
+  The density of primes $p$ for which the factorization of $F_p$ is of the
+  form
+  \begin{equation*}
+    F_p=f_1\cdots f_t\quad\text{with }f_j\in\FF_p[X], \deg f_j=d_j,
+  \end{equation*}
+  is equal to
+  \begin{equation*}
+    \frac{\sharp\{\sigma\in G\mid\text{the cycle pattern of $\sigma$ is 
+    $d_1,\ldots,d_t$}\}
+    }{\sharp G}
+  \end{equation*}
+\end{theorem}
+
+In the remainder of this section, we estimate the density of primes of types
+I, II and III.
+
+\begin{lemma}
+  Let $d=d_1+\ldots+d_t$ be a partition of the positive integer $d$.  The
+  number of elements of $\SS_d$ of cycle type $d_1,\ldots,d_t$ is equal to
+  \begin{equation*}
+    C(d_1,\ldots,d_t)=\frac{d!}{d_1\cdots d_t}.
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{proposition}
+  The density of primes of type I is ...
+\end{proposition}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{proposition}
+  The density of primes of type II is ...
+\end{proposition}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{proposition}
+  The density of primes of type III is ...
+\end{proposition}
+\begin{proof}
+  TODO
+\end{proof}
+
 
 \section{Implementation and results}
 We implemented the basic approach described in the previous section
