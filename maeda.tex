@@ -216,11 +216,15 @@ In the remainder of this section, we estimate the density of primes of types
 I, II and III.
 
 \begin{lemma}
-  Let $d=d_1+\ldots+d_t$ be a partition of the positive integer $d$.  The
+  Let $d=d_1+\ldots+d_t$ be a partition of the positive integer $d$.  For each
+  integer $j=1,\ldots,d$, let $m_j$ denote the number of times it appears in
+  the partition.  The
   number of elements of $\SS_d$ of cycle type $d_1,\ldots,d_t$ is equal to
   \begin{equation*}
-    C(d_1,\ldots,d_t)=\frac{d!}{d_1\cdots d_t}.
+    C(d_1,\ldots,d_t)=\frac{d!}{\prod_{j=1}^d\left(j^{m_j} m_j!\right)}.
   \end{equation*}
+
+  TODO: make this more clear (use a partition $\lambda$, etc.)
 \end{lemma}
 \begin{proof}
   TODO
