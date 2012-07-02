@@ -176,7 +176,7 @@ $p$ is
 \end{enumerate}
 
 Note that these types are not necessarily mutually exclusive: a prime of type I
-is clearly also of type III.
+is clearly also of type III in the case where $d$ is prime.
 
 The computational approach to Maeda's conjecture is based on the following
 result, first proved in a special case in~\cite{Buzzard} and then generalized
@@ -198,7 +198,7 @@ TODO: reference for Frobenius's theorem
   Let $F\in\ZZ[X]$ be monic and separable (having distinct roots over
   $\overline{\QQ}$, i.e. $\gcd(F, F^\prime)=1$).  Let $K/\QQ$ be the splitting
   field of $F$ and let $G$ be the Galois group of $K/\QQ$.  
-  Let $\deg F=d_1+\ldots+d_t$ be a partition of $\deg F$.  
+  Let $\deg F=m_1d_1+\ldots+m_td_t$ be a partition of $\deg F$.  
   The density of primes $p$ for which the factorization of $F_p$ is of the
   form
   \begin{equation*}
@@ -207,7 +207,7 @@ TODO: reference for Frobenius's theorem
   is equal to
   \begin{equation*}
     \frac{\sharp\{\sigma\in G\mid\text{the cycle pattern of $\sigma$ is 
-    $d_1,\ldots,d_t$}\}
+    $d_1^{m_1}\ldots d_t^{m_t}$}\}
     }{\sharp G}
   \end{equation*}
 \end{theorem}
@@ -216,25 +216,51 @@ In the remainder of this section, we estimate the density of primes of types
 I, II and III.
 
 \begin{lemma}
-  Let $d=d_1+\ldots+d_t$ be a partition of the positive integer $d$.  For each
-  integer $j=1,\ldots,d$, let $m_j$ denote the number of times it appears in
-  the partition.  The
-  number of elements of $\SS_d$ of cycle type $d_1,\ldots,d_t$ is equal to
+  Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
+  where $m_i$ is the number of times a cycle of length $d_i$ appears in the cycle
+  decomposition of $\sigma$. (Note: $m_1d_1+m_2d_2+\ldots +m_td_t=d$). The number
+   of elements of $\SS_d$ of cycle type $d_1^{m_1]d_2^{m_2}\ldots d_t^{m_t}$ is equal to
   \begin{equation*}
-    C(d_1,\ldots,d_t)=\frac{d!}{\prod_{j=1}^d\left(j^{m_j} m_j!\right)}.
+    C(d_1^{m_1]d_2^{m_2}\ldotsd_t^{m_t})=\frac{d!}{\prod_{j=1}^t\left(d_j^{m_j}m_j!\right)}.
   \end{equation*}
 
-  TODO: make this more clear (use a partition $\lambda$, etc.)
+  %Let $d=d_1+\ldots+d_t$ be a partition of the positive integer $d$.  For each
+  %integer $j=1,\ldots,d$, let $m_j$ denote the number of times it appears in
+  %the partition.  The
+  %number of elements of $\SS_d$ of cycle type $d_1,\ldots,d_t$ is equal to
+  %\begin{equation*}
+  %  C(d_1,\ldots,d_t)=\frac{d!}{\prod_{j=1}^d\left(j^{m_j} m_j!\right)}.
+  %\end{equation*}
+
+  %TODO: make this more clear (use a partition $\lambda$, etc.)
 \end{lemma}
 \begin{proof}
-  TODO
+  Consider $\SS_d$, with elements of cycle type $d_1^{m_1} d_2^{m_2} \ldots d_t^{m_t}$, 
+  where $m_i$ is the number of times a $d_i$-cycle appears in the decomposition.
+  There are d! ways to arrange d elements.
+  For each of the m_i $d_i$-cycles, one can rotate the cycle d_i ways and retrieve the 
+  same cycle. Thus must divide by $d_i^{m_i}$ for $i \in \{1,2,\ldots,t\}$.
+  Disjoint cycles commute, so the $m_i$ $d_i$-cycles can be permuted amongst one another 
+  $m_i!$ ways without changing the element. Thus must divide by $m_i!$ for $i \in \{1,2,\ldots,t\}$.
+  Thus
+  \begin{equation*}
+    \frac{d!}{\prod_{j=1}^t d_i^{m_i} m_i!}.
+  \end{equation*}
 \end{proof}
 
 \begin{proposition}
-  The density of primes of type I is ...
+  The density of primes of type I is $\frac{1}{d}$.
 \end{proposition}
 \begin{proof}
-  TODO
+  Primes of type I correspond to $d$-cycles in $\SS_d$, i.e. elements with 
+  cycle type $d$. Applying Lemma 2.3, we see
+  \begin{equation*}
+    C(d)=\frac{d!}{d^1}=(d-1)!
+  \end{equation*}
+  Thus, by Theorem 2.2, the density of primes of type I is
+  \begin{equation*}
+    \frac{(d-1)!}{d!}=\frac{1}{d}.
+  \end{equation*}
 \end{proof}
 
 \begin{proposition}
