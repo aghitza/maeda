@@ -15,7 +15,7 @@ def doit_consec(weights):
 @parallel(ncpus=6)
 def maeda_parallel(k):
     stk = str(k)
-    filename = 'data-test2/' + '0'*(5-len(stk)) + stk
+    filename = 'data/' + '0'*(5-len(stk)) + stk
     lockfilename = filename + '.lock'
     if os.path.exists(filename) or os.path.exists(lockfilename):
         irred = None
@@ -34,7 +34,7 @@ def maeda_parallel(k):
 @parallel(ncpus=6)
 def maeda_parallel_consec(k):
     stk = str(k)
-    filename = 'data-consec2/' + '0'*(5-len(stk)) + stk
+    filename = 'data-consec/' + '0'*(5-len(stk)) + stk
     lockfilename = filename + '.lock'
     if os.path.exists(filename) or os.path.exists(lockfilename):
         irred = None
@@ -119,7 +119,7 @@ def maeda(weight, verbose=True, filename=None):
         del f
     return isirred         
 
-def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
+def maeda_modular(weight, PRIME_BOUND=2^17, verbose=True, filename=None):
     import time as time
     time0 = time.time()
     count = 0
