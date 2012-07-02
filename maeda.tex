@@ -17,9 +17,9 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 
-\usepackage[pagewise, mathlines]{lineno}
-\linenumbers
-\modulolinenumbers[2]
+% \usepackage[pagewise, mathlines]{lineno}
+% \linenumbers
+% \modulolinenumbers[2]
 
 %\usepackage{gitinfo}
 %\usepackage[english]{isodate}
@@ -176,8 +176,8 @@ $p$ is
     with $\deg f_0>d/2$ and prime.
 \end{enumerate}
 
-Note that these types are not necessarily mutually exclusive: a prime of type I
-is clearly also of type III in the case where $d$ is prime.
+Note that these types are not necessarily mutually exclusive: if $d$ itself is
+prime, then a prime $p$ of type I is clearly also of type III.
 
 The computational approach to Maeda's conjecture is based on the following
 result, first proved in a special case in~\cite{Buzzard} and then generalized
@@ -195,7 +195,7 @@ in~\cite{ConreyFarmer}.
 
 TODO: reference for Frobenius's theorem
 
-\begin{theorem}[Frobenius]
+\begin{theorem}[Frobenius]\label{thm:frobenius}
   Let $F\in\ZZ[X]$ be monic and separable (having distinct roots over
   $\overline{\QQ}$, i.e. $\gcd(F, F^\prime)=1$).  Let $K/\QQ$ be the splitting
   field of $F$ and let $G$ be the Galois group of $K/\QQ$.  
@@ -216,7 +216,7 @@ TODO: reference for Frobenius's theorem
 In the remainder of this section, we estimate the density of primes of types
 I, II and III.
 
-\begin{lemma}
+\begin{lemma}\label{lem:cycletype}
   Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
   where $m_i$ is the number of times a cycle of length $d_i$ appears in the cycle
   decomposition of $\sigma$. (Note: $m_1d_1+m_2d_2+\ldots +m_td_t=d$.) The number
@@ -250,15 +250,18 @@ I, II and III.
 \end{proof}
 
 \begin{proposition}
-  The density of primes of type I is $\frac{1}{d}$.
+  The density of primes of type I is 
+  \begin{equation*}
+    D_I(d)=\frac{1}{d}.
+  \end{equation*}
 \end{proposition}
 \begin{proof}
   Primes of type I correspond to $d$-cycles in $\SS_d$, i.e. elements with 
-  cycle type $d$. Applying Lemma 2.3, we see
+  cycle type $d$. Applying Lemma~\ref{lem:cycletype}, we see
   \begin{equation*}
     C(d)=\frac{d!}{d^1}=(d-1)!
   \end{equation*}
-  Thus, by Theorem 2.2, the density of primes of type I is
+  Thus, by Theorem~\ref{thm:frobenius}, the density of primes of type I is
   \begin{equation*}
     \frac{(d-1)!}{d!}=\frac{1}{d}.
   \end{equation*}
@@ -272,12 +275,39 @@ I, II and III.
 \end{proof}
 
 \begin{proposition}
-  The density of primes of type III is ...
+  The density of primes of type III is
+  \begin{equation*}
+    D_{III}(d)=\sum_{d/2<\ell\leq d, \,\ell\text{ prime}} \frac{1}{\ell}.
+  \end{equation*}
+  If $d>2$, then
+  \begin{equation*}
+    D_{III}(d)>\frac{1}{d}.
+  \end{equation*}
 \end{proposition}
 \begin{proof}
-  TODO
+  Fix a prime $\ell$ such that $d/2<\ell\leq d$.  According to
+  Theorem~\ref{thm:frobenius}, we need to count the number of elements of
+  $\SS_d$ that contain an $\ell$-cycle.  Choosing the $\ell$-cycle itself
+  involves the $\binom{d}{\ell}$ ways of picking its constituents, which can
+  then be rearranged within the cycle in $(\ell-1)!$ ways.  It remains to
+  take into account the number of permutations of the remaining $d-\ell$ symbols,
+  so overall we have
+  \begin{equation*}
+    \binom{d}{\ell}(\ell-1)!(d-\ell)!=\frac{d!}{\ell}
+  \end{equation*}
+  elements of $\SS_d$ containing an $\ell$-cycle, which gives the stated
+  density.
+
+  The inequality given in the statement follows from Bertrand's postulate
+  (proved by Chebyshev), which says that for any integer $n>1$ there is at
+  least one prime $\ell$ such that $n<\ell<2n$.
 \end{proof}
 
+TODO: the estimate for $D_{III}(d)$ is sufficient for our purposes, but it is
+very far from sharp.  It might be interesting -- if we have time -- to write
+down a sharper lower
+bound (see Dusart's paper cited in the Wikipedia entry for Bertrand's
+postulate).
 
 \section{Implementation and results}
 We implemented the basic approach described in the previous section
