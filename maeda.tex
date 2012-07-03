@@ -52,6 +52,8 @@
 \newcommand{\cH}{\mathcal{H}}
 \renewcommand{\SS}{\mathfrak{S}}
 \renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\Frob}{\operatorname{Frob}}
+\newcommand{\Gal}{\operatorname{Gal}}
 
 \newcommand{\bound}{\numprint{10000}}
 
@@ -185,39 +187,44 @@ in~\cite{ConreyFarmer}.
 
 \begin{lemma}[Buzzard-Conrey-Farmer]
   Let $F\in\ZZ[X]$ be a monic polynomial of degree $d$.  Suppose that $F$ has
-  primes $p$, $q$ and $r$ of respective types $I$, $II$ and $III$.  Then $F$
+  primes $p$, $q$ and $r$ of respective types I, II and III.  Then $F$
   is irreducible over $\QQ$ and its splitting field over $\QQ$ has full Galois
   group $\SS_d$.
 \end{lemma}
 \begin{proof}
   The fact that $F$ is irreducible is immediate from the existence of a prime of type
   I. Thus we need only show that the Galois group is the full symmetric group $\SS_d$.
-  Let $K/\QQ$ be the splitting field of $F$. Let $l$, $q$ and $r$ be the primes of
-  $F$ of types $I$, $II$ and $III$, respectively. Let $G=\text{Gal}(K/\QQ)$. Thus
+  Let $K/\QQ$ be the splitting field of $F$. Let $\ell$, $q$ and $r$ be the primes of
+  $F$ of types I, II and III, respectively. Let $G=\Gal(K/\QQ)$. Thus
   $G$ is a transitive subgroup of $\SS_d$. Thus $F_q = f_0 f_1 \ldots f_{t_1}$ and
   $F_r = g_0 g_1 \ldots g_{t_2}$, with $\deg f_0 = 2$ and $\deg g_0 > d/2$ is prime.
   Thus the roots of $F_q$ and $F_r$ are distinct, since any of the $f_i$ or $g_i$ has
   distinct roots, and if any two factors share a root then either their product is
   reducible or the factors are equal to one another. Since this contradicts our
   assumption on the factorisations of $F_q$ and $F_r$, they must have distinct roots.
-  TODO: Distinct roots mod $q$ implies Frob$_\mathcal{p} \in G$ for $\mathcal{p}$
+
+  TODO: Distinct roots mod $q$ implies $\Frob_{\mathfrak{p}} \in G$ for
+  $\mathfrak{p}$
   a prime of $K$ above $p$.
-  TODO: Frob$_\mathcal{p}$ has cycle decomposition which is the same as the
+
+  TODO: $\Frob_{\mathfrak{p}}$ has cycle decomposition which is the same as the
   decomposition of $F_p$.
-  So Frob$_\mathcal{q}$ has cycle type $2,\deg(f_1),\ldots,\deg(f_{t_1})$ and
-  Frob$_\mathcal{r}$ has cycle type $p,\deg(g_1),\ldots,\deg(g_{t_2})$, where 
+
+  So $\Frob_{\mathfrak{q}}$ has cycle type $2,\deg(f_1),\ldots,\deg(f_{t_1})$ and
+  $\Frob_{\mathfrak{r}}$ has cycle type $p,\deg(g_1),\ldots,\deg(g_{t_2})$, where 
   $p>d/2$ is prime. Thus for $x_1=\prod_{i=1}^{t_1}\deg f_i$ and $x_2=\prod_{i=1}^{t_2}\deg g_i$,
-  we have that (Frob$_\mathcal{q})^{x_1}$ is a transposition and (Frob$_\mathcal{r})^{x_2}$
+  we have that $(\Frob_{\mathfrak{q}})^{x_1}$ is a transposition and 
+  $(\Frob_{\mathfrak{r}})^{x_2}$
   is a cycle of length $p$. The fact that these elements are in $G$ implies $G=\SS_d$ as follows:
   Put a relation $\sim$ on $S=\{1,2,\ldots,d\}$ by $a\sim b$ if $a=b$ or if the
-  transposition $(a~b)\in G$. This is an equivalence relation on $S$. Since $G$ is
+  transposition $(a~b)$ is in $G$. This is an equivalence relation on $S$. Since $G$ is
   transitive, each equivalence class has the same number of elements, denote this
   $n$, and it follows that $n|d$. Note that $n>1$ since $G$ contains at least one
   transposition. Let $T=\{e_1,e_2,\ldots,e_p\}$ be the subset of $S$ permuted by
-  (Frob$_\mathcal{r})^{x_2}$, and let $G_T$ be the subgroup of $G$ fixing $S\setminus T$.
+  ($\Frob_{\mathfrak{r}})^{x_2}$, and let $G_T$ be the subgroup of $G$ fixing $S\setminus T$.
   Define an equivalence relation on $T$ by $a\simeq b$ if $a=b$ or if the transposition
   $(a~b) \in G_T$. As before, each equivalence class has the same number of elements,
-  say $m$, and $m|p$. Since $n>1$, we have $m>1$, so $m=p$ since $p$ is prime.
+  say $m$, and $m\mid p$. Since $n>1$, we have $m>1$, so $m=p$ since $p$ is prime.
   But $n\geq m$ because $G_T\subset G$. Thus $n>d/2$, so $n=d$. This implies $G=\SS_d$. 
 \end{proof}
 
