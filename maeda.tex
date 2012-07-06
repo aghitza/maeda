@@ -153,12 +153,64 @@ The complex vector space $S_k$ has dimension
   \end{enumerate}
 \end{conjecture}
 
-TODO: Describe (relevant) previous results:
-Buzzard,
-Conrey-Farmer,
-William Stein's student?,
-Chu-Wee Lim PhD thesis?,
-Ahlgren
+The conjecture has enjoyed constant attention over the last 15 years, with
+theoretical as well as computational results.  We summarize the computational
+verifications in Table~\ref{tbl:known}.
+
+\begin{table}[h]
+  \begin{center}
+\begin{tabular}{l|r}
+  Source & weights\\ \hline
+  Buzzard~\cite{Buzzard} & $12\ell$, $\ell$ prime, $2\leq\ell\leq 19$ \\
+  Maeda~\cite{Maeda} & $k\leq 468$ \\
+  Conrey-Farmer~\cite{ConreyFarmer} & $k\leq 500$, $k\equiv 0\pmod 4$  \\
+  Farmer-James~\cite{FarmerJames} & $k\leq \numprint{2000}$  \\
+  Buzzard-Stein, Kleinerman~\cite{Kleinerman} & $k\leq\numprint{3000}$ \\
+  Chu-Wee Lim~\cite{Lim} & $k\leq\numprint{6000}$ \\
+  present paper & $k\leq\bound$  \\
+\end{tabular}
+\end{center}
+\caption{Summary of known cases of Maeda's conjecture for $T_2$}
+\label{tbl:known}
+\end{table}
+
+The theoretical results focus on whether the validity of the conjecture for
+some given operator $T_m$ can be used to deduce the conjecture for other
+operators $T_n$.  We state three such results.
+
+\begin{theorem}[Conrey-Farmer-Wallace~\cite{ConreyFarmerWallace}]
+  Let $k$ be a positive even integer.  Suppose there exists $n\geq 2$ such
+  that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.  Then
+  so does $T_p$ acting on $S_k$, for every prime $p$ such that
+  \begin{equation*}
+    p\not\equiv \pm 1\pmod{5}\qquad\text{or}\qquad
+    p\not\equiv \pm 1\pmod{7}.
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Baba-Murty~\cite{BabaMurty}]
+  Let $k$ be a positive even integer.  Suppose there exists a prime $p$ such
+  that the characteristic polynomial of $T_p$ acting on $S_k$ is irreducible
+  over $\QQ$.  Then there exists $\delta>0$ such that
+  \begin{equation*}
+    \#\{\ell\leq N\mid \text{charpoly}(T_\ell|S_k)\text{ is reducible}\}
+    \ll \frac{N}{(\log N)^{1+\delta}}.
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Ahlgren~\cite{Ahlgren}]
+  Let $k$ be such that $d:=\dim S_k\geq 2$.  Suppose there exists $n\geq 2$
+  such that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.
+  Then
+  \begin{enumerate}
+    \item $T_p$ acting on $S_k$ satisfies Maeda's conjecture for all primes
+      $p\leq\numprint{4000000}$;
+    \item $T_n$ acting on $S_k$ satisfies Maeda's conjecture for all
+      $n\leq\numprint{10000}$.
+  \end{enumerate}
+\end{theorem}
+
+
 
 
 \section{The basic lemma and density estimates}
@@ -261,9 +313,9 @@ TODO: reference for Frobenius's theorem
   \end{equation*}
   is equal to
   \begin{equation*}
-    \frac{\sharp\{\sigma\in G\mid\text{the cycle pattern of $\sigma$ is 
+    \frac{\#\{\sigma\in G\mid\text{the cycle pattern of $\sigma$ is 
     $d_1^{m_1}\ldots d_t^{m_t}$}\}
-    }{\sharp G}
+    }{\# G}
   \end{equation*}
 \end{theorem}
 
@@ -430,7 +482,7 @@ consequences).
   \begin{equation*}
     L_f(s)=\sum_{n=1}^\infty\frac{a_n}{n^s}\text{ where }f(z)=\sum_{n=1}^\infty a_nq^n. 
   \end{equation*}
-  Then $L_f(k/2)\neq0$ for $k\leq10000$, $k\equiv0$ (mod 4).
+  Then $L_f(k/2)\neq0$ for $k\leq\bound$, $k\equiv 0\pmod{4}$.
 \end{corollary}
 
 TODO: Explain the above
