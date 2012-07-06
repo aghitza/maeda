@@ -87,6 +87,14 @@ University of Melbourne\\
 
 
 \section{Introduction}
+Modular forms come in many different types.  One of the most attractive
+aspects of their study is that, despite the apparent variety of definitions
+and properties, there are some universal guiding principles (such as the
+Langlands program) that serve to unify and motivate this diversity.  On the
+other hand, there are some special properties that seem to occur in isolation.
+One such instance is provided by a conjecture formulated by Maeda, which
+indicates a behavior that seems to be specific to modular forms of level one
+on $\GL_2$.  
 
 TODO: Motivation.
 
@@ -313,17 +321,14 @@ I, II and III.
 \end{proof}
 
 \begin{proposition}
-  The density of primes of type II is 
-  \begin{equation*}
-    D(d)=\left\{ 
-      \begin{array}{rl}
-        \binom{d}{2}\left(\frac{(d-3)!}{2^{d/2-2}(d/2-2)!}\right)^2,&\text{if }d\text{ is even and}d>2\\
-        \binom{d}{2}\left(\frac{(d-4)!}{2^{(d-5)/2}(\frac{d-5}{2})!}\right)^2(d-2),&\text{if }d\text{ is odd and }d>3\\
-        1,&d=1,2\\
-        3,&d=3
-      \end{array}
-    \right.
-  \end{equation*}
+  The density of primes of type II is given by\footnote{Recall that the \emph{double factorial} is...}
+  \begin{align*}
+    D_{II}(1)&=1,\\
+    D_{II}(d)&=\begin{cases}
+        \frac{1}{2(d-2)!}\left((d-3)!!\right)^2,&\text{if }d\text{ is even and }d>2\\
+        \frac{1}{2(d-2)!}\left((d-4)!!\right)^2(d-2),&\text{if }d\text{ is odd and }d>3
+    \end{cases}
+  \end{align*}
   Would this be nicer as the following?
   \begin{equation*}
     D(d)=\binom{d}{2}\prod_{i=1}^{d-2}\left(2\left\lfloor\frac{i-1}{2}\right\rfloor+1\right)
