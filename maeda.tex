@@ -179,6 +179,7 @@ some given operator $T_m$ can be used to deduce the conjecture for other
 operators $T_n$.  We state three such results.
 
 \begin{theorem}[Conrey-Farmer-Wallace~\cite{ConreyFarmerWallace}]
+  \label{thm:CFW}
   Let $k$ be a positive even integer.  Suppose there exists $n\geq 2$ such
   that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.  Then
   so does $T_p$ acting on $S_k$, for every prime $p$ such that
@@ -198,7 +199,7 @@ operators $T_n$.  We state three such results.
   \end{equation*}
 \end{theorem}
 
-\begin{theorem}[Ahlgren~\cite{Ahlgren}]
+\begin{theorem}[Ahlgren~\cite{Ahlgren}]\label{thm:Ahl}
   Let $k$ be such that $d:=\dim S_k\geq 2$.  Suppose there exists $n\geq 2$
   such that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.
   Then
@@ -355,7 +356,7 @@ I, II and III.
   \end{equation*}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:type1}
   The density of primes of type I is 
   \begin{equation*}
     D_I(d)=\frac{1}{d}.
@@ -373,7 +374,7 @@ I, II and III.
   \end{equation*}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:type2}
   The density of primes of type II is given by\footnote{Recall that the \emph{double factorial} is...}
   \begin{align*}
     D_{II}(1)&=1,\\
@@ -427,15 +428,76 @@ I, II and III.
   least one prime $\ell$ such that $n<\ell<2n$.
 \end{proof}
 
-TODO: the estimate for $D_{III}(d)$ is sufficient for our purposes, but it is
-very far from sharp.  It might be interesting -- if we have time -- to write
-down a sharper lower
-bound (see Dusart's paper cited in the Wikipedia entry for Bertrand's
-postulate).
+We can get a much better lower bound on the density $D_{III}$ by using some
+recent results of Dusart on explicit estimates for sums over primes.
+
+\begin{theorem}[Dusart, Theorem 6.10 in~\cite{Dusart}]
+  Let $B\approx 0.26149$ denote the Meissel-Mertens constant.  For
+  all $x>1$ we have
+  \begin{equation}\label{eq:rec_lower}
+    \log\log x+B-\left(\frac{1}{10\log^2 x}+\frac{4}{15\log^3 x}\right)\leq
+    \sum_{p\leq x}\frac{1}{p}.
+  \end{equation}
+\end{theorem}
+
+We will also need an upper bound on the sum of the reciprocals of primes up to
+$x$, but Dusart's upper bound only holds for $x\geq\numprint{10372}$.  For our
+purposes, the following weaker result is sufficient: for all $x>1$ we have
+\begin{equation}\label{eq:rec_upper}
+  \sum_{p\leq x}\frac{1}{p}\leq\log\log x + B +\frac{1}{\log^2 x}.
+\end{equation}
+(This inequality can be found in Theorem 8.8.5 of~\cite{BachShallit}.)
+
+\begin{proposition}\label{prop:type3}
+  If $d>10$, then
+  \begin{equation*}
+    D_{III}(d)>\frac{1}{3\log d}.
+  \end{equation*}
+\end{proposition}
+\begin{proof}
+  We put together inequalities~\eqref{eq:rec_lower} and~\eqref{eq:rec_upper}
+  to get
+  \begin{equation*}
+    D_{III}(d)>\log\log d-\log\log\frac{d}{2}-\frac{1}{10\log^2 d}
+    -\frac{4}{15\log^3 d}-\frac{1}{\log^2\frac{d}{2}}.
+  \end{equation*}
+  We write
+  \begin{equation*}
+    \log\log d - \log\log\frac{d}{2} =\log\left(1+\frac{\log 2}{\log d-\log
+    2}\right)
+  \end{equation*}
+  and use the inequality
+  \begin{equation*}
+    \log(1+x)\geq x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}
+    \qquad\text{for all }1<x\leq 1
+  \end{equation*}
+  to get that for all $d\geq 4$
+  \begin{align*}
+    D_{III}(d)&>\frac{1}{\log d-\log 2}&\left[
+      \log 2
+      -\left(\frac{\log^2 2}{2}+\frac{11}{10}\right)\frac{1}{\log d-\log
+      2}\right.\\
+      &&\left. -\left(\frac{4}{15}-\frac{\log^3 2}{3}\right)\frac{1}{(\log d-\log 2)^2}
+      -\frac{\log^4 2}{4}\frac{1}{(\log d-\log 2)^3}
+      \right]\\
+      &>\frac{1}{\log d}&\left[
+      0.693-1.341\frac{1}{\log d-\log 2}
+      -0.156\frac{1}{(\log d-\log 2)^2}\right.\\
+      &&\left.-0.058\frac{1}{(\log d-\log 2)^3}
+      \right]
+  \end{align*}
+  If $d>94$, then the expression in the brackets is bigger than $1/3$, and we
+  get the desired inequality.  We check that it holds for the remaining cases
+  $10<d\leq 94$ by computation.
+\end{proof}
+
+
 
 \section{Implementation and results}
-We implemented the basic approach described in the previous section
-using the mathematical software Sage, see~\cite{Sage}.
+Our approach is a randomized version of the algorithm
+from~\cite{ConreyFarmer}, based on the results introduced in the previous
+section.  We implemented this algorithm using the mathematical software Sage, 
+see~\cite{Sage}.
 
 Here is what we do for a fixed weight $k$:
 \begin{enumerate}
@@ -444,15 +506,23 @@ Here is what we do for a fixed weight $k$:
   \item Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
     basis $\cB$ -- this is very efficient since the basis $\cB$ is
     echelonized.
-  \item\label{itm:random} Pick a random prime $p<2^{20}$.
+  \item\label{itm:random} Pick a random prime $p<2^{20}$. (This choice of upper
+    bound gives a large enough range so that it is likely to contain primes of
+    type we are looking for, but not so large that the arithmetic over $\FF_p$
+    gets too expensive.)
   \item Reduce $M$ modulo $p$ and compute the characteristic polynomial
     $F_p\in \FF_p[X]$.
-  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type $I$.
+  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type I.
   \item Factor $F_p$ over $\FF_p$ and use this factorization to decide whether
-    $p$ is a prime of type $II$ or $III$.
+    $p$ is a prime of type II or III.
   \item Repeat from step~(\ref{itm:random}) until we have found at
     least one prime of each type.
 \end{enumerate}
+
+According to Propositions~\ref{prop:type1}, \ref{prop:type2} and
+\ref{prop:type3}, we expect to look on average at $d$ primes before we find
+one of type I, at $\sqrt{d}$ primes to find one of type II, and at $3\log d$
+primes to find one of type III.
 
 TODO: find out which component of Sage is used in the main steps.
 
@@ -461,35 +531,65 @@ TODO: get timings for each main step for a large weight $k$.
 TODO: run a consecutive version of this algorithm (going through primes in
 order, from $p=2$ on) and see how it compares to our randomized approach.
 
-\begin{theorem}[Maeda's conjecture holds for weights $\leq \bound$]
-  Let $k\leq \bound$ and let $F$ be the characteristic polynomial of the
-  Hecke operator $T_2$ acting on the space $S_k$ of cusp forms of weight
+We now state our main result.
+
+\begin{theorem}\label{thm:main}
+  Let $k\leq \bound$ and let
+  \begin{align*}
+    n\in &\{2,\ldots,\numprint{10000}\}\cup
+    \{p\text{ prime}\mid 2\leq p\leq\numprint{4000000}\}\\
+    &\cup\{p\text{ prime}\mid p\not\equiv\pm 1\pmod{5}\}\cup
+    \{p\text{ prime}\mid p\not\equiv\pm 1\pmod{7}\}.
+  \end{align*}
+  Let $F$ be the characteristic polynomial of the
+  Hecke operator $T_n$ acting on the space $S_k$ of cusp forms of weight
   $k$ and level $1$.  Then $F$ is irreducible over $\QQ$ and the Galois
   group of its splitting field is the full symmetric group $\SS_d$, 
   where $d$ is the dimension of the space $S_k$.
 \end{theorem}
-
+\begin{proof}
+  The statement for $T_2$ is the result of our computations.  Given this, we
+  deduce the result for the other $T_n$ by applying the results of
+  Conrey-Farmer-Wallace and Ahlgren, stated above as Theorems~\ref{thm:CFW}
+  and~\ref{thm:Ahl}.
+\end{proof}
 
 TODO: Describe the probability distribution we observe for the different types
 of primes.
 
-TODO: State some corollaries (look in the references for some nice
-consequences).
 
-\begin{corollary}[Conrey-Farmer]
-  Consider the L-function, $L_f(s)$, associated to a cusp form $f(z)$,
-  defined as following:
-  \begin{equation*}
-    L_f(s)=\sum_{n=1}^\infty\frac{a_n}{n^s}\text{ where }f(z)=\sum_{n=1}^\infty a_nq^n. 
-  \end{equation*}
-  Then $L_f(k/2)\neq0$ for $k\leq\bound$, $k\equiv 0\pmod{4}$.
+
+\section{Some applications}
+
+We record some immediate consequences of Theorem~\ref{thm:main}.
+
+\subsection{Non-vanishing of $L$-functions}
+Recall that the \emph{$L$-function} associated to an eigenform 
+$f=\sum_{n=1}^\infty a_n q^n$ of weight $k$ is given by
+\begin{equation*}
+  L(f, s)=\sum_{n=1}^\infty \frac{a_n}{n^s}.
+\end{equation*}
+If $k\equiv 2\pmod{4}$, the functional equation of $L$ implies that
+$L(f, k/2)=0$.  It is believed that if $k\equiv 0\pmod{4}$, then $L(f, k/2)\neq
+0$.  The following result follows immediately from work of Conrey-Farmer: 
+
+\begin{corollary}[see Theorem 1 in~\cite{ConreyFarmer}]
+  Suppose $k\equiv 0\pmod{4}$ and $k\leq\bound$.  Then
+  $L(f, k/2)\neq 0$ for any cuspidal eigenform $f$ of level $1$ and weight $k$.
 \end{corollary}
 
-TODO: Explain the above
+\subsection{Distinguishing Hecke eigenforms}
 
-\begin{corollary}[Ahlgren]
-  TODO
+How many initial Fourier coefficients are necessary to completely determine a
+Hecke eigenform?  Theorem 1 in~\cite{Ghitza} says that $a_2$, $a_3$ and $a_4$
+are sufficient, but our computational verification of Maeda's conjecture gives
+a stronger result:
+
+\begin{corollary}[see Theorem 6 in~\cite{Ghitza}]
+  Comparing the Fourier coefficient $a_2$ is sufficient to distinguish any two
+  cuspidal eigenforms of level $1$ and weights $\leq\numprint{10000}$.
 \end{corollary}
+
 
 \printbibliography
 
