@@ -563,19 +563,27 @@ of primes.
 
 We record some immediate consequences of Theorem~\ref{thm:main}.
 
-Recall that the $L$-function associated to an eigenform $f=\sum_{n=1}^\infty
-a_n q^n$ of weight $k$ is given by
+\subsection{Non-vanishing of $L$-functions}
+Recall that the \emph{$L$-function} associated to an eigenform 
+$f=\sum_{n=1}^\infty a_n q^n$ of weight $k$ is given by
 \begin{equation*}
-  L_f(s)=\sum_{n=1}^\infty \frac{a_n}{n^s}.
+  L(f, s)=\sum_{n=1}^\infty \frac{a_n}{n^s}.
 \end{equation*}
 If $k\equiv 2\pmod{4}$, the functional equation of $L$ implies that
-$L_f(k/2)=0$.  It is believed that if $k\equiv 0\pmod{4}$, then $L_f(k/2)\neq
+$L(f, k/2)=0$.  It is believed that if $k\equiv 0\pmod{4}$, then $L(f, k/2)\neq
 0$.  The following result follows immediately from work of Conrey-Farmer: 
 
 \begin{corollary}[see Theorem 1 in~\cite{ConreyFarmer}]
   Suppose $k\equiv 0\pmod{4}$ and $k\leq\bound$.  Then
-  $L_f(k/2)\neq 0$ for any cuspidal eigenform $f$ of level $1$ and weight $k$.
+  $L(f, k/2)\neq 0$ for any cuspidal eigenform $f$ of level $1$ and weight $k$.
 \end{corollary}
+
+\subsection{Distinguishing Hecke eigenforms}
+
+How many initial Fourier coefficients are necessary to completely determine a
+Hecke eigenform?  Theorem 1 in~\cite{Ghitza} says that $a_2$, $a_3$ and $a_4$
+are sufficient, but our computational verification of Maeda's conjecture gives
+a stronger result:
 
 \begin{corollary}[see Theorem 6 in~\cite{Ghitza}]
   Comparing the Fourier coefficient $a_2$ is sufficient to distinguish any two
