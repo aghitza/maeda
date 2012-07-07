@@ -356,7 +356,7 @@ I, II and III.
   \end{equation*}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:type1}
   The density of primes of type I is 
   \begin{equation*}
     D_I(d)=\frac{1}{d}.
@@ -374,7 +374,7 @@ I, II and III.
   \end{equation*}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:type2}
   The density of primes of type II is given by\footnote{Recall that the \emph{double factorial} is...}
   \begin{align*}
     D_{II}(1)&=1,\\
@@ -445,15 +445,23 @@ Here is what we do for a fixed weight $k$:
   \item Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
     basis $\cB$ -- this is very efficient since the basis $\cB$ is
     echelonized.
-  \item\label{itm:random} Pick a random prime $p<2^{20}$.
+  \item\label{itm:random} Pick a random prime $p<2^{20}$. (This choice of upper
+    bound gives a large enough range so that it is likely to contain primes of
+    type we are looking for, but not so large that the arithmetic over $\FF_p$
+    gets too expensive.)
   \item Reduce $M$ modulo $p$ and compute the characteristic polynomial
     $F_p\in \FF_p[X]$.
-  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type $I$.
+  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type I.
   \item Factor $F_p$ over $\FF_p$ and use this factorization to decide whether
-    $p$ is a prime of type $II$ or $III$.
+    $p$ is a prime of type II or III.
   \item Repeat from step~(\ref{itm:random}) until we have found at
     least one prime of each type.
 \end{enumerate}
+
+According to Propositions~\ref{prop:type1}, \ref{prop:type2} and
+\ref{prop:type3}, we expect to look on average at $d$ primes before we find
+one of type I, at $\sqrt{d}$ primes to find one of type II, and at $3\log d$
+primes to find one of type III.
 
 TODO: find out which component of Sage is used in the main steps.
 
