@@ -179,6 +179,7 @@ some given operator $T_m$ can be used to deduce the conjecture for other
 operators $T_n$.  We state three such results.
 
 \begin{theorem}[Conrey-Farmer-Wallace~\cite{ConreyFarmerWallace}]
+  \label{thm:CFW}
   Let $k$ be a positive even integer.  Suppose there exists $n\geq 2$ such
   that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.  Then
   so does $T_p$ acting on $S_k$, for every prime $p$ such that
@@ -198,7 +199,7 @@ operators $T_n$.  We state three such results.
   \end{equation*}
 \end{theorem}
 
-\begin{theorem}[Ahlgren~\cite{Ahlgren}]
+\begin{theorem}[Ahlgren~\cite{Ahlgren}]\label{thm:Ahl}
   Let $k$ be such that $d:=\dim S_k\geq 2$.  Suppose there exists $n\geq 2$
   such that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.
   Then
@@ -461,35 +462,57 @@ TODO: get timings for each main step for a large weight $k$.
 TODO: run a consecutive version of this algorithm (going through primes in
 order, from $p=2$ on) and see how it compares to our randomized approach.
 
-\begin{theorem}[Maeda's conjecture holds for weights $\leq \bound$]
-  Let $k\leq \bound$ and let $F$ be the characteristic polynomial of the
-  Hecke operator $T_2$ acting on the space $S_k$ of cusp forms of weight
+We now state our main result.
+
+\begin{theorem}\label{thm:main}
+  Let $k\leq \bound$ and let
+  \begin{align*}
+    n\in &\{2,\ldots,\numprint{10000}\}\cup
+    \{p\text{ prime}\mid 2\leq p\leq\numprint{4000000}\}\\
+    &\cup\{p\text{ prime}\mid p\not\equiv\pm 1\pmod{5}\}\cup
+    \{p\text{ prime}\mid p\not\equiv\pm 1\pmod{7}\}.
+  \end{align*}
+  Let $F$ be the characteristic polynomial of the
+  Hecke operator $T_n$ acting on the space $S_k$ of cusp forms of weight
   $k$ and level $1$.  Then $F$ is irreducible over $\QQ$ and the Galois
   group of its splitting field is the full symmetric group $\SS_d$, 
   where $d$ is the dimension of the space $S_k$.
 \end{theorem}
-
+\begin{proof}
+  The statement for $T_2$ is the result of our computations.  Given this, we
+  deduce the result for the other $T_n$ by applying the results of
+  Conrey-Farmer-Wallace and Ahlgren, stated above as Theorems~\ref{thm:CFW}
+  and~\ref{thm:Ahl}.
+\end{proof}
 
 TODO: Describe the probability distribution we observe for the different types
 of primes.
 
-TODO: State some corollaries (look in the references for some nice
-consequences).
 
-\begin{corollary}[Conrey-Farmer]
-  Consider the L-function, $L_f(s)$, associated to a cusp form $f(z)$,
-  defined as following:
-  \begin{equation*}
-    L_f(s)=\sum_{n=1}^\infty\frac{a_n}{n^s}\text{ where }f(z)=\sum_{n=1}^\infty a_nq^n. 
-  \end{equation*}
-  Then $L_f(k/2)\neq0$ for $k\leq\bound$, $k\equiv 0\pmod{4}$.
+
+\section{Some applications}
+
+We record some immediate consequences of Theorem~\ref{thm:main}.
+
+Recall that the $L$-function associated to an eigenform $f=\sum_{n=1}^\infty
+a_n q^n$ of weight $k$ is given by
+\begin{equation*}
+  L_f(s)=\sum_{n=1}^\infty \frac{a_n}{n^s}.
+\end{equation*}
+If $k\equiv 2\pmod{4}$, the functional equation of $L$ implies that
+$L_f(k/2)=0$.  It is believed that if $k\equiv 0\pmod{4}$, then $L_f(k/2)\neq
+0$.  The following result follows immediately from work of Conrey-Farmer: 
+
+\begin{corollary}[see Theorem 1 in~\cite{ConreyFarmer}]
+  Suppose $k\equiv 0\pmod{4}$ and $k\leq\bound$.  Then
+  $L_f(k/2)\neq 0$ for any cuspidal eigenform $f$ of level $1$ and weight $k$.
 \end{corollary}
 
-TODO: Explain the above
-
-\begin{corollary}[Ahlgren]
-  TODO
+\begin{corollary}[see Theorem 6 in~\cite{Ghitza}]
+  Comparing the Fourier coefficient $a_2$ is sufficient to distinguish any two
+  cuspidal eigenforms of level $1$ and weights $\leq\numprint{10000}$.
 \end{corollary}
+
 
 \printbibliography
 
