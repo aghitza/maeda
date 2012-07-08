@@ -99,10 +99,10 @@ One such instance is provided by a conjecture formulated by Maeda, which
 indicates a behavior that seems to be specific to modular forms of level one
 on $\GL_2$.  
 
-TODO: Motivation.
-
-We review some basic definitions and properties of modular forms.  For
-details, the reader is invited to consult~\cite{Stein}.
+Before describing Maeda's conjecture in more detail, we review some basic 
+definitions and properties of modular forms.  For a thorough exposition that
+covers most of the background needed in this paper, the reader is 
+invited to consult~\cite{Stein}.
 
 Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
 holomorphic function
@@ -144,6 +144,14 @@ The complex vector space $S_k$ has dimension
   \end{cases}
 \end{equation*}
 
+Let $F$ denote the characteristic polynomial of the operator $T_2$ acting on
+$S_k$, and let $d=\dim S_k$.
+In the 1970's, Yoshitaka Maeda noticed that $F$ is irreducible over $\QQ$ for
+all $k$ such that $d\leq 12$.  In the 1990's, Lee-Hung~\cite{LeeHung} and
+Buzzard~\cite{Buzzard} studied these polynomials further and observed in a
+number of cases that the Galois group of $F$ is the full symmetric group
+$\SS_d$.  Shortly thereafter, Maeda made the following conjectural statement:
+
 \begin{conjecture}[Maeda~\cite{Maeda}]
   Let $m>1$ and 
   let $F$ be the characteristic polynomial of the Hecke operator $T_m$ acting
@@ -163,7 +171,8 @@ verifications in Table~\ref{tbl:known}.
   \begin{center}
 \begin{tabular}{l|r}
   Source & weights\\ \hline
-  Buzzard~\cite{Buzzard} & $12\ell$, $\ell$ prime, $2\leq\ell\leq 19$ \\
+  Lee-Hung~\cite{LeeHung} & $k\leq 62$, $k\neq 60$ \\
+  Buzzard~\cite{Buzzard} & $k=12\ell$, $\ell$ prime, $2\leq\ell\leq 19$ \\
   Maeda~\cite{Maeda} & $k\leq 468$ \\
   Conrey-Farmer~\cite{ConreyFarmer} & $k\leq 500$, $k\equiv 0\pmod 4$  \\
   Farmer-James~\cite{FarmerJames} & $k\leq \numprint{2000}$  \\
@@ -178,13 +187,15 @@ verifications in Table~\ref{tbl:known}.
 
 The theoretical results focus on whether the validity of the conjecture for
 some given operator $T_m$ can be used to deduce the conjecture for other
-operators $T_n$.  We state three such results.
+operators $T_n$.  We state three such results, having slightly different
+flavors.  
 
 \begin{theorem}[Conrey-Farmer-Wallace~\cite{ConreyFarmerWallace}]
   \label{thm:CFW}
   Let $k$ be a positive even integer.  Suppose there exists $n\geq 2$ such
   that the operator $T_n$ acting on $S_k$ satisfies Maeda's conjecture.  Then
-  so does $T_p$ acting on $S_k$, for every prime $p$ such that
+  so does $T_p$ acting on $S_k$, for every prime $p$ in the set of density
+  $5/6$ defined by the conditions
   \begin{equation*}
     p\not\equiv \pm 1\pmod{5}\qquad\text{or}\qquad
     p\not\equiv \pm 1\pmod{7}.
@@ -242,6 +253,14 @@ $p$ is
     \end{equation*}
     with $\deg f_0>d/2$ and prime.
 \end{enumerate}
+
+\begin{remark}\label{rmk:type4}
+  Hida and Maeda use a similar approach, but replace primes of type III with
+  \emph{primes of type IV}, i.e. $p$ such that $F_p=f_0f_1$ with $f_0$, $f_1$
+  distinct and irreducible, and $\deg f_0=1$.  We will see below that primes
+  of type III are significantly more common (and therefore better suited for
+  our algorithm) than those of type IV.
+\end{remark}
 
 \begin{remark}
 These types are not necessarily mutually exclusive: if $d$ itself is
@@ -365,7 +384,6 @@ I, II and III.  We start with a well-known result
         \frac{1}{2(d-2)!}\left((d-4)!!\right)^2(d-2),&\text{if }d\text{ is odd and }d>1
     \end{cases}
   \end{align*}
-  TODO: Include lower bound
 \end{proposition}
 \begin{proof}
   Primes of type II correspond to elements in $\SS_d$ containing a $2$-cycle and no other
@@ -377,7 +395,11 @@ I, II and III.  We start with a well-known result
     \end{cases}
   \end{equation*}
   (See for instance Chapter IV of~\cite{Riordan}.)
+
+  TODO: Finish this.
 \end{proof}
+
+TODO: lower bound for $D_{II}(d)$.
 
 \begin{proposition}
   The density of primes of type III is
@@ -471,6 +493,12 @@ purposes, the following weaker result is sufficient: for all $x>1$ we have
   $10<d\leq 94$ by computation.
 \end{proof}
 
+For completeness, here is the density of primes of type IV, as defined in
+Remark~\ref{rmk:type4}.
+
+\begin{proposition}\label{prop:type4}
+  TODO
+\end{proposition}
 
 
 \section{Implementation and results}
