@@ -24,8 +24,10 @@
 %\usepackage{gitinfo}
 %\usepackage[english]{isodate}
 
-\usepackage{geometry}
+\usepackage[a4paper, top=3cm, bottom=3cm]{geometry}
+\usepackage[a4paper]{geometry}
 \usepackage{numprint}
+\usepackage[pdftex]{graphicx}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -215,6 +217,7 @@ operators $T_n$.  We state three such results.
 
 
 \section{The basic lemma and density estimates}
+\label{sect:density}
 
 Consider a polynomial $F\in\ZZ[X]$ of degree $d$.
 Given a prime $p$, we denote by
@@ -501,9 +504,9 @@ see~\cite{Sage}.
 
 Here is what we do for a fixed weight $k$:
 \begin{enumerate}
-  \item Compute the Victor Miller basis $\cB$ for $S_k$ up to precision
+  \item\label{itm:vmbasis} Compute the Victor Miller basis $\cB$ for $S_k$ up to precision
     $2(d+2)$, where $d$ is the dimension of $S_k$.
-  \item Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
+  \item\label{itm:hecke} Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
     basis $\cB$ -- this is very efficient since the basis $\cB$ is
     echelonized.
   \item\label{itm:random} Pick a random prime $p<2^{20}$. (This choice of upper
@@ -524,12 +527,33 @@ According to Propositions~\ref{prop:type1}, \ref{prop:type2} and
 one of type I, at $\sqrt{d}$ primes to find one of type II, and at $3\log d$
 primes to find one of type III.
 
+The actual performance of this algorithm (as well as a comparison to the
+consecutive version of the algorithm, used in~\cite{ConreyFarmer}) is
+illustrated in Figure~\ref{fig:histogram}.  Some care needs to be taken in
+interpreting the graphs:
+\begin{itemize}
+  \item There is no difference in running times for Steps~(\ref{itm:vmbasis}) 
+    and~(\ref{itm:hecke}), which 
+    are common between the two algorithms.
+  \item As the weight increases, the major component of the running time is
+    finding a prime of type I.  Therefore, even though the randomized
+    algorithm does much better at finding primes of types II and III, this
+    advantage has only a minor impact on the overall running time.
+  \item In the range illustrated in the graphs (i.e. weights less than
+    $\numprint{2000}$), the randomized algorithm required on average one third
+    of the number of primes needed by the consecutive algorithm.  However,
+    some of this is counteracted by the fact that the consecutive algorithm
+    works with smaller primes, which are faster to test.
+\end{itemize}
+
+Overall, for weights less than $\numprint{2000}$, the randomized algorithm was
+about twice as fast as the consecutive one.  
+
 TODO: find out which component of Sage is used in the main steps.
 
 TODO: get timings for each main step for a large weight $k$.
 
-TODO: run a consecutive version of this algorithm (going through primes in
-order, from $p=2$ on) and see how it compares to our randomized approach.
+
 
 We now state our main result.
 
@@ -554,9 +578,29 @@ We now state our main result.
   and~\ref{thm:Ahl}.
 \end{proof}
 
-TODO: Describe the probability distribution we observe for the different types
-of primes.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=4in, height=2.2in]{type1.png}
 
+\includegraphics[width=4in, height=2.2in]{type2.png}
+
+\includegraphics[width=4in, height=2.2in]{type3.png}
+\end{center}
+\caption{Histograms illustrating the number of primes tested before finding a
+  prime of type I, II, respectively III, in weights up to $\numprint{2000}$.  
+  In each graph, the numbers on the
+$x$-axis represent the ratio $N/E$ of the actual number of primes tested over
+the expected number of primes (coming from the densities described in
+Section~\ref{sect:density}).  The $y$-value represents the number of weights
+featuring (a small neighborhood of) that particular ratio $N/E$.  The blue 
+continuous line corresponds to our randomized algorithm, while the red dotted 
+line corresponds to the consecutive algorithm from~\cite{ConreyFarmer}.  
+As an example: in the top graph, the global maximum on the continuous line is
+at $(0.1, 101)$, meaning that for $101$ weights, the number of candidates for
+a prime of type I tested in the randomized algorithm was about $1/10$ of the 
+expected number of primes.}
+\label{fig:histogram}
+\end{figure}
 
 
 \section{Some applications}
