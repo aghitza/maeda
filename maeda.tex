@@ -324,7 +324,8 @@ TODO: reference for Frobenius's theorem
 \end{theorem}
 
 In the remainder of this section, we estimate the density of primes of types
-I, II and III.
+I, II and III.  We start with a well-known result
+(see, for instance, Proposition 1.3.2 of~\cite{Stanley1}).
 
 \begin{lemma}\label{lem:cycletype}
   Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
@@ -334,30 +335,8 @@ I, II and III.
   \begin{equation*}
     C(d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t})=\frac{d!}{\prod_{j=1}^t\left(d_j^{m_j}m_j!\right)}.
   \end{equation*}
-
-  %Let $d=d_1+\ldots+d_t$ be a partition of the positive integer $d$.  For each
-  %integer $j=1,\ldots,d$, let $m_j$ denote the number of times it appears in
-  %the partition.  The
-  %number of elements of $\SS_d$ of cycle type $d_1,\ldots,d_t$ is equal to
-  %\begin{equation*}
-  %  C(d_1,\ldots,d_t)=\frac{d!}{\prod_{j=1}^d\left(j^{m_j} m_j!\right)}.
-  %\end{equation*}
-
-  %TODO: make this more clear (use a partition $\lambda$, etc.)
 \end{lemma}
-\begin{proof}
-  Consider $\SS_d$, with elements of cycle type $d_1^{m_1} d_2^{m_2} \ldots d_t^{m_t}$, 
-  where $m_i$ is the number of times a $d_i$-cycle appears in the decomposition.
-  There are $d!$ ways to arrange $d$ elements.
-  For each of the $m_i$ $d_i$-cycles, one can rotate the cycle $d_i$ ways and retrieve the 
-  same cycle. Thus must divide by $d_i^{m_i}$ for $i \in \{1,2,\ldots,t\}$.
-  Disjoint cycles commute, so the $m_i$ $d_i$-cycles can be permuted amongst one another 
-  $m_i!$ ways without changing the element. Thus must divide by $m_i!$ for $i \in \{1,2,\ldots,t\}$.
-  Thus
-  \begin{equation*}
-    \frac{d!}{\prod_{j=1}^t d_i^{m_i} m_i!}.
-  \end{equation*}
-\end{proof}
+
 
 \begin{proposition}\label{prop:type1}
   The density of primes of type I is 
@@ -382,24 +361,22 @@ I, II and III.
   \begin{align*}
     D_{II}(1)&=1,\\
     D_{II}(d)&=\begin{cases}
-        \frac{1}{2(d-2)!}\left((d-3)!!\right)^2,&\text{if }d\text{ is even and }d>2\\
-        \frac{1}{2(d-2)!}\left((d-4)!!\right)^2(d-2),&\text{if }d\text{ is odd and }d>3
+        \frac{1}{2(d-2)!}\left((d-3)!!\right)^2,&\text{if }d\text{ is even}\\
+        \frac{1}{2(d-2)!}\left((d-4)!!\right)^2(d-2),&\text{if }d\text{ is odd and }d>1
     \end{cases}
   \end{align*}
-  Would this be nicer as the following?
-  \begin{equation*}
-    D(d)=\binom{d}{2}\prod_{i=1}^{d-2}\left(2\left\lfloor\frac{i-1}{2}\right\rfloor+1\right)
-  \end{equation*}
   TODO: Include lower bound
 \end{proposition}
 \begin{proof}
-  Primes of type II correspond to elements in $\SS_d$ containing a 2-cycle and no other
-  even cycles. There are $\binom{d}{2}$ 2-cycles in $\SS_d$, since one merely chooses
-  2 elements where order is irrelevant. Thus, fixing an arbitrary 2-cycle, we determine
-  the number of elements of odd order in $\SS_{d-2}$. This is given by the following sequence:
-  \begin{align*}
-    1, 1, 3, 9, 45, 225, 1575, 11025, 99225, 893025, \ldots
-  \end{align*}
+  Primes of type II correspond to elements in $\SS_d$ containing a $2$-cycle and no other
+  even cycles. There are $\binom{d}{2}$ $2$-cycles in $\SS_d$; fixing a $2$-cycle, we 
+  need the number of elements of odd order in $\SS_{d-2}$.  This is given by
+  \begin{equation*}
+    \begin{cases}
+
+    \end{cases}
+  \end{equation*}
+  (See for instance Chapter IV of~\cite{Riordan}.)
 \end{proof}
 
 \begin{proposition}
