@@ -152,7 +152,7 @@ Buzzard~\cite{Buzzard} studied these polynomials further and observed in a
 number of cases that the Galois group of $F$ is the symmetric group
 $\SS_d$.  Shortly thereafter, Maeda made the following conjectural statement:
 
-\begin{conjecture}[Maeda~\cite{Maeda}]
+\begin{conjecture}[Maeda~\cite{HidaMaeda}]
   Let $m>1$ and 
   let $F$ be the characteristic polynomial of the Hecke operator $T_m$ acting
   on $S_k$.  Then 
@@ -173,7 +173,7 @@ verifications in Table~\ref{tbl:known}.
   Source & weights\\ \hline
   Lee-Hung~\cite{LeeHung} & $k\leq 62$, $k\neq 60$ \\
   Buzzard~\cite{Buzzard} & $k=12\ell$, $\ell$ prime, $2\leq\ell\leq 19$ \\
-  Maeda~\cite{Maeda} & $k\leq 468$ \\
+  Maeda~\cite{HidaMaeda} & $k\leq 468$ \\
   Conrey-Farmer~\cite{ConreyFarmer} & $k\leq 500$, $k\equiv 0\pmod 4$  \\
   Farmer-James~\cite{FarmerJames} & $k\leq \numprint{2000}$  \\
   Buzzard-Stein, Kleinerman~\cite{Kleinerman} & $k\leq\numprint{3000}$ \\
@@ -207,7 +207,7 @@ this question.
   that the characteristic polynomial of $T_p$ acting on $S_k$ is irreducible
   over $\QQ$.  Then there exists $\delta>0$ such that
   \begin{equation*}
-    \#\{\ell\leq N\mid \text{charpoly}(T_\ell|S_k)\text{ is reducible}\}
+    \#\{\ell\leq N\text{ prime}\mid \text{charpoly}(T_\ell|S_k)\text{ is reducible}\}
     \ll \frac{N}{(\log N)^{1+\delta}}.
   \end{equation*}
 \end{theorem}
@@ -641,6 +641,39 @@ $L(f, k/2)=0$.  It is believed that if $k\equiv 0\pmod{4}$, then $L(f, k/2)\neq
   Suppose $k\equiv 0\pmod{4}$ and $k\leq\bound$.  Then
   $L(f, k/2)\neq 0$ for any cuspidal eigenform $f$ of level $1$ and weight $k$.
 \end{corollary}
+
+\subsection{Base change for totally real fields}
+It is in the context of this work of Hida and Maeda that
+Maeda's conjecture was formulated.  We content ourselves with giving a general
+description of this application, and we refer the interested reader
+to~\cite{HidaMaeda} for details. 
+
+Let $f\in S_k$ be a Hecke eigenform.  For each prime $p$, there is a $p$-adic
+Galois representation
+\begin{equation*}
+  \rho\colon\Gal\left(\overline{\QQ}/\QQ\right)
+  \longto\GL_2\left(\overline{\QQ}_p\right).
+\end{equation*}
+There is an Artin $L$-function $L(\rho, s)$ attached to $\rho$, and the
+relation between $\rho$ and $f$ can be summarized by
+\begin{equation*}
+  L(\rho, s) = L(f, s).
+\end{equation*}
+
+Now let $E$ be a number field.  There is a purely algebraic notion of a
+cohomological eigenform $\hat{f}$ on $\GL_2(\mathbb{A}_E)$, where 
+$\mathbb{A}_E$ is the ring
+of adeles of $E$.  We say that $\hat{f}$ is a \emph{base change of $f$ to $E$}
+if
+\begin{equation*}
+  L(\hat{f}, s) = L(\rho_E, s),
+\end{equation*}
+where $\rho_E\colon\Gal(\overline{\QQ}/E)\longto\GL_2(\overline{\QQ}_p)$ is
+the restriction of $\rho$ to $E$.
+
+The work of Hida and Maeda, together with Theorem~\ref{thm:main}, implies that
+for $k\leq$ TODO and a totally real field $E$ satisfying some ramification
+conditions, any eigenform $f\in S_k$ has a base change to $E$.
 
 \subsection{Distinguishing Hecke eigenforms}
 
