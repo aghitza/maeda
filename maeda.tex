@@ -271,14 +271,15 @@ prime, then a prime $p$ of type I is clearly also of type III.
 In either of the three types, the conditions imply that the reduced polynomial
 $F_p$ is separable (i.e. it has distinct roots over $\overline{\FF}_p$).
 
-TODO: briefly explain why.
-  
-Thus $F_p = f_0 f_1 \ldots f_{t_1}$ and
-  $F_q = g_0 g_1 \ldots g_{t_2}$, with $\deg f_0 = 2$ and $\deg g_0 > d/2$ is prime.
+  If there exists a prime of type I, then $F$ is irreducible. Since $\QQ$ is a field of
+  characteristic 0, and $F \in \QQ[X]$, this implies that $F$ is separable. Let $p$ and 
+  $q$ be primes of types II and III, respectively. Then $F_p = f_0 f_1 \ldots f_{t_1}$
+  and $F_q = g_0 g_1 \ldots g_{t_2}$, with $\deg f_0 = 2$ and $\deg g_0 > d/2$ is prime.
   Thus the roots of $F_p$ and $F_q$ are distinct, since any of the $f_i$ or $g_i$ has
-  distinct roots, and if any two factors share a root then either their product is
-  reducible or the factors are equal to one another. Since this contradicts our
-  assumption on the factorisations of $F_p$ and $F_q$, they must have distinct roots.
+  distinct roots (by the above argument for the prime of type I), and if any two factors
+  share a root then either their product is reducible or the factors are equal to one
+  another. Since this contradicts our assumption on the factorisations of $F_p$ and
+  $F_q$, they must have distinct roots.
 \end{remark}
 
 The computational approach to Maeda's conjecture is based on the following
@@ -497,9 +498,22 @@ For completeness, here is the density of primes of type IV, as defined in
 Remark~\ref{rmk:type4}.
 
 \begin{proposition}\label{prop:type4}
-  TODO
+  The density of primes of type IV is
+  \begin{equation*}
+    D_{IV}(d)=\frac{1}{d-1}.
+  \end{equation*}
 \end{proposition}
-
+\begin{proof}
+  Primes of type II correspond to elements of $\SS_d$ containing a 1-cycle and
+  a $(d-1)$-cycle. Applying Lemma~\ref{lem:cycletype}, we see
+  \begin{equation*}
+    C(d)=\frac{d!}{d-1}=d(d-2)!
+  \end{equation*}
+  Thus, by Theorem~\ref{thm:frobenius}, the density of primes of type IV is
+  \begin{equation*}
+    \frac{d(d-2)!}{d!}=\frac{d(d-2)!}{d(d-1)(d-2)!}=\frac{1}{d-1}.
+  \end{equation*}
+\end{proof}
 
 \section{Implementation and results}
 Our approach is a randomized version of the algorithm
@@ -638,6 +652,7 @@ a stronger result:
   Comparing the Fourier coefficient $a_2$ is sufficient to distinguish any two
   cuspidal eigenforms of level $1$ and weights $\leq\numprint{10000}$.
 \end{corollary}
+
 
 
 \printbibliography
