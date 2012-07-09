@@ -91,7 +91,7 @@ University of Melbourne\\
 
 \section{Introduction}
 Modular forms come in many different types.  One of the most attractive
-aspects of their study is that, despite the apparent variety of definitions
+aspects of the theory is that, despite the apparent variety of definitions
 and properties, there are some universal guiding principles (such as the
 Langlands program) that serve to unify and motivate this diversity.  On the
 other hand, there are some special properties that seem to occur in isolation.
@@ -100,9 +100,9 @@ indicates a behavior that seems to be specific to modular forms of level one
 on $\GL_2$.  
 
 Before describing Maeda's conjecture in more detail, we review some basic 
-definitions and properties of modular forms.  For a thorough exposition that
-covers most of the background needed in this paper, the reader is 
-invited to consult~\cite{Stein}.
+definitions and properties of modular forms.  For a thorough treatment of
+the background needed in this paper, the reader is invited to
+consult~\cite{Stein}.
 
 Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
 holomorphic function
@@ -149,7 +149,7 @@ $S_k$, and let $d=\dim S_k$.
 In the 1970's, Yoshitaka Maeda noticed that $F$ is irreducible over $\QQ$ for
 all $k$ such that $d\leq 12$.  In the 1990's, Lee-Hung~\cite{LeeHung} and
 Buzzard~\cite{Buzzard} studied these polynomials further and observed in a
-number of cases that the Galois group of $F$ is the full symmetric group
+number of cases that the Galois group of $F$ is the symmetric group
 $\SS_d$.  Shortly thereafter, Maeda made the following conjectural statement:
 
 \begin{conjecture}[Maeda~\cite{Maeda}]
@@ -186,9 +186,9 @@ verifications in Table~\ref{tbl:known}.
 \end{table}
 
 The theoretical results focus on whether the validity of the conjecture for
-some given operator $T_m$ can be used to deduce the conjecture for other
-operators $T_n$.  We state three such results, having slightly different
-flavors.  
+a given operator $T_m$ can be used to deduce the conjecture for other
+operators $T_n$.  We state three such results, each giving a partial answer to
+this question.
 
 \begin{theorem}[Conrey-Farmer-Wallace~\cite{ConreyFarmerWallace}]
   \label{thm:CFW}
@@ -514,7 +514,8 @@ Here is what we do for a fixed weight $k$:
   \item\label{itm:hecke} Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
     basis $\cB$ -- this is very efficient since the basis $\cB$ is
     echelonized.
-  \item\label{itm:random} Pick a random prime $p<2^{20}$. (This choice of upper
+  \item\label{itm:random} Pick a random prime $p<2^{20}$, uniformly over this
+    range.  (This choice of upper
     bound gives a large enough range so that it is likely to contain primes of
     type we are looking for, but not so large that the arithmetic over $\FF_p$
     gets too expensive.)
@@ -548,7 +549,7 @@ interpreting the graphs:
     $\numprint{2000}$), the randomized algorithm required on average one third
     of the number of primes needed by the consecutive algorithm.  However,
     some of this is counteracted by the fact that the consecutive algorithm
-    works with smaller primes, which are faster to test.
+    works with much smaller primes, which are faster to test.
 \end{itemize}
 
 Overall, for weights less than $\numprint{2000}$, the randomized algorithm was
