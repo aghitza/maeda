@@ -281,7 +281,7 @@ Thus $F_p = f_0 f_1 \ldots f_{t_1}$ and
   assumption on the factorisations of $F_p$ and $F_q$, they must have distinct roots.
 \end{remark}
 
-The computational approach to Maeda's conjecture is based on the following
+Our computational approach to Maeda's conjecture is based on the following
 result, first proved in a special case in~\cite{Buzzard} and then generalized
 in~\cite{ConreyFarmer}.
 
@@ -295,7 +295,7 @@ in~\cite{ConreyFarmer}.
   The fact that $F$ is irreducible is immediate from the existence of a prime of type
   I. 
   Let $K/\QQ$ be the splitting field of $F$ and let $G$ be the Galois group of
-  $K/\QQ$.  Thus $G$ is a transitive subgroup of $\SS_d$. 
+  $K/\QQ$.  Since $F$ is irreducible, $G$ is a transitive subgroup of $\SS_d$. 
 
   TODO: Distinct roots mod $p$ implies $\Frob_{\mathfrak{p}} \in G$ for
   $\mathfrak{p}$
@@ -342,9 +342,11 @@ TODO: reference for Frobenius's theorem
   \end{equation*}
 \end{theorem}
 
-In the remainder of this section, we estimate the density of primes of types
-I, II and III.  We start with a well-known result
-(see, for instance, Proposition 1.3.2 of~\cite{Stanley1}).
+It is therefore important to estimate the number of permutations having
+certain types of cycle patterns.  For a fixed pattern, the following
+well-known result 
+(see, for instance, Proposition 1.3.2 of~\cite{Stanley1}) gives an exact
+expression for the number of permutations.
 
 \begin{lemma}\label{lem:cycletype}
   Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
@@ -364,12 +366,11 @@ I, II and III.  We start with a well-known result
   \end{equation*}
 \end{proposition}
 \begin{proof}
-  Primes of type I correspond to $d$-cycles in $\SS_d$, i.e. elements with 
-  cycle type $d$. Applying Lemma~\ref{lem:cycletype}, we see
-  \begin{equation*}
-    C(d)=\frac{d!}{d^1}=(d-1)!
-  \end{equation*}
-  Thus, by Theorem~\ref{thm:frobenius}, the density of primes of type I is
+  Primes of type I correspond to $d$-cycles in $\SS_d$.  Each such cycle can
+  be written uniquely as a sequence $1,a_1,\ldots,a_{d-1}$, where
+  $a_1,\ldots,a_{d-1}\in\{2,\ldots,d\}$ can appear in any order.  Therefore
+  there are $(d-1)!$ $d$-cycles, and by Theorem~\ref{thm:frobenius},
+  the density of primes of type I is
   \begin{equation*}
     \frac{(d-1)!}{d!}=\frac{1}{d}.
   \end{equation*}
@@ -493,12 +494,23 @@ purposes, the following weaker result is sufficient: for all $x>1$ we have
   $10<d\leq 94$ by computation.
 \end{proof}
 
-For completeness, here is the density of primes of type IV, as defined in
+For completeness, we treat the case of primes of type IV, as defined in
 Remark~\ref{rmk:type4}.
 
 \begin{proposition}\label{prop:type4}
-  TODO
+  The density of primes of type IV is
+  \begin{equation*}
+    D_{IV}(d)=\frac{1}{d-1}.
+  \end{equation*}
 \end{proposition}
+\begin{proof}
+  We need to count the number of $(d-1)$-cycles in $\SS_d$.  There are $d$
+  choices for the letter that is fixed, and $(d-2)!$ choices for permuting the
+  other letters appropriately, therefore the density of primes of type IV is
+  \begin{equation*}
+    \frac{d(d-2)!}{d!}=\frac{1}{d-1}.
+  \end{equation*}
+\end{proof}
 
 
 \section{Implementation and results}
