@@ -91,7 +91,7 @@ University of Melbourne\\
 
 \section{Introduction}
 Modular forms come in many different types.  One of the most attractive
-aspects of their study is that, despite the apparent variety of definitions
+aspects of the theory is that, despite the apparent variety of definitions
 and properties, there are some universal guiding principles (such as the
 Langlands program) that serve to unify and motivate this diversity.  On the
 other hand, there are some special properties that seem to occur in isolation.
@@ -100,9 +100,9 @@ indicates a behavior that seems to be specific to modular forms of level one
 on $\GL_2$.  
 
 Before describing Maeda's conjecture in more detail, we review some basic 
-definitions and properties of modular forms.  For a thorough exposition that
-covers most of the background needed in this paper, the reader is 
-invited to consult~\cite{Stein}.
+definitions and properties of modular forms.  For a thorough treatment of
+the background needed in this paper, the reader is invited to
+consult~\cite{Stein}.
 
 Let $k\in\ZZ$.  A \emph{modular form} of level $1$ and weight $k$ is a
 holomorphic function
@@ -149,10 +149,10 @@ $S_k$, and let $d=\dim S_k$.
 In the 1970's, Yoshitaka Maeda noticed that $F$ is irreducible over $\QQ$ for
 all $k$ such that $d\leq 12$.  In the 1990's, Lee-Hung~\cite{LeeHung} and
 Buzzard~\cite{Buzzard} studied these polynomials further and observed in a
-number of cases that the Galois group of $F$ is the full symmetric group
+number of cases that the Galois group of $F$ is the symmetric group
 $\SS_d$.  Shortly thereafter, Maeda made the following conjectural statement:
 
-\begin{conjecture}[Maeda~\cite{Maeda}]
+\begin{conjecture}[Maeda~\cite{HidaMaeda}]
   Let $m>1$ and 
   let $F$ be the characteristic polynomial of the Hecke operator $T_m$ acting
   on $S_k$.  Then 
@@ -173,7 +173,7 @@ verifications in Table~\ref{tbl:known}.
   Source & weights\\ \hline
   Lee-Hung~\cite{LeeHung} & $k\leq 62$, $k\neq 60$ \\
   Buzzard~\cite{Buzzard} & $k=12\ell$, $\ell$ prime, $2\leq\ell\leq 19$ \\
-  Maeda~\cite{Maeda} & $k\leq 468$ \\
+  Maeda~\cite{HidaMaeda} & $k\leq 468$ \\
   Conrey-Farmer~\cite{ConreyFarmer} & $k\leq 500$, $k\equiv 0\pmod 4$  \\
   Farmer-James~\cite{FarmerJames} & $k\leq \numprint{2000}$  \\
   Buzzard-Stein, Kleinerman~\cite{Kleinerman} & $k\leq\numprint{3000}$ \\
@@ -186,9 +186,9 @@ verifications in Table~\ref{tbl:known}.
 \end{table}
 
 The theoretical results focus on whether the validity of the conjecture for
-some given operator $T_m$ can be used to deduce the conjecture for other
-operators $T_n$.  We state three such results, having slightly different
-flavors.  
+a given operator $T_m$ can be used to deduce the conjecture for other
+operators $T_n$.  We state three such results, each giving a partial answer to
+this question.
 
 \begin{theorem}[Conrey-Farmer-Wallace~\cite{ConreyFarmerWallace}]
   \label{thm:CFW}
@@ -207,7 +207,7 @@ flavors.
   that the characteristic polynomial of $T_p$ acting on $S_k$ is irreducible
   over $\QQ$.  Then there exists $\delta>0$ such that
   \begin{equation*}
-    \#\{\ell\leq N\mid \text{charpoly}(T_\ell|S_k)\text{ is reducible}\}
+    \#\{\ell\leq N\text{ prime}\mid \text{charpoly}(T_\ell|S_k)\text{ is reducible}\}
     \ll \frac{N}{(\log N)^{1+\delta}}.
   \end{equation*}
 \end{theorem}
@@ -282,7 +282,7 @@ $F_p$ is separable (i.e. it has distinct roots over $\overline{\FF}_p$).
   $F_q$, they must have distinct roots.
 \end{remark}
 
-The computational approach to Maeda's conjecture is based on the following
+Our computational approach to Maeda's conjecture is based on the following
 result, first proved in a special case in~\cite{Buzzard} and then generalized
 in~\cite{ConreyFarmer}.
 
@@ -296,7 +296,7 @@ in~\cite{ConreyFarmer}.
   The fact that $F$ is irreducible is immediate from the existence of a prime of type
   I. 
   Let $K/\QQ$ be the splitting field of $F$ and let $G$ be the Galois group of
-  $K/\QQ$.  Thus $G$ is a transitive subgroup of $\SS_d$. 
+  $K/\QQ$.  Since $F$ is irreducible, $G$ is a transitive subgroup of $\SS_d$. 
 
   TODO: Distinct roots mod $p$ implies $\Frob_{\mathfrak{p}} \in G$ for
   $\mathfrak{p}$
@@ -339,13 +339,15 @@ TODO: reference for Frobenius's theorem
   \begin{equation*}
     \frac{\#\{\sigma\in G\mid\text{the cycle pattern of $\sigma$ is 
     $d_1^{m_1}\ldots d_t^{m_t}$}\}
-    }{\# G}
+    }{\# G}.
   \end{equation*}
 \end{theorem}
 
-In the remainder of this section, we estimate the density of primes of types
-I, II and III.  We start with a well-known result
-(see, for instance, Proposition 1.3.2 of~\cite{Stanley1}).
+It is therefore important to estimate the number of permutations having
+certain types of cycle patterns.  For a fixed pattern, the following
+well-known result 
+(see, for instance, Proposition 1.3.2 of~\cite{Stanley1}) gives an exact
+expression for the number of permutations.
 
 \begin{lemma}\label{lem:cycletype}
   Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
@@ -365,12 +367,11 @@ I, II and III.  We start with a well-known result
   \end{equation*}
 \end{proposition}
 \begin{proof}
-  Primes of type I correspond to $d$-cycles in $\SS_d$, i.e. elements with 
-  cycle type $d$. Applying Lemma~\ref{lem:cycletype}, we see
-  \begin{equation*}
-    C(d)=\frac{d!}{d^1}=(d-1)!
-  \end{equation*}
-  Thus, by Theorem~\ref{thm:frobenius}, the density of primes of type I is
+  Primes of type I correspond to $d$-cycles in $\SS_d$.  Each such cycle can
+  be written uniquely as a sequence $1,a_1,\ldots,a_{d-1}$, where
+  $a_1,\ldots,a_{d-1}\in\{2,\ldots,d\}$ can appear in any order.  Therefore
+  there are $(d-1)!$ $d$-cycles, and by Theorem~\ref{thm:frobenius},
+  the density of primes of type I is
   \begin{equation*}
     \frac{(d-1)!}{d!}=\frac{1}{d}.
   \end{equation*}
@@ -476,25 +477,27 @@ purposes, the following weaker result is sufficient: for all $x>1$ we have
   \end{equation*}
   to get that for all $d\geq 4$
   \begin{align*}
-    D_{III}(d)&>\frac{1}{\log d-\log 2}&\left[
+    D_{III}(d)>&\frac{1}{\log d-\log 2}\left[
       \log 2
       -\left(\frac{\log^2 2}{2}+\frac{11}{10}\right)\frac{1}{\log d-\log
       2}\right.\\
-      &&\left. -\left(\frac{4}{15}-\frac{\log^3 2}{3}\right)\frac{1}{(\log d-\log 2)^2}
+      &\left.\phantom{\frac{1}{\log d-\log 2}} 
+      -\left(\frac{4}{15}-\frac{\log^3 2}{3}\right)\frac{1}{(\log d-\log 2)^2}
       -\frac{\log^4 2}{4}\frac{1}{(\log d-\log 2)^3}
       \right]\\
-      &>\frac{1}{\log d}&\left[
+      >&\frac{1}{\log d}\left[
       0.693-1.341\frac{1}{\log d-\log 2}
       -0.156\frac{1}{(\log d-\log 2)^2}\right.\\
-      &&\left.-0.058\frac{1}{(\log d-\log 2)^3}
-      \right]
+      &\left.\phantom{\frac{1}{\log d}}
+      -0.058\frac{1}{(\log d-\log 2)^3}
+      \right].
   \end{align*}
   If $d>94$, then the expression in the brackets is bigger than $1/3$, and we
   get the desired inequality.  We check that it holds for the remaining cases
   $10<d\leq 94$ by computation.
 \end{proof}
 
-For completeness, here is the density of primes of type IV, as defined in
+For completeness, we treat the case of primes of type IV, as defined in
 Remark~\ref{rmk:type4}.
 
 \begin{proposition}\label{prop:type4}
@@ -504,6 +507,7 @@ Remark~\ref{rmk:type4}.
   \end{equation*}
 \end{proposition}
 \begin{proof}
+<<<<<<< HEAD
   Primes of type II correspond to elements of $\SS_d$ containing a 1-cycle and
   a $(d-1)$-cycle. Applying Lemma~\ref{lem:cycletype}, we see
   \begin{equation*}
@@ -514,6 +518,16 @@ Remark~\ref{rmk:type4}.
     \frac{d(d-2)!}{d!}=\frac{d(d-2)!}{d(d-1)(d-2)!}=\frac{1}{d-1}.
   \end{equation*}
 \end{proof}
+=======
+  We need to count the number of $(d-1)$-cycles in $\SS_d$.  There are $d$
+  choices for the letter that is fixed, and $(d-2)!$ choices for permuting the
+  other letters appropriately, therefore the density of primes of type IV is
+  \begin{equation*}
+    \frac{d(d-2)!}{d!}=\frac{1}{d-1}.
+  \end{equation*}
+\end{proof}
+
+>>>>>>> 384796ce1b9d6e4668c3a97384ee386bd0be7c3b
 
 \section{Implementation and results}
 Our approach is a randomized version of the algorithm
@@ -528,7 +542,8 @@ Here is what we do for a fixed weight $k$:
   \item\label{itm:hecke} Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
     basis $\cB$ -- this is very efficient since the basis $\cB$ is
     echelonized.
-  \item\label{itm:random} Pick a random prime $p<2^{20}$. (This choice of upper
+  \item\label{itm:random} Pick a random prime $p<2^{20}$, uniformly over this
+    range.  (This choice of upper
     bound gives a large enough range so that it is likely to contain primes of
     type we are looking for, but not so large that the arithmetic over $\FF_p$
     gets too expensive.)
@@ -562,7 +577,7 @@ interpreting the graphs:
     $\numprint{2000}$), the randomized algorithm required on average one third
     of the number of primes needed by the consecutive algorithm.  However,
     some of this is counteracted by the fact that the consecutive algorithm
-    works with smaller primes, which are faster to test.
+    works with much smaller primes, which are faster to test.
 \end{itemize}
 
 Overall, for weights less than $\numprint{2000}$, the randomized algorithm was
@@ -640,6 +655,39 @@ $L(f, k/2)=0$.  It is believed that if $k\equiv 0\pmod{4}$, then $L(f, k/2)\neq
   Suppose $k\equiv 0\pmod{4}$ and $k\leq\bound$.  Then
   $L(f, k/2)\neq 0$ for any cuspidal eigenform $f$ of level $1$ and weight $k$.
 \end{corollary}
+
+\subsection{Base change for totally real fields}
+It is in the context of this work of Hida and Maeda that
+Maeda's conjecture was formulated.  We content ourselves with giving a general
+description of this application, and we refer the interested reader
+to~\cite{HidaMaeda} for details. 
+
+Let $f\in S_k$ be a Hecke eigenform.  For each prime $p$, there is a $p$-adic
+Galois representation
+\begin{equation*}
+  \rho\colon\Gal\left(\overline{\QQ}/\QQ\right)
+  \longto\GL_2\left(\overline{\QQ}_p\right).
+\end{equation*}
+There is an Artin $L$-function $L(\rho, s)$ attached to $\rho$, and the
+relation between $\rho$ and $f$ can be summarized by
+\begin{equation*}
+  L(\rho, s) = L(f, s).
+\end{equation*}
+
+Now let $E$ be a number field.  There is a purely algebraic notion of a
+cohomological eigenform $\hat{f}$ on $\GL_2(\mathbb{A}_E)$, where 
+$\mathbb{A}_E$ is the ring
+of adeles of $E$.  We say that $\hat{f}$ is a \emph{base change of $f$ to $E$}
+if
+\begin{equation*}
+  L(\hat{f}, s) = L(\rho_E, s),
+\end{equation*}
+where $\rho_E\colon\Gal(\overline{\QQ}/E)\longto\GL_2(\overline{\QQ}_p)$ is
+the restriction of $\rho$ to $E$.
+
+The work of Hida and Maeda, together with Theorem~\ref{thm:main}, implies that
+for $k\leq$ TODO and a totally real field $E$ satisfying some ramification
+conditions, any eigenform $f\in S_k$ has a base change to $E$.
 
 \subsection{Distinguishing Hecke eigenforms}
 
