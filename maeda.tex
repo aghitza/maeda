@@ -676,6 +676,60 @@ The work of Hida and Maeda, together with Theorem~\ref{thm:main}, implies that
 for $k\leq$ TODO and a totally real field $E$ satisfying some ramification
 conditions, any eigenform $f\in S_k$ has a base change to $E$.
 
+\subsection{Eigenforms divisible by eigenforms}
+It is easy to see from the definition of a modular form that if $f_1$ and
+$f_2$ are modular forms of respective weights $k_1$ and $k_2$, then the
+product $f_1f_2$ is a modular form of weight $k_1+k_2$.  In other words,
+modular forms of all weights put together form a graded algebra
+\begin{equation*}
+  M=\bigoplus_{k\in\ZZ} M_k.
+\end{equation*}
+
+A natural question is whether the product of eigenforms can be an eigenform.
+This will clearly happen for small weights (for instance, when the product
+lives in a one-dimensional space of cusp forms).  Since the Hecke operators
+do not act on the entire algebra $M$ of modular forms (they act
+differently on the graded pieces $M_k$), it seems reasonable that the
+one-dimensional coincidences are the only situation in which a product of
+eigenforms is an eigenform.  Such questions have been studied by several
+authors, with the latest results appearing in a recent paper by
+Beyerl-James-Xue~\cite{BeyerlJamesXue}.  They consider the more general question
+of divisibility of an
+eigenform by another eigenform, i.e. relations of the form $h=fg$ where
+$f,g,h$ are modular forms and $f,h$ are eigenforms.  The relation with Maeda's 
+conjecture is discussed in Section 6 of~\cite{BeyerlJamesXue}, and 
+Theorem~\ref{thm:main} implies the following result.
+
+\begin{corollary}
+  Let $h$ be a cuspidal eigenform of weight $\leq\bound$, and let 
+  $f\in M_l$ be an eigenform
+  (which could be cuspidal or Eisenstein).  Then $h=fg$ for some modular form
+  $g\in M_k$ if and only if we are in one of the cases listed in 
+  Table~\ref{tbl:div_eigen}.
+\end{corollary}
+
+\begin{table}[h]
+  \begin{center}
+  \begin{tabular}{r|r|l}
+    weight of $f$ & weight of $g$ modulo $12$ & nature of $f$ \\ \hline
+    $4$ & $0,4,6,10$ & Eisenstein \\
+    $6$ & $0,4,8$ & Eisenstein \\
+    $8$ & $0,6$ & Eisenstein \\
+    $10$ & $0,4$ & Eisenstein \\
+    $12$ & $0,2,4,6,8,10$ & cuspidal\\
+    $14$ & $0$ & Eisenstein \\
+    $16$ & $0,4,6,10$ & cuspidal\\
+    $18$ & $0,4,8$ & cuspidal\\
+    $20$ & $0,6$ & cuspidal\\
+    $22$ & $0,4$ & cuspidal\\
+    $26$ & $0$ & cuspidal
+  \end{tabular}
+\end{center}
+  \caption{The only cases in which a cuspidal eigenform of weight $\leq\bound$
+  can be factored into $h=fg$ with $f$ an eigenform.}
+  \label{tbl:div_eigen}
+\end{table}
+
 \subsection{Distinguishing Hecke eigenforms}
 
 How many initial Fourier coefficients are necessary to completely determine a
