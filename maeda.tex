@@ -389,6 +389,10 @@ expression for the number of permutations.
         \frac{1}{2(d-2)!}\left((d-4)!!\right)^2(d-2),&\text{if }d\text{ is odd and }d>1
     \end{cases}
   \end{align*}
+  For $d>2$, $D_{II}(d)$ satisfies
+  \begin{equation*}
+    D_{II}(d)>\frac{3}{4\sqrt{2\pi}
+  \end{equation*}
 \end{proposition}
 \begin{proof}
   Primes of type II correspond to elements in $\SS_d$ containing a $2$-cycle and no other
@@ -401,10 +405,22 @@ expression for the number of permutations.
   \end{equation*}
   (See for instance Chapter IV of~\cite{Riordan}.)
 
-  TODO: Finish this.
+  Note that the odd factorials above can be expanded as follows:
+  \begin{eqnarray*}
+    (d-3)!!=\frac{(d-3)!}{2^{d/2-2}(d/2-2)!}\\
+    (d-4)!!=\frac{(d-4)!}{2^{(d-5)/2}(\frac{d-5}{2})!}
+  \end{eqnarray*}
+  We now obtain the inequality given in the statement as follows:
+  \begin{eqnarray*}
+    D_{II}(d)&=&\begin{cases}
+                  \left[\frac{(d-3)!}{(d/2-2)!}\right]^2\frac{1}{2^{d-4}\frac{1}{2(d-2)!}\\
+                  \left[\frac{(d-4)!}{(\frac{d-5}{2})!}\right]^2\frac{1}{2^{d-5}\frac{d-2}{2(d-2)!}\\
+                 \end{cases}
+             &=&
+  \end{eqnarray*}
 \end{proof}
 
-TODO: lower bound for $D_{II}(d)$.
+
 
 \begin{proposition}
   The density of primes of type III is
