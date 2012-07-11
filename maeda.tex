@@ -93,6 +93,7 @@ University of Melbourne\\
 
 
 \section{Introduction}
+\label{sect:introduction}
 Modular forms come in many different types.  One of the most attractive
 aspects of the theory is that, despite the apparent variety of definitions
 and properties, there are some universal guiding principles (such as the
@@ -238,6 +239,39 @@ computer work to prove the following result.
 \end{theorem}
 
 
+We can now state our main result.
+
+\begin{theorem}\label{thm:main}
+  Let $k\leq \bound$ and let
+  \begin{align*}
+    n\in &\{2,\ldots,\numprint{10000}\}\cup
+    \{p\text{ prime}\mid 2\leq p\leq\numprint{4000000}\}\\
+    &\cup\{p\text{ prime}\mid p\not\equiv\pm 1\pmod{5}\}\cup
+    \{p\text{ prime}\mid p\not\equiv\pm 1\pmod{7}\}.
+  \end{align*}
+  Let $F$ be the characteristic polynomial of the
+  Hecke operator $T_n$ acting on the space $S_k$ of cusp forms of weight
+  $k$ and level $1$.  Then $F$ is irreducible over $\QQ$ and the Galois
+  group of its splitting field is the full symmetric group $\SS_d$, 
+  where $d$ is the dimension of the space $S_k$.
+\end{theorem}
+\begin{proof}
+  The statement for $T_2$ is the result of the computations described below.  
+  Given this, we deduce the result for the other $T_n$ by applying the results of
+  Conrey-Farmer-Wallace and Ahlgren, as stated above.
+\end{proof}
+
+Our computational approach follows the ``multimodular'' method introduced by
+Buzzard in~\cite{Buzzard} and refined by Conrey-Farmer in~\cite{ConreyFarmer}.
+The main improvement is the use of random primes of moderate size, instead of
+going through primes consecutively until suitable ones are found.  In
+Section~\ref{sect:density} we describe the theoretical foundation of this
+approach, and we estimate the densities of the different types of primes we
+are looking for.  This provides us with expected running times for our
+randomized algorithm, which we discuss in detail in
+Section~\ref{sect:implementation}.  Finally, Section~\ref{sect:applications}
+gives some direct corollaries of Theorem~\ref{thm:main} to some questions
+about modular forms of level one.
 
 
 \section{The basic lemma and density estimates}
@@ -530,6 +564,7 @@ Remark~\ref{rmk:type4}.
 
 
 \section{Implementation and results}
+\label{sect:implementation}
 Our approach is a randomized version of the algorithm
 from~\cite{ConreyFarmer}, based on the results introduced in the previous
 section.  We implemented this algorithm using the mathematical software Sage, 
@@ -589,29 +624,6 @@ TODO: get timings for each main step for a large weight $k$.
 
 
 
-We now state our main result.
-
-\begin{theorem}\label{thm:main}
-  Let $k\leq \bound$ and let
-  \begin{align*}
-    n\in &\{2,\ldots,\numprint{10000}\}\cup
-    \{p\text{ prime}\mid 2\leq p\leq\numprint{4000000}\}\\
-    &\cup\{p\text{ prime}\mid p\not\equiv\pm 1\pmod{5}\}\cup
-    \{p\text{ prime}\mid p\not\equiv\pm 1\pmod{7}\}.
-  \end{align*}
-  Let $F$ be the characteristic polynomial of the
-  Hecke operator $T_n$ acting on the space $S_k$ of cusp forms of weight
-  $k$ and level $1$.  Then $F$ is irreducible over $\QQ$ and the Galois
-  group of its splitting field is the full symmetric group $\SS_d$, 
-  where $d$ is the dimension of the space $S_k$.
-\end{theorem}
-\begin{proof}
-  The statement for $T_2$ is the result of our computations.  Given this, we
-  deduce the result for the other $T_n$ by applying the results of
-  Conrey-Farmer-Wallace and Ahlgren, stated above as Theorems~\ref{thm:CFW}
-  and~\ref{thm:Ahl}.
-\end{proof}
-
 \begin{figure}[h]
   \begin{center}
   \raisebox{2.5cm}{
@@ -662,6 +674,7 @@ expected number of primes.}
 
 
 \section{Some applications}
+\label{sect:applications}
 
 We record some immediate consequences of Theorem~\ref{thm:main}.
 
@@ -741,7 +754,7 @@ Theorem~\ref{thm:main} implies the following result.
   Let $h$ be a cuspidal eigenform of weight $\leq\bound$, and let 
   $f\in M_l$ be an eigenform
   (which could be cuspidal or Eisenstein).  Then $h=fg$ for some modular form
-  $g\in M_k$ if and only if we are in one of the cases listed in 
+  $g\in M_k$ with $k>2$ if and only if we are in one of the cases listed in 
   Table~\ref{tbl:div_eigen}.
 \end{corollary}
 
