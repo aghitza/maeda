@@ -87,8 +87,10 @@ University of Melbourne\\
 
 \maketitle
 \begin{abstract}
-  We describe a computational verification of Maeda's conjecture for the Hecke
-  operator $T_2$ in all weights less than $\bound$.
+  We describe a computational approach to the verification of Maeda's conjecture
+  for the Hecke operator $T_2$ on the space of cusp forms of level 1. We provide
+  experimental evidence for all weights less than $\bound$, as well as some
+  applications of these results.
 \end{abstract}
 
 
@@ -425,7 +427,7 @@ in~\cite{ConreyFarmer}.
   $K/\QQ$.  Since $F$ is irreducible, $G$ is a transitive subgroup of $\SS_d$. 
 
   So $\Frob_{\mathfrak{p}}$ has cycle type $2,\deg(f_1),\ldots,\deg(f_{t_1})$ and
-  $\Frob_{\mathfrak{q}}$ has cycle type $\ell,\deg(g_1),\ldots,\deg(g_{t_2})$, where 
+  $\Frob_{\mathfrak{q}}$ has cycle type $p,\deg(g_1),\ldots,\deg(g_{t_2})$, where 
   $p>d/2$ is prime. Thus for $x_1=\prod_{i=1}^{t_1}\deg f_i$ and $x_2=\prod_{i=1}^{t_2}\deg g_i$,
   we have that $(\Frob_{\mathfrak{q}})^{x_1}$ is a transposition and 
   $(\Frob_{\mathfrak{r}})^{x_2}$
@@ -490,33 +492,58 @@ expression for the number of permutations.
   \end{align*}
   For $d>2$, $D_{II}(d)$ satisfies
   \begin{equation*}
-    D_{II}(d)>\frac{3}{4\sqrt{2\pi}
+    D_{II}(d)>\frac{3}{4\sqrt{2\pi}\frac{1}{\sqrt{d}}
   \end{equation*}
 \end{proposition}
 \begin{proof}
   Primes of type II correspond to elements in $\SS_d$ containing a $2$-cycle and no other
   even cycles. There are $\binom{d}{2}$ $2$-cycles in $\SS_d$; fixing a $2$-cycle, we 
-  need the number of elements of odd order in $\SS_{d-2}$.  This is given by
+  need the number of elements of odd order in $\SS_{d-2}$. Denote this by $\sigma(d-2)$. Then
+  \begin{align*}
+    D_{II}(d)&=\frac{1}{d!}\binom{d}{2}\sigma(d-2)\\
+             &=\frac{\sigma(d-2)}{2(d-2)!}
+  \end{align*}
+  From~\cite{Riordan} we have the following:
   \begin{equation*}
-    \begin{cases}
+    \sigma(n)=\begin{cases}
+        (n-1)!!,&\text{if }n\text{ is even}\\
+        (n-2)!!n,&\text{if }n\text{ is odd.}
+      \end{cases}
+  \end{equation*}
+  Thus we have $D_{II}(d)$ as above. We turn to the inequality.
 
+  Let $d=2c$ if $d$ is even and $d=2c+1$ if $d$ is odd, for some $c \in \ZZ$. Then $\sigma(d-2)$
+  can be expanded as follows:
+  \begin{equation*}
+    \sigma(d-2)=\begin{cases}
+      \left[\frac{(2c-3)!}{2^{c-2}(c-2)!}\right]^2,&\text{if }d=2c\\
+      \left[\frac{(2c-3)!}{2^{c-2}(c-2)!}\right]^2(2c-1),&\text{if }d=2c+1
     \end{cases}
   \end{equation*}
-  (See for instance Chapter IV of~\cite{Riordan}.)
-
-  Note that the odd factorials above can be expanded as follows:
-  \begin{eqnarray*}
-    (d-3)!!=\frac{(d-3)!}{2^{d/2-2}(d/2-2)!}\\
-    (d-4)!!=\frac{(d-4)!}{2^{(d-5)/2}(\frac{d-5}{2})!}
-  \end{eqnarray*}
   We now obtain the inequality given in the statement as follows:
-  \begin{eqnarray*}
-    D_{II}(d)&=&\begin{cases}
-                  \left[\frac{(d-3)!}{(d/2-2)!}\right]^2\frac{1}{2^{d-4}\frac{1}{2(d-2)!}\\
-                  \left[\frac{(d-4)!}{(\frac{d-5}{2})!}\right]^2\frac{1}{2^{d-5}\frac{d-2}{2(d-2)!}\\
-                 \end{cases}
-             &=&
-  \end{eqnarray*}
+  \begin{align*}
+    D_{II}(d)&=\frac{\sigma(d-2)}{2(d-2)!}\\
+             &=\begin{cases}
+                  \left[\frac{(2c-3)!}{(c-2)!}\right]^2\frac{1}{2^{2c-4}}\frac{1}{2(2c-2)!},&\text{if }d=2c\\
+                  \left[\frac{(2c-3)!}{(c-2)!}\right]^2\frac{2c-1}{2^{2c-4}}\frac{1}{2(2c-1)!},&\text{if }d=2c+1
+                 \end{cases}\\
+             &=\frac{1}{2^{2c-3}(2c-2)}\frac{(2c-3)!}{[(c-2)!]^2}
+  \end{align*}
+  We make use of the following inequalities from [TODO: reference]:
+  \begin{equation*}
+    \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n+\frac{1}{12n+1}}<n!<\sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n+\frac{1}{12n}}
+  \end{equation*}
+  Then by using the lower bound for the numerator and the upper bound for the denominator,
+  we see the following:
+  \begin{align*}
+    D_{II}(d)&>\frac{2c-3}{2c-2}\frac{1}{2\sqrt{\pi(c-2)}}e^{\frac{1}{24(c-2)+1}-\frac{1}{6c-12}}\\
+             &>\frac{3/(8\sqrt{\pi}}{\sqrt{c-2}}\\
+             &>\frac{3}{4\sqrt{2\pi}}\frac{1}{\sqrt{d}}
+  \end{align*}
+  Where the first inequality comes from the following:
+  \begin{equation*}
+    e^{\frac{1}{24(c-2)+1}-\frac{1}{6c-12}}<1\text{ if }c\geq1,\text{ and }\frac{2c-3}{2c-2}>3/4\text{ if }c\geq2
+  \end{equation*}
 \end{proof}
 
 
