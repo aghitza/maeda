@@ -16,6 +16,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{mathrsfs}
 
 % \usepackage[pagewise, mathlines]{lineno}
 % \linenumbers
@@ -88,7 +89,7 @@ University of Melbourne\\
 \maketitle
 \begin{abstract}
   We describe a computational approach to the verification of Maeda's conjecture
-  for the Hecke operator $T_2$ on the space of cusp forms of level 1. We provide
+  for the Hecke operator $T_2$ on the space of cusp forms of level one. We provide
   experimental evidence for all weights less than $\bound$, as well as some
   applications of these results.
 \end{abstract}
@@ -428,10 +429,12 @@ in~\cite{ConreyFarmer}.
 
   So $\Frob_{\mathfrak{p}}$ has cycle type $2,\deg(f_1),\ldots,\deg(f_{t_1})$ and
   $\Frob_{\mathfrak{q}}$ has cycle type $p,\deg(g_1),\ldots,\deg(g_{t_2})$, where 
-  $p>d/2$ is prime. Thus for $x_1=\prod_{i=1}^{t_1}\deg f_i$ and $x_2=\prod_{i=1}^{t_2}\deg g_i$,
+  $p>d/2$ is prime. Thus for 
+  $x_1=\prod_{i=1}^{t_1}\deg f_i$ and $x_2=\prod_{i=1}^{t_2}\deg g_i$,
   we have that $(\Frob_{\mathfrak{q}})^{x_1}$ is a transposition and 
   $(\Frob_{\mathfrak{r}})^{x_2}$
-  is a cycle of length $p$. The fact that these elements are in $G$ implies $G=\SS_d$ as follows:
+  is a cycle of length $p$. The fact that these elements are in $G$ implies 
+  $G=\SS_d$ as follows:
   Put an equivalence relation $\sim$ on $S=\{1,2,\ldots,d\}$ by $a\sim b$ if $a=b$ or if the
   transposition $(a~b)$ is in $G$. Since $G$ is
   transitive, each equivalence class has the same number of elements, denote this
@@ -481,69 +484,72 @@ expression for the number of permutations.
   \end{equation*}
 \end{proof}
 
+In order to state our result on primes of type II, recall that
+for $n\in\ZZ_{>0}$ odd, the \emph{double factorial} $n!!$ of $n$ is
+the product of all the odd positive integers less than or equal to $n$.
+
 \begin{proposition}\label{prop:type2}
-  The density of primes of type II is given by\footnote{Recall that the \emph{double factorial} is...}
-  \begin{align*}
-    D_{II}(1)&=1,\\
-    D_{II}(d)&=\begin{cases}
-        \frac{1}{2(d-2)!}\left((d-3)!!\right)^2,&\text{if }d\text{ is even}\\
-        \frac{1}{2(d-2)!}\left((d-4)!!\right)^2(d-2),&\text{if }d\text{ is odd and }d>1
-    \end{cases}
-  \end{align*}
-  For $d>2$, $D_{II}(d)$ satisfies
+  Let $d>2$ and let $\tilde{d}$ be the largest even integer such that 
+  $\tilde{d}\leq d$.
+  The density of primes of type II is given by
   \begin{equation*}
-    D_{II}(d)>\frac{3}{4\sqrt{2\pi}\frac{1}{\sqrt{d}}
+    D_{II}(d)=\frac{[(\tilde{d}-3)!!]^2}{2(\tilde{d}-2)!}
+  \end{equation*}
+  and satisfies the inequality
+  \begin{equation*}
+    D_{II}(d)>\frac{1}{4\sqrt{d}}.
   \end{equation*}
 \end{proposition}
 \begin{proof}
   Primes of type II correspond to elements in $\SS_d$ containing a $2$-cycle and no other
   even cycles. There are $\binom{d}{2}$ $2$-cycles in $\SS_d$; fixing a $2$-cycle, we 
-  need the number of elements of odd order in $\SS_{d-2}$. Denote this by $\sigma(d-2)$. Then
-  \begin{align*}
-    D_{II}(d)&=\frac{1}{d!}\binom{d}{2}\sigma(d-2)\\
-             &=\frac{\sigma(d-2)}{2(d-2)!}
-  \end{align*}
-  From~\cite{Riordan} we have the following:
+  need the number $\mathscr{O}(d-2)$ of elements of odd order in $\SS_{d-2}$.
+  We have
   \begin{equation*}
-    \sigma(n)=\begin{cases}
+    D_{II}(d)=\frac{1}{d!}\binom{d}{2}\mathscr{O}(d-2)
+    =\frac{\mathscr{O}(d-2)}{2(d-2)!}.
+  \end{equation*}
+  The sequence $(\mathscr{O}(n)\mid n\in\NN)$ appears in nature in several
+  guises, see~\cite{OEIS}.  The recurrence formulas that appear there and in
+  Chapter IV of~\cite{Riordan} easily give the exact expression
+  \begin{equation*}
+    \mathscr{O}(n)=\begin{cases}
         (n-1)!!,&\text{if }n\text{ is even}\\
-        (n-2)!!n,&\text{if }n\text{ is odd.}
+        (n-2)!!n,&\text{if }n\text{ is odd,}
       \end{cases}
   \end{equation*}
-  Thus we have $D_{II}(d)$ as above. We turn to the inequality.
+  which immediately provides us with the 
+  exact expression for $D_{II}(d)$ in the statement.
 
-  Let $d=2c$ if $d$ is even and $d=2c+1$ if $d$ is odd, for some $c \in \ZZ$. Then $\sigma(d-2)$
-  can be expanded as follows:
+  It remains to establish the lower bound.  Write $\tilde{d}=2c$ for some
+  $c\in\ZZ$ (recall that $\tilde{d}$ is the largest even integer less than or
+  equal to $d$).
+  Then
+  \begin{equation}\label{eq:oh}
+    \mathscr{O}(d-2)=\frac{[(2c-3)!!]^2}{2(2c-2)!}=\frac{(2c-3)!}{2^{2c-3}(2c-2)[(c-2)!]^2}.
+  \end{equation}
+  We use the following bounds on the factorial, which can be thought of as an
+  effective version of Stirling's approximation and were obtained by Robbins
+  (see~\cite{Robbins} and Section~II.9 in~\cite{Feller}):
   \begin{equation*}
-    \sigma(d-2)=\begin{cases}
-      \left[\frac{(2c-3)!}{2^{c-2}(c-2)!}\right]^2,&\text{if }d=2c\\
-      \left[\frac{(2c-3)!}{2^{c-2}(c-2)!}\right]^2(2c-1),&\text{if }d=2c+1
-    \end{cases}
+    \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n+\frac{1}{12n+1}}<n!<\sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n+\frac{1}{12n}}.
   \end{equation*}
-  We now obtain the inequality given in the statement as follows:
+  Then by using the lower bound for the numerator and the upper bound for the
+  denominator on the right hand side of Equation~\eqref{eq:oh},
+  we obtain
+  \begin{equation*}
+    D_{II}(d)>\frac{2c-3}{2c-2}\,\frac{1}{2\sqrt{\pi(c-2)}}\,
+    e^{\frac{1}{24(c-2)+1}-\frac{1}{6c-12}}
+    >\frac{1}{3\sqrt{\pi(c-2)}}>\frac{\sqrt{2}}{3\sqrt{\pi}}\,\frac{1}{\sqrt{d}}
+    >\frac{1}{4\sqrt{d}},
+  \end{equation*}
+  where we use $\sqrt{2}/3\sqrt{\pi}\approx 0.266$ and the elementary inequalities
   \begin{align*}
-    D_{II}(d)&=\frac{\sigma(d-2)}{2(d-2)!}\\
-             &=\begin{cases}
-                  \left[\frac{(2c-3)!}{(c-2)!}\right]^2\frac{1}{2^{2c-4}}\frac{1}{2(2c-2)!},&\text{if }d=2c\\
-                  \left[\frac{(2c-3)!}{(c-2)!}\right]^2\frac{2c-1}{2^{2c-4}}\frac{1}{2(2c-1)!},&\text{if }d=2c+1
-                 \end{cases}\\
-             &=\frac{1}{2^{2c-3}(2c-2)}\frac{(2c-3)!}{[(c-2)!]^2}
+    e^{\frac{1}{24(c-2)+1}-\frac{1}{6c-12}}>e^{-\frac{1}{8(c-3)}}&>\frac{4}{5}\text{ if }c\geq 4,\\
+    \frac{2c-3}{2c-2}&\geq \frac{5}{6}\text{ if }c\geq 4.
   \end{align*}
-  We make use of the following inequalities from [TODO: reference]:
-  \begin{equation*}
-    \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n+\frac{1}{12n+1}}<n!<\sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n+\frac{1}{12n}}
-  \end{equation*}
-  Then by using the lower bound for the numerator and the upper bound for the denominator,
-  we see the following:
-  \begin{align*}
-    D_{II}(d)&>\frac{2c-3}{2c-2}\frac{1}{2\sqrt{\pi(c-2)}}e^{\frac{1}{24(c-2)+1}-\frac{1}{6c-12}}\\
-             &>\frac{3/(8\sqrt{\pi}}{\sqrt{c-2}}\\
-             &>\frac{3}{4\sqrt{2\pi}}\frac{1}{\sqrt{d}}
-  \end{align*}
-  Where the first inequality comes from the following:
-  \begin{equation*}
-    e^{\frac{1}{24(c-2)+1}-\frac{1}{6c-12}}<1\text{ if }c\geq1,\text{ and }\frac{2c-3}{2c-2}>3/4\text{ if }c\geq2
-  \end{equation*}
+  This gives us the desired lower bound for $d\geq 8$, and the remaining
+  cases $2<d<8$ are easily checked.
 \end{proof}
 
 
@@ -646,7 +652,7 @@ For completeness, we treat the case of primes of type IV, as defined in
 Remark~\ref{rmk:type4}.
 
 \begin{proposition}\label{prop:type4}
-  The density of primes of type IV is
+  Let $d>1$.  The density of primes of type IV is
   \begin{equation*}
     D_{IV}(d)=\frac{1}{d-1}.
   \end{equation*}
@@ -691,7 +697,7 @@ Here is what we do for a fixed weight $k$:
 
 According to Propositions~\ref{prop:type1}, \ref{prop:type2} and
 \ref{prop:type3}, we expect to look on average at $d$ primes before we find
-one of type I, at $\sqrt{d}$ primes to find one of type II, and at $3\log d$
+one of type I, at $4\sqrt{d}$ primes to find one of type II, and at $3\log d$
 primes to find one of type III.
 
 The actual performance of this algorithm (as well as a comparison to the
