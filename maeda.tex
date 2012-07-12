@@ -91,7 +91,8 @@ University of Melbourne\\
   We describe a computational approach to the verification of Maeda's conjecture
   for the Hecke operator $T_2$ on the space of cusp forms of level one. We provide
   experimental evidence for all weights less than $\bound$, as well as some
-  applications of these results.
+  applications of these results.  The algorithm was implemented using the
+  mathematical software Sage.
 \end{abstract}
 
 
@@ -271,7 +272,7 @@ going through primes consecutively until suitable ones are found.  In
 Section~\ref{sect:density} we describe the theoretical foundation of this
 approach, and we estimate the densities of the different types of primes we
 are looking for.  This provides us with expected running times for our
-randomized algorithm, which we discuss in detail in
+randomized algorithm, the Sage implementation of which we discuss in detail in
 Section~\ref{sect:implementation}.  Finally, Section~\ref{sect:applications}
 gives some direct corollaries of Theorem~\ref{thm:main} to some questions
 about modular forms of level one.
@@ -330,7 +331,7 @@ $\alpha_1,\ldots,\alpha_d\in\mathcal{O}_K$ of $F$ in the exact same way as
 $\sigma$ permutes the roots in $\overline{\FF}_p$ of $F_p$.  We conclude that
 the cycle pattern $\Frob_{\mathfrak{p}}$ is the same as the factorization
 pattern of $F_p$ over $\FF_p$.  Therefore we can take $\tau$ in the conclusion
-of~\ref{lem:frobenius} to be $\Frob_{\mathfrak{p}}$.
+of Lemma~\ref{lem:frobenius} to be $\Frob_{\mathfrak{p}}$.
 
 Note that $\tau$ is not uniquely determined by $F$ and $p$, as the choice of a
 prime $\mathfrak{p}$ of $\mathcal{O}_K$ above $p$ matters.  However, any two
@@ -366,23 +367,24 @@ $p$ is
   \item \emph{of type II} if $F_p$ factors over $\FF_p$ into a product of
     distinct irreducible factors
     \begin{equation*}
-      F_p=f_0f_1\cdots f_t
+      F_p=f_0f_1\cdots f_s
     \end{equation*}
     with
     \begin{align*}
       \deg f_0 &= 2\\
-      \deg f_j &\text{ odd for }j=1,\ldots,t;
+      \deg f_j &\text{ odd for }j=1,\ldots,s;
     \end{align*}
   \item \emph{of type III} if $F_p$ factors over $\FF_p$ into a product of
     distinct irreducible factors
     \begin{equation*}
-      F_p=f_0f_1\cdots f_t
+      F_p=f_0f_1\cdots f_s
     \end{equation*}
     with $\deg f_0>d/2$ and prime.
 \end{enumerate}
 
 \begin{remark}\label{rmk:type4}
-  Hida and Maeda use a similar approach, but replace primes of type III with
+  Hida and Maeda use a similar approach in Section~5 of~\cite{HidaMaeda}, but 
+  replace primes of type III with
   \emph{primes of type IV}, i.e. $p$ such that $F_p=f_0f_1$ with $f_0$, $f_1$
   distinct and irreducible, and $\deg f_0=1$.  We will see below that primes
   of type III are significantly more common (and therefore better suited for
@@ -396,54 +398,59 @@ prime, then a prime $p$ of type I is clearly also of type III.
 
 \begin{remark}
 In either of the three types, the conditions imply that the reduced polynomial
-$F_p$ is separable (i.e. it has distinct roots over $\overline{\FF}_p$).
-
-  If there exists a prime of type I, then $F$ is irreducible. Since $\QQ$ is a field of
-  characteristic 0, and $F \in \QQ[X]$, this implies that $F$ is separable. Let $p$ and 
-  $q$ be primes of types II and III, respectively. Then $F_p = f_0 f_1 \ldots f_{t_1}$
-  and $F_q = g_0 g_1 \ldots g_{t_2}$, with $\deg f_0 = 2$ and $\deg g_0 > d/2$ is prime.
-  Thus the roots of $F_p$ and $F_q$ are distinct, since any of the $f_i$ or $g_i$ has
-  distinct roots (by the above argument for the prime of type I), and if any two factors
-  share a root then either their product is reducible or the factors are equal to one
-  another. Since this contradicts our assumption on the factorisations of $F_p$ and
-  $F_q$, they must have distinct roots.
+$F_p$ is separable:
+\begin{itemize}
+  \item If $p$ is a prime of type I, then $F_p$ is irreducible, hence
+    separable.
+  \item If $p$ is a prime of type II or III, $F_p$ is a product of distinct
+    irreducible factors.  Each of the factors is therefore separable, and they 
+    cannot have any common roots, since otherwise they would have a
+    nonconstant common factor and would therefore be reducible.  Hence $F_p$
+    has distinct roots.
+\end{itemize}
 \end{remark}
 
 Our computational approach to Maeda's conjecture is based on the following
 result, first proved in a special case in~\cite{Buzzard} and then generalized
 in~\cite{ConreyFarmer}.
 
-\begin{lemma}[Buzzard-Conrey-Farmer]
+\begin{lemma}[Buzzard, Conrey-Farmer]
   Let $F\in\ZZ[X]$ be a monic polynomial of degree $d$.  Suppose that $F$ has
-  primes $\ell$, $p$ and $q$ of respective types I, II and III.  Then $F$
+  primes of respective types I, II and III.  Then $F$
   is irreducible over $\QQ$ and its splitting field over $\QQ$ has full Galois
   group $\SS_d$.
 \end{lemma}
 \begin{proof}
-  TODO: reread this!
-
   The fact that $F$ is irreducible is immediate from the existence of a prime of type
   I. 
+
   Let $K/\QQ$ be the splitting field of $F$ and let $G$ be the Galois group of
   $K/\QQ$.  Since $F$ is irreducible, $G$ is a transitive subgroup of $\SS_d$. 
 
-  So $\Frob_{\mathfrak{p}}$ has cycle type $2,\deg(f_1),\ldots,\deg(f_{t_1})$ and
-  $\Frob_{\mathfrak{q}}$ has cycle type $p,\deg(g_1),\ldots,\deg(g_{t_2})$, where 
-  $p>d/2$ is prime. Thus for 
-  $x_1=\prod_{i=1}^{t_1}\deg f_i$ and $x_2=\prod_{i=1}^{t_2}\deg g_i$,
-  we have that $(\Frob_{\mathfrak{q}})^{x_1}$ is a transposition and 
-  $(\Frob_{\mathfrak{r}})^{x_2}$
-  is a cycle of length $p$. The fact that these elements are in $G$ implies 
-  $G=\SS_d$ as follows:
-  Put an equivalence relation $\sim$ on $S=\{1,2,\ldots,d\}$ by $a\sim b$ if $a=b$ or if the
-  transposition $(a~b)$ is in $G$. Since $G$ is
-  transitive, each equivalence class has the same number of elements, denote this
-  $n$, and it follows that $n|d$. Note that $n>1$ since $G$ contains at least one
-  transposition. Let $T=\{e_1,e_2,\ldots,e_p\}$ be the subset of $S$ permuted by
-  ($\Frob_{\mathfrak{r}})^{x_2}$, and let $G_T$ be the subgroup of $G$ fixing $S\setminus T$.
-  Define an equivalence relation on $T$ by $a\simeq b$ if $a=b$ or if the transposition
-  $(a~b) \in G_T$. As before, each equivalence class has the same number of elements,
-  say $m$, and $m\mid p$. Since $n>1$, we have $m>1$, so $m=p$ since $p$ is prime.
+  We also have a prime of type II.
+  By Lemma~\ref{lem:frobenius}, there exists $\tau_1\in G$ whose decomposition
+  into disjoint cycles contains exactly one even cycle $\sigma_0$ (of length
+  $2$).  Let $a$ be the least common multiple of the lengths of the other
+  cycles in $\tau_1$, then $\tau_1^a\in G$ is a transposition.
+  
+  Finally, there is a prime of type III.  By Lemma~\ref{lem:frobenius}, there
+  exists $\tau_2\in G$ whose decomposition into disjoint cycles contains one
+  cycle $\rho_0$ of prime length $p>d/2$.  Therefore the other cycles have
+  lengths that are coprime to $p$; letting $b$ denote the least common
+  multiple of these lengths, we find that $\tau_2^b\in G$ is a $p$-cycle.
+
+  We now use the existence of these elements of $G$ to conclude that
+  $G=\SS_d$.  For $i,j\in S=\{1,\ldots,d\}$, write $i\sim j$ if $i=j$ or if
+  the transposition $(i~j)$ is in $G$.  This is an equivalence relation on
+  $S$.  Since $G$ is
+  transitive, each equivalence class has the same number $n$ of elements 
+  and it follows that $n|d$. Note that $n>1$ since $G$ contains at least one
+  transposition, namely $\tau_1^a$. 
+  Let $T=\{e_1,e_2,\ldots,e_p\}$ be the subset of $S$ permuted by
+  $\tau_2^b$, and let $G_T$ be the subgroup of $G$ fixing $S\setminus T$.
+  Define an equivalence relation on $T$ by $i\simeq j$ if $i=j$ or if the transposition
+  $(i~j) \in G_T$. As before, each equivalence class has the same number $m$ of elements
+  and $m\mid p$. Since $n>1$, we have $m>1$, so $m=p$ since $p$ is prime.
   But $n\geq m$ because $G_T\subset G$. Thus $n>d/2$, so $n=d$. This implies $G=\SS_d$. 
 \end{proof}
 
