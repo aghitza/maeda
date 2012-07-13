@@ -226,7 +226,7 @@ primes for which the conjecture fails is zero.
   \end{equation*}
 \end{theorem}
 
-Finally, Ahlgren proved a simple criterion for extending the validity of
+Finally, Ahlgren gave a simple criterion for extending the validity of
 Maeda's conjecture from one index to another, and used it together with some
 computer work to prove the following result.
 
@@ -277,6 +277,9 @@ Section~\ref{sect:implementation}.  Finally, Section~\ref{sect:applications}
 gives some direct corollaries of Theorem~\ref{thm:main} to some questions
 about modular forms of level one.
 
+We have made the code and data used to obtain Theorem~\ref{thm:main} available
+at TODO.
+
 \section{Polynomial factorization and Frobenius elements}
 \label{sect:frobenius}
 Since this correspondence plays a central role in the theoretical
@@ -305,7 +308,7 @@ factors of degree $d_j$ over $\FF_p$.  We recall that $H$ is said to be
   $\tau$ is the same as the factorization pattern of $F_p$.
 \end{lemma}
 
-We sketch a proof of this result.
+We sketch a proof of this classical result.
 
 Fix a prime $p$ and consider the field automorphism
 $\sigma\colon\overline{\FF}_p\longto\overline{\FF}_p$ given by $\sigma(a)=a^p$.
@@ -329,7 +332,7 @@ uniquely by the property
 This implies that $\Frob_{\mathfrak{p}}$ permutes the roots
 $\alpha_1,\ldots,\alpha_d\in\mathcal{O}_K$ of $F$ in the exact same way as
 $\sigma$ permutes the roots in $\overline{\FF}_p$ of $F_p$.  We conclude that
-the cycle pattern $\Frob_{\mathfrak{p}}$ is the same as the factorization
+the cycle pattern of $\Frob_{\mathfrak{p}}$ is the same as the factorization
 pattern of $F_p$ over $\FF_p$.  Therefore we can take $\tau$ in the conclusion
 of Lemma~\ref{lem:frobenius} to be $\Frob_{\mathfrak{p}}$.
 
@@ -403,7 +406,7 @@ $F_p$ is separable:
   \item If $p$ is a prime of type I, then $F_p$ is irreducible, hence
     separable.
   \item If $p$ is a prime of type II or III, $F_p$ is a product of distinct
-    irreducible factors.  Each of the factors is therefore separable, and they 
+    irreducible factors.  Each of the factors is then separable, and they 
     cannot have any common roots, since otherwise they would have a
     nonconstant common factor and would therefore be reducible.  Hence $F_p$
     has distinct roots.
@@ -429,13 +432,13 @@ in~\cite{ConreyFarmer}.
 
   We also have a prime of type II.
   By Lemma~\ref{lem:frobenius}, there exists $\tau_1\in G$ whose decomposition
-  into disjoint cycles contains exactly one even cycle $\sigma_0$ (of length
+  into disjoint cycles contains exactly one even cycle (of length
   $2$).  Let $a$ be the least common multiple of the lengths of the other
   cycles in $\tau_1$, then $\tau_1^a\in G$ is a transposition.
   
   Finally, there is a prime of type III.  By Lemma~\ref{lem:frobenius}, there
   exists $\tau_2\in G$ whose decomposition into disjoint cycles contains one
-  cycle $\rho_0$ of prime length $p>d/2$.  Therefore the other cycles have
+  cycle of prime length $p>d/2$.  Therefore the other cycles have
   lengths that are coprime to $p$; letting $b$ denote the least common
   multiple of these lengths, we find that $\tau_2^b\in G$ is a $p$-cycle.
 
@@ -444,13 +447,13 @@ in~\cite{ConreyFarmer}.
   the transposition $(i~j)$ is in $G$.  This is an equivalence relation on
   $S$.  Since $G$ is
   transitive, each equivalence class has the same number $n$ of elements 
-  and it follows that $n|d$. Note that $n>1$ since $G$ contains at least one
+  and it follows that $n\mid d=\#S$. Note that $n>1$ since $G$ contains at least one
   transposition, namely $\tau_1^a$. 
-  Let $T=\{e_1,e_2,\ldots,e_p\}$ be the subset of $S$ permuted by
+  Let $T$ be the subset of $S$ permuted by
   $\tau_2^b$, and let $G_T$ be the subgroup of $G$ fixing $S\setminus T$.
   Define an equivalence relation on $T$ by $i\simeq j$ if $i=j$ or if the transposition
   $(i~j) \in G_T$. As before, each equivalence class has the same number $m$ of elements
-  and $m\mid p$. Since $n>1$, we have $m>1$, so $m=p$ since $p$ is prime.
+  and $m\mid p=\#T$. Since $n>1$, we have $m>1$, so $m=p$ since $p$ is prime.
   But $n\geq m$ because $G_T\subset G$. Thus $n>d/2$, so $n=d$. This implies $G=\SS_d$. 
 \end{proof}
 
@@ -549,7 +552,7 @@ the product of all the odd positive integers less than or equal to $n$.
     e^{\frac{1}{24(c-2)+1}-\frac{1}{6(c-2)}}
     >\left(\frac{9}{10}\right)^2\frac{\sqrt{2}}{\sqrt{\pi}}\frac{1}{\sqrt{d}},
   \end{equation*}
-  where we use the elementary inequalities (for $c>6$):
+  where we use the elementary inequalities (valid for $c>6$):
   \begin{align*}
     e^{\frac{1}{24(c-2)+1}-\frac{1}{6(c-2)}}>e^{-\frac{5}{24c}}&>\frac{9}{10},\\
     \frac{2c-3}{2c-2}&\geq \frac{9}{10}.
@@ -684,11 +687,17 @@ from~\cite{ConreyFarmer}, based on the results introduced in the previous
 section.  We implemented this algorithm using the mathematical software Sage, 
 see~\cite{Sage}.
 
-Here is what we do for a fixed weight $k$:
+Here is a description of the main steps used to verify Maeda's conjecture for
+a fixed weight $k$; in those cases where a major step is delegated to a
+component of Sage (rather than using native Sage code), we mention the
+relevant component.
 \begin{enumerate}
-  \item\label{itm:vmbasis} Compute the Victor Miller basis $\cB$ for $S_k$ up to precision
-    $2(d+2)$, where $d$ is the dimension of $S_k$.
-  \item\label{itm:hecke} Compute the matrix $M$ of the Hecke operator $T_2$ with respect to the
+  \item\label{itm:vmbasis} Compute the Victor Miller basis $\cB$ for $S_k$ up 
+    to precision
+    $2(d+2)$, where $d$ is the dimension of $S_k$.  The Sage implementation of
+    this basis uses~\cite{FLINT} polynomials as the internal data structure.
+  \item\label{itm:hecke} Compute the matrix $M$ of the Hecke operator $T_2$ 
+    with respect to the
     basis $\cB$ -- this is very efficient since the basis $\cB$ is
     echelonized.
   \item\label{itm:random} Pick a random prime $p<2^{20}$, uniformly over this
@@ -697,10 +706,13 @@ Here is what we do for a fixed weight $k$:
     type we are looking for, but not so large that the arithmetic over $\FF_p$
     gets too expensive.)
   \item Reduce $M$ modulo $p$ and compute the characteristic polynomial
-    $F_p\in \FF_p[X]$.
-  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type I.
+    $F_p\in \FF_p[X]$.  The charactistic polynomial is computed by
+    the~\cite{Linbox} library.
+  \item Is $F_p$ irreducible?  If so, $p$ is a prime of type I.  The
+    irreducibility test uses~\cite{FLINT}.
   \item Factor $F_p$ over $\FF_p$ and use this factorization to decide whether
-    $p$ is a prime of type II or III.
+    $p$ is a prime of type II or III.  The factorization is done
+    by~\cite{FLINT}.
   \item Repeat from step~(\ref{itm:random}) until we have found at
     least one prime of each type.
 \end{enumerate}
@@ -727,15 +739,15 @@ interpreting the graphs:
     of the number of primes needed by the consecutive algorithm.  However,
     some of this is counteracted by the fact that the consecutive algorithm
     works with much smaller primes, which are faster to test.
+  \item Overall, for weights less than $\numprint{2000}$, the randomized 
+    algorithm was about twice as fast as the consecutive one.  
 \end{itemize}
 
-Overall, for weights less than $\numprint{2000}$, the randomized algorithm was
-about twice as fast as the consecutive one.  
-
-TODO: find out which component of Sage is used in the main steps.
-
-TODO: get timings for each main step for a large weight $k$.
-
+For weight $k=\numprint{12000}$, the entire verification took about 46 hours.
+The majority (93\%) of the time was spent looking for a prime of type I; this
+required testing \numprint{1783} primes, and each test took about 87 seconds.
+The computation of the Victor Miller basis took about 2.2 hours, and the
+computation of the characteristic polynomial of $T_2$ took about 1 hour.
 
 
 \begin{figure}[h]
@@ -793,7 +805,9 @@ expected number of primes.}
 We record some immediate consequences of Theorem~\ref{thm:main}.
 
 \subsection{Non-vanishing of $L$-functions}
-Recall that the \emph{$L$-function} associated to an eigenform 
+A modular form is called an \emph{eigenform} if it is an eigenvector for all
+the Hecke operators $T_n$.
+The \emph{$L$-function} associated to an eigenform 
 $f=\sum_{n=1}^\infty a_n q^n$ of weight $k$ is given by
 \begin{equation*}
   L(f, s)=\sum_{n=1}^\infty \frac{a_n}{n^s}.
@@ -865,8 +879,9 @@ conjecture is discussed in Section 6 of~\cite{BeyerlJamesXue}, and
 Theorem~\ref{thm:main} implies the following result.
 
 \begin{corollary}
+  \label{cor:div_eigen}
   Let $h$ be a cuspidal eigenform of weight $\leq\bound$, and let 
-  $f\in M_l$ be an eigenform
+  $f$ be an eigenform
   (which could be cuspidal or Eisenstein).  Then $h=fg$ for some modular form
   $g\in M_k$ with $k>2$ if and only if we are in one of the cases listed in 
   Table~\ref{tbl:div_eigen}.
@@ -890,7 +905,8 @@ Theorem~\ref{thm:main} implies the following result.
   \end{tabular}
 \end{center}
   \caption{The only cases in which a cuspidal eigenform of weight $\leq\bound$
-  can be factored into $h=fg$ with $f$ an eigenform.}
+  can be factored into $h=fg$ with $f$ an eigenform, see
+  Corollary~\ref{cor:div_eigen}.}
   \label{tbl:div_eigen}
 \end{table}
 
