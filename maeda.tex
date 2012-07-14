@@ -59,7 +59,7 @@
 \newcommand{\Frob}{\operatorname{Frob}}
 \newcommand{\Gal}{\operatorname{Gal}}
 
-\newcommand{\bound}{\numprint{10000}}
+\newcommand{\bound}{\numprint{12000}}
 
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\SL}{\mathrm{SL}}
@@ -78,7 +78,7 @@ Science Foundation Grant No. DMS-0821725, held by William Stein.}
 Angus McAndrew\\
 Department of Mathematics and Statistics\\
 University of Melbourne\\
-{\tt aghitza@gmail.com}, {\tt mcandrew@student.unimelb.edu.au}
+{\tt aghitza@alum.mit.edu}, {\tt mcandrew@student.unimelb.edu.au}
 }
 \date{}
 
@@ -92,7 +92,8 @@ University of Melbourne\\
   for the Hecke operator $T_2$ on the space of cusp forms of level one. We provide
   experimental evidence for all weights less than $\bound$, as well as some
   applications of these results.  The algorithm was implemented using the
-  mathematical software Sage.
+  mathematical software Sage, and the code and resulting data were made
+  freely available.
 \end{abstract}
 
 
@@ -154,8 +155,8 @@ The complex vector space $S_k$ has dimension
 
 Let $F$ denote the characteristic polynomial of the operator $T_2$ acting on
 $S_k$, and let $d=\dim S_k$.
-In the 1970's, Yoshitaka Maeda noticed that $F$ is irreducible over $\QQ$ for
-all $k$ such that $d\leq 12$.  In the 1990's, Lee-Hung~\cite{LeeHung} and
+In the 1970s, Yoshitaka Maeda noticed that $F$ is irreducible over $\QQ$ for
+all $k$ such that $d\leq 12$.  In the 1990s, Lee-Hung~\cite{LeeHung} and
 Buzzard~\cite{Buzzard} studied these polynomials further and observed in a
 number of cases that the Galois group of $F$ is the symmetric group
 $\SS_d$.  Shortly thereafter, Maeda made the following conjectural statement:
@@ -277,8 +278,10 @@ Section~\ref{sect:implementation}.  Finally, Section~\ref{sect:applications}
 gives some direct corollaries of Theorem~\ref{thm:main} to some questions
 about modular forms of level one.
 
-We have made the code and data used to obtain Theorem~\ref{thm:main} available
-at TODO.
+We have made the code and data used to verify Theorem~\ref{thm:main} available
+at 
+
+\centerline{\url{http://bitbucket.org/aghitza/maeda_data}}
 
 \section{Polynomial factorization and Frobenius elements}
 \label{sect:frobenius}
@@ -706,7 +709,7 @@ relevant component.
     type we are looking for, but not so large that the arithmetic over $\FF_p$
     gets too expensive.)
   \item Reduce $M$ modulo $p$ and compute the characteristic polynomial
-    $F_p\in \FF_p[X]$.  The charactistic polynomial is computed by
+    $F_p\in \FF_p[X]$.  The characteristic polynomial is computed by
     the~\cite{Linbox} library.
   \item Is $F_p$ irreducible?  If so, $p$ is a prime of type I.  The
     irreducibility test uses~\cite{FLINT}.
