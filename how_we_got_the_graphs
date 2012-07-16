@@ -1,0 +1,14 @@
+sage: attach maeda.sage
+sage: weights = range(28, 2002, 2)
+sage: rtype1, rtype2, rtype3 = get_stats("data/", weights)
+sage: ctype1, ctype2, ctype3 = get_stats("data-consec/", weights)
+sage: cp = list_plot(histo(ctype1.values()), plotjoined=True, color='red', linestyle=":", thickness=2)
+sage: rp = list_plot(histo(rtype1.values()), plotjoined=True, color='blue', linestyle="-")
+sage: (cp+rp).save("/home/ghitza/type1.png")                                              
+sage: cp = list_plot(histo(ctype2.values()), plotjoined=True, color='red', linestyle=":", thickness=2)
+sage: rp = list_plot(histo(rtype2.values()), plotjoined=True, color='blue', linestyle="-")
+sage: (cp+rp).save("/home/ghitza/type2.png")                                              
+sage: cp = list_plot(histo(ctype3.values()), plotjoined=True, color='red', linestyle=":", thickness=2)
+sage: rp = list_plot(histo(rtype3.values()), plotjoined=True, color='blue', linestyle="-")
+sage: (cp+rp).save("/home/ghitza/type3.png")                                              
+
