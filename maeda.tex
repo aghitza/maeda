@@ -29,6 +29,8 @@
 \usepackage[a4paper]{geometry}
 \usepackage{numprint}
 \usepackage[pdftex]{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.6}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -752,10 +754,9 @@ required testing \numprint{1783} primes, and each test took about 87 seconds.
 The computation of the Victor Miller basis took about 2.2 hours, and the
 computation of the characteristic polynomial of $T_2$ took about 1 hour.
 
-
 \begin{figure}[h]
   \begin{center}
-  \raisebox{2.5cm}{
+  \raisebox{3.3cm}{
   \begin{tabular}{lrr}
     & consec & random\\
     min & $1.85$ & $0.01$\\
@@ -763,9 +764,21 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
     med & $2.93$ & $0.69$\\
     mean & $3.21$ & $0.96$
   \end{tabular}}\qquad
-  \includegraphics[width=3.6in, height=2.2in]{type1.png}
+  \begin{tikzpicture}
+    \begin{axis}[
+        height=7cm,
+        width=10cm,
+        mark size=0.3pt,
+    ]
+    \addplot file {rh1};
+    \addlegendentry{random}
 
-  \raisebox{2.5cm}{
+    \addplot[densely dotted, red, very thick] file {ch1};
+    \addlegendentry{consec}
+    \end{axis}
+  \end{tikzpicture}
+
+  \raisebox{3.3cm}{
   \begin{tabular}{lrr}
     & consec & random\\
     min & $0.93$ & $0.03$\\
@@ -773,9 +786,21 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
     med & $6.64$ & $0.70$\\
     mean & $6.47$ & $0.99$
   \end{tabular}}\qquad
-\includegraphics[width=3.6in, height=2.2in]{type2.png}
+  \begin{tikzpicture}
+    \begin{axis}[
+        height=7cm,
+        width=10cm,
+        mark size=0.3pt,
+    ]
+    \addplot file {rh2};
+    \addlegendentry{random}
 
-  \raisebox{2.5cm}{
+    \addplot[densely dotted, red, very thick] file {ch2};
+    \addlegendentry{consec}
+    \end{axis}
+  \end{tikzpicture}
+
+  \raisebox{3.3cm}{
   \begin{tabular}{lrr}
     & consec & random\\
     min & $4.00$ & $0.12$\\
@@ -783,7 +808,19 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
     med & $23.03$ & $0.68$\\
     mean & $22.13$ & $0.94$
   \end{tabular}}\qquad
-\includegraphics[width=3.6in, height=2.2in]{type3.png}
+  \begin{tikzpicture}
+    \begin{axis}[
+        height=7cm,
+        width=10cm,
+        mark size=0.3pt,
+    ]
+    \addplot file {rh3};
+    \addlegendentry{random}
+
+    \addplot[densely dotted, red, very thick] file {ch3};
+    \addlegendentry{consec}
+    \end{axis}
+  \end{tikzpicture}
 \end{center}
 \caption{Histograms illustrating the number of primes tested before finding a
   prime of type I, II, respectively III, in weights up to $\numprint{2000}$.  
@@ -795,7 +832,7 @@ featuring (a small neighborhood of) that particular ratio $N/E$.  The blue
 continuous line corresponds to our randomized algorithm, while the red dotted 
 line corresponds to the consecutive algorithm from~\cite{ConreyFarmer}.  
 As an example: in the top graph, the global maximum on the continuous line is
-at $(0.1, 101)$, meaning that for $101$ weights, the number of candidates for
+at $(0.1, 182)$, meaning that for $182$ weights, the number of candidates for
 a prime of type I tested in the randomized algorithm was about $1/10$ of the 
 expected number of primes.}
 \label{fig:histogram}
