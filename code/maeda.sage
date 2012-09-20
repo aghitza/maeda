@@ -12,7 +12,7 @@ def doit_consec(weights):
     for irred in maeda_parallel_consec(weights):
         print irred
               
-@parallel(ncpus=6)
+@parallel(ncpus=1)
 def maeda_parallel(k):
     stk = str(k)
     filename = 'data/' + '0'*(5-len(stk)) + stk
@@ -31,7 +31,7 @@ def maeda_parallel(k):
         os.remove(lockfilename)
     return irred
 
-@parallel(ncpus=6)
+@parallel(ncpus=8)
 def maeda_parallel_consec(k):
     stk = str(k)
     filename = 'data-consec/' + '0'*(5-len(stk)) + stk
@@ -119,7 +119,7 @@ def maeda(weight, verbose=True, filename=None):
         del f
     return isirred         
 
-def maeda_modular(weight, PRIME_BOUND=2^17, verbose=True, filename=None):
+def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
     import time as time
     time0 = time.time()
     count = 0
@@ -127,12 +127,14 @@ def maeda_modular(weight, PRIME_BOUND=2^17, verbose=True, filename=None):
     prec = 2*(dim + 2)
     #b = CuspForms(1, weight).q_expansion_basis(prec=prec)
     b = victor_miller_basis(weight, prec=prec, cusp_only=True)
+    os.utime(filename+'.lock', None)
     time1 = time.time()
     time_str = ''
     st = "# basis computed in              %9.3f seconds"%(time1-time0)
     print(st)
     time_str += st + '\n'
     M = hecke_operator_on_basis(b, 2, weight)
+    os.utime(filename+'.lock', None)
     time2 = time.time()
     st = "# matrix of T_2 computed in      %9.3f seconds"%(time2-time1)
     print(st)
@@ -143,10 +145,13 @@ def maeda_modular(weight, PRIME_BOUND=2^17, verbose=True, filename=None):
     while ((type1_prime is None) or (type2_prime is None) or
         (type3_prime is None)):
         count += 1
+        os.utime(filename+'.lock', None)
         p = random_prime(PRIME_BOUND)
         K = GF(p)
         Mp = M.change_ring(K)
         f = Mp.charpoly()
+        if not f.is_squarefree():
+            continue
         if (type1_prime is None) and f.is_irreducible():
             type1_prime = p
             type1_poly = f
@@ -160,8 +165,6 @@ def maeda_modular(weight, PRIME_BOUND=2^17, verbose=True, filename=None):
                 print(st)
                 time_str += st + '\n'
                 continue
-        if not f.is_squarefree():
-            continue
         fact = f.factor()
         lst = sorted([g[0].degree() for g in fact])
         if (type2_prime is None) and is_type_II(lst):
@@ -196,7 +199,7 @@ def maeda_modular(weight, PRIME_BOUND=2^17, verbose=True, filename=None):
         file.close()     
     return True
 
-def maeda_modular_consec(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
+def maeda_modular_consec(weight, PRIME_BOUND=2^12, verbose=True, filename=None):
     import time as time
     time0 = time.time()
     count = 0
@@ -217,7 +220,7 @@ def maeda_modular_consec(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
     type1_prime = None
     type2_prime = None
     type3_prime = None
-    p = 1
+    p = primes_first_n(dim)[-1]
     while ((type1_prime is None) or (type2_prime is None) or
         (type3_prime is None)):
         count += 1
@@ -326,36 +329,6 @@ def check_results(pathname):
                 print("%s: type 3 is not the right shape"%fname)
         resfile.close()
 
-def get_stats(pathname):
-    type1 = dict()
-    type2 = dict()
-    type3 = dict()
-    for fname in sorted(os.listdir(pathname)):
-        print("%s"%fname)
-        if ".lock" in fname:
-            continue
-        k = ZZ(fname.lstrip('0'))
-        d = dimension_cusp_forms(1, k)
-        fullname = pathname + fname
-        resfile = open(fullname, 'r')
-        for _ in range(4):
-            resfile.readline()
-        for _ in range(3):
-            primeline = resfile.readline().strip('\n')
-            strlist = primeline.split(' ')
-            tp = ZZ(strlist[2])
-            tries = ZZ(strlist[-2])
-            if tp == 1:
-                type1[k] = tries/d*1.0
-            elif tp == 2:
-                type2[k] = tries
-            elif tp == 3:
-                type3[k] = tries
-            else:
-                raise RuntimeError("booom")
-        resfile.close()
-    return type1, type2, type3
-
 def maeda_modp(weight, p, verbose=True, filename=None):
     import time as time
     dim = dimension_cusp_forms(1, weight)
@@ -390,3 +363,73 @@ def maeda_modp(weight, p, verbose=True, filename=None):
         print "%s: ... done in %s seconds" %(weight, (time4 - time3))
         #print "%s: maximum memory usage: %s" %(weight, max([mem3, mem2, mem1]) - mem0)
     return isirred         
+
+def get_stats(pathname, upper=2000):
+    type1 = dict()
+    type2 = dict()
+    type3 = dict()
+    for fname in sorted(os.listdir(pathname)):
+        print("%s"%fname)
+        if ".lock" in fname:
+            continue
+        k = ZZ(fname.lstrip('0'))
+        if k > upper:
+            continue
+        d = dimension_cusp_forms(1, k)
+        fullname = pathname + fname
+        resfile = open(fullname, 'r')
+        for _ in range(4):
+            resfile.readline()
+        for _ in range(3):
+            primeline = resfile.readline().strip('\n')
+            strlist = primeline.split(' ')
+            tp = ZZ(strlist[2])
+            tries = ZZ(strlist[-2])
+            if tp == 1:
+                type1[k] = tries/expected_tries_type_1(d)
+            elif tp == 2:
+                type2[k] = tries/expected_tries_type_2(d)
+            elif tp == 3:
+                type3[k] = tries/expected_tries_type_3(d)
+            else:
+                raise RuntimeError("booom")
+        resfile.close()
+    return type1, type2, type3
+
+def histo(valdict, width, minbucket=None, maxbucket=None):
+    hist = []
+    if minbucket is None:
+        minbucket = min(valdict.values())
+    if maxbucket is None:
+        maxbucket = max(valdict.values())
+    left = RR(minbucket)
+    while (left <= maxbucket):
+        right = RR(left + width)
+        mid = RR(left + width/2)
+        howmany = 0
+        for weight in valdict:
+            if (left <= valdict[weight]) and (valdict[weight] < right):
+                howmany = howmany + 1
+        hist.append((mid, howmany))
+        left = right
+    return hist
+
+def expected_tries_type_1(d):
+    return RR(d)
+
+def expected_tries_type_2(d):
+    if (d % 2) == 0:
+        dt = d
+    else:
+        dt = d - 1
+    dens = RR(double_factorial(dt-3)^2/(2*factorial(dt-2)))
+    return 1/dens
+
+def expected_tries_type_3(d):
+    dens = RR(sum([1/ell for ell in prime_range(d/2+1, d+1)]))
+    return 1/dens
+
+def double_factorial(n):
+    if (n % 2) == 0:
+        raise ValueError('can only take double factorial of odd integers, but %s is even' %n)
+    return prod(range(1, n+1, 2))
