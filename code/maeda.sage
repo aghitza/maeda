@@ -15,7 +15,7 @@ def doit_consec(weights):
 @parallel(ncpus=1)
 def maeda_parallel(k):
     stk = str(k)
-    filename = 'data/' + '0'*(5-len(stk)) + stk
+    filename = 'data-blah/' + '0'*(5-len(stk)) + stk
     lockfilename = filename + '.lock'
     if os.path.exists(filename) or os.path.exists(lockfilename):
         irred = None
@@ -152,7 +152,9 @@ def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
         f = Mp.charpoly()
         if not f.is_squarefree():
             continue
-        if (type1_prime is None) and f.is_irreducible():
+        fact = f.factor()
+        is_irreducible = (len(fact) == 1 and fact[0][1] == 1)
+        if (type1_prime is None) and is_irreducible:
             type1_prime = p
             type1_poly = f
             st = "# type 1 found in                %9.3f seconds, after %4d tries"%(time.time()-time2, count)
@@ -165,7 +167,6 @@ def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
                 print(st)
                 time_str += st + '\n'
                 continue
-        fact = f.factor()
         lst = sorted([g[0].degree() for g in fact])
         if (type2_prime is None) and is_type_II(lst):
             type2_prime = p
