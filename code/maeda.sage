@@ -12,7 +12,7 @@ def doit_consec(weights):
     for irred in maeda_parallel_consec(weights):
         print irred
               
-@parallel(ncpus=1)
+@parallel(ncpus=3)
 def maeda_parallel(k):
     stk = str(k)
     filename = 'data-blah/' + '0'*(5-len(stk)) + stk
