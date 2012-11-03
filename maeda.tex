@@ -68,10 +68,15 @@
 
 %\cleanlookdateon
 \title{Experimental evidence for Maeda's conjecture on modular forms
+\footnote{
+We thank David Harvey for asking a question that lead us to
+  drastically improve our Sage implementation, and David Farmer, Gabor Wiese
+and the referees for very useful comments.}
 %\footnote{Commit: \gitAbbrevHash{} on \printdate{\gitAuthorDate{}}}
 }
 \author{
-Alexandru Ghitza\footnote{Research of the first author was supported by 
+Alexandru Ghitza\footnote{
+  Research of the first author was supported by 
 a Discovery Grant from the Australian Research Council.
 Some of the computations described in this paper were performed on the Sage
 cluster at the University of Washington, partly supported by National 
@@ -107,7 +112,11 @@ and properties, there are some universal guiding principles (such as the
 Langlands program) that serve to unify and motivate this diversity.  On the
 other hand, there are some special properties that seem to occur in isolation.
 One such instance is provided by a conjecture formulated by Maeda, which
-indicates a behavior that seems to be specific to modular forms of level one
+indicates a behavior that seems to be specific\footnote{We must note that
+  recent work of Tsaknias~\cite{Tsaknias} points to a generalisation of
+Maeda's conjecture to forms of higher level and promises to shed new
+conceptual light on these questions.  We thank Gabor Wiese for
+bringing Tsaknias' preprint to our attention.} to modular forms of level one
 on $\GL_2$.  
 
 Before describing Maeda's conjecture in more detail, we review some basic 
@@ -287,10 +296,10 @@ at
 
 \section{Polynomial factorization and Frobenius elements}
 \label{sect:frobenius}
-Since this correspondence plays a central role in the theoretical
-underpinnings of our algorithm, we review some facts about factorization of
-polynomials over finite fields and Frobenius elements in Galois groups.  These
-ideas go back all the way to the beginnings of algebraic number theory,
+Our algorithm is based on a correspondence between the factorization of
+polynomials over finite fields and the cycle decomposition of Frobenius
+elements in Galois groups.  We give a short review of these
+results, which go back all the way to the beginnings of algebraic number theory,
 appearing for instance in the work of Frobenius.  A fascinating exposition of the
 mathematics and history of these ideas is given by Stevenhagen and Lenstra
 in~\cite{StevenhagenLenstra}.
@@ -299,7 +308,9 @@ We start with a bit of terminology.  If $\tau$ is a permutation on $d$ letters,
 it can be decomposed into a product of disjoint cycles, uniquely up to
 permutation of the cycles.  We say that $\tau$ has \emph{cycle pattern}
 $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ if its decomposition contains exactly
-$m_j$ cycles of length $d_j$, for $j=1,\ldots,t$.  If $H$ is a polynomial in
+$m_j$ cycles of length $d_j$, for $j=1,\ldots,t$.  
+  (Note: $m_1d_1+m_2d_2+\ldots +m_td_t=d$.) 
+If $H$ is a polynomial in
 $\FF_p[X]$, we say that $H$ has \emph{factorization pattern}
 $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ if $H$ has exactly $m_j$ irreducible
 factors of degree $d_j$ over $\FF_p$.  We recall that $H$ is said to be
@@ -472,10 +483,11 @@ well-known result
 expression for the number of permutations.
 
 \begin{lemma}\label{lem:cycletype}
-  Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
+  Let an element $\sigma$ of $\SS_d$ have cycle pattern $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
   where $m_i$ is the number of times a cycle of length $d_i$ appears in the cycle
-  decomposition of $\sigma$. (Note: $m_1d_1+m_2d_2+\ldots +m_td_t=d$.) The number
-   of elements of $\SS_d$ of cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ is equal to
+  decomposition of $\sigma$. 
+  The number
+   of elements of $\SS_d$ of cycle pattern $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ is equal to
   \begin{equation*}
     C(d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t})=\frac{d!}{\prod_{j=1}^t\left(d_j^{m_j}m_j!\right)}.
   \end{equation*}
@@ -748,6 +760,13 @@ interpreting the graphs:
     algorithm was about twice as fast as the consecutive one.  
 \end{itemize}
 
+It would be very interesting to understand why small primes are ill-suited for
+the purposes of this multimodular algorithm.  We can only offer a heuristic
+reason: we observed that the discriminant of the Hecke operator $T_2$ tends to
+be highly divisible by a lot of small primes; this means that the
+characteristic polynomial of $T_2$ is not squarefree at these primes, which
+disqualifies them from being primes of types I, II or III.
+
 For weight $k=\numprint{12000}$, the entire verification took about 46 hours.
 The majority (93\%) of the time was spent looking for a prime of type I; this
 required testing \numprint{1783} primes, and each test took about 87 seconds.
@@ -955,11 +974,16 @@ Theorem~\ref{thm:main} implies the following result.
 How many initial Fourier coefficients are necessary to completely determine a
 Hecke eigenform?  Theorem 1 in~\cite{Ghitza} says that $a_2$, $a_3$ and $a_4$
 are sufficient, but our computational verification of Maeda's conjecture gives
-a stronger result:
+a stronger result\footnote{Corollary~\ref{cor:distinguish} relies on
+Theorem~\ref{thm:main}, which holds for $k\leq\bound$, but also needs another
+computation from~\cite{Ghitza}, which has only been done for weights up to
+$\numprint{10000}$.}:
 
 \begin{corollary}[see Theorem 6 in~\cite{Ghitza}]
-  Comparing the Fourier coefficient $a_2$ is sufficient to distinguish any two
-  cuspidal eigenforms of level $1$ and weights $\leq\numprint{10000}$.
+  \label{cor:distinguish}
+  Let $f$ and $g$ be cuspidal eigenforms of level $1$ and (possibly distinct)
+  weights
+  $\leq\numprint{10000}$.  Then $a_2(f)=a_2(g)$ if and only if $f=g$.
 \end{corollary}
 
 
