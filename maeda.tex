@@ -68,10 +68,15 @@
 
 %\cleanlookdateon
 \title{Experimental evidence for Maeda's conjecture on modular forms
+\footnote{
+We thank David Harvey for asking a question that lead us to
+  drastically improve our Sage implementation, and David Farmer, Gabor Wiese
+and the referees for very useful comments.}
 %\footnote{Commit: \gitAbbrevHash{} on \printdate{\gitAuthorDate{}}}
 }
 \author{
-Alexandru Ghitza\footnote{Research of the first author was supported by 
+Alexandru Ghitza\footnote{
+  Research of the first author was supported by 
 a Discovery Grant from the Australian Research Council.
 Some of the computations described in this paper were performed on the Sage
 cluster at the University of Washington, partly supported by National 
@@ -751,6 +756,13 @@ interpreting the graphs:
   \item Overall, for weights less than $\numprint{2000}$, the randomized 
     algorithm was about twice as fast as the consecutive one.  
 \end{itemize}
+
+It would be very interesting to understand why small primes are ill-suited for
+the purposes of this multimodular algorithm.  We can only offer a heuristic
+reason: we observed that the discriminant of the Hecke operator $T_2$ tends to
+be highly divisible by a lot of small primes; this means that the
+characteristic polynomial of $T_2$ is not squarefree at these primes, which
+disqualifies them from being primes of types I, II or III.
 
 For weight $k=\numprint{12000}$, the entire verification took about 46 hours.
 The majority (93\%) of the time was spent looking for a prime of type I; this
