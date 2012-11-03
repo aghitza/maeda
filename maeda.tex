@@ -296,10 +296,10 @@ at
 
 \section{Polynomial factorization and Frobenius elements}
 \label{sect:frobenius}
-Since this correspondence plays a central role in the theoretical
-underpinnings of our algorithm, we review some facts about factorization of
-polynomials over finite fields and Frobenius elements in Galois groups.  These
-ideas go back all the way to the beginnings of algebraic number theory,
+Our algorithm is based on a correspondence between the factorization of
+polynomials over finite fields and the cycle decomposition of Frobenius
+elements in Galois groups.  We give a short review of these
+results, which go back all the way to the beginnings of algebraic number theory,
 appearing for instance in the work of Frobenius.  A fascinating exposition of the
 mathematics and history of these ideas is given by Stevenhagen and Lenstra
 in~\cite{StevenhagenLenstra}.
@@ -308,7 +308,9 @@ We start with a bit of terminology.  If $\tau$ is a permutation on $d$ letters,
 it can be decomposed into a product of disjoint cycles, uniquely up to
 permutation of the cycles.  We say that $\tau$ has \emph{cycle pattern}
 $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ if its decomposition contains exactly
-$m_j$ cycles of length $d_j$, for $j=1,\ldots,t$.  If $H$ is a polynomial in
+$m_j$ cycles of length $d_j$, for $j=1,\ldots,t$.  
+  (Note: $m_1d_1+m_2d_2+\ldots +m_td_t=d$.) 
+If $H$ is a polynomial in
 $\FF_p[X]$, we say that $H$ has \emph{factorization pattern}
 $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ if $H$ has exactly $m_j$ irreducible
 factors of degree $d_j$ over $\FF_p$.  We recall that $H$ is said to be
@@ -481,10 +483,11 @@ well-known result
 expression for the number of permutations.
 
 \begin{lemma}\label{lem:cycletype}
-  Let an element $\sigma$ of $\SS_d$ have cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
+  Let an element $\sigma$ of $\SS_d$ have cycle pattern $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$, 
   where $m_i$ is the number of times a cycle of length $d_i$ appears in the cycle
-  decomposition of $\sigma$. (Note: $m_1d_1+m_2d_2+\ldots +m_td_t=d$.) The number
-   of elements of $\SS_d$ of cycle type $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ is equal to
+  decomposition of $\sigma$. 
+  The number
+   of elements of $\SS_d$ of cycle pattern $d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t}$ is equal to
   \begin{equation*}
     C(d_1^{m_1}d_2^{m_2}\ldots d_t^{m_t})=\frac{d!}{\prod_{j=1}^t\left(d_j^{m_j}m_j!\right)}.
   \end{equation*}
@@ -971,9 +974,13 @@ Theorem~\ref{thm:main} implies the following result.
 How many initial Fourier coefficients are necessary to completely determine a
 Hecke eigenform?  Theorem 1 in~\cite{Ghitza} says that $a_2$, $a_3$ and $a_4$
 are sufficient, but our computational verification of Maeda's conjecture gives
-a stronger result:
+a stronger result\footnote{Corollary~\ref{cor:distinguish} relies on
+Theorem~\ref{thm:main}, which holds for $k\leq\bound$, but also needs another
+computation from~\cite{Ghitza}, which has only been done for weights up to
+$\numprint{10000}$.}:
 
 \begin{corollary}[see Theorem 6 in~\cite{Ghitza}]
+  \label{cor:distinguish}
   Let $f$ and $g$ be cuspidal eigenforms of level $1$ and (possibly distinct)
   weights
   $\leq\numprint{10000}$.  Then $a_2(f)=a_2(g)$ if and only if $f=g$.
