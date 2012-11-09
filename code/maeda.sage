@@ -12,10 +12,10 @@ def doit_consec(weights):
     for irred in maeda_parallel_consec(weights):
         print irred
               
-@parallel(ncpus=1)
+@parallel(ncpus=4)
 def maeda_parallel(k):
     stk = str(k)
-    filename = 'data-blah/' + '0'*(5-len(stk)) + stk
+    filename = 'data/' + '0'*(5-len(stk)) + stk
     lockfilename = filename + '.lock'
     if os.path.exists(filename) or os.path.exists(lockfilename):
         irred = None
