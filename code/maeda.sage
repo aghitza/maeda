@@ -12,7 +12,7 @@ def doit_consec(weights):
     for irred in maeda_parallel_consec(weights):
         print irred
               
-@parallel(ncpus=4)
+@parallel(ncpus=2)
 def maeda_parallel(k):
     stk = str(k)
     filename = 'data/' + '0'*(5-len(stk)) + stk
@@ -134,6 +134,7 @@ def maeda_modular(weight, PRIME_BOUND=2^20, verbose=True, filename=None):
     print(st)
     time_str += st + '\n'
     M = hecke_operator_on_basis(b, 2, weight)
+    del b
     os.utime(filename+'.lock', None)
     time2 = time.time()
     st = "# matrix of T_2 computed in      %9.3f seconds"%(time2-time1)
