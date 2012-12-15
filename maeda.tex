@@ -1,27 +1,29 @@
 \documentclass{book}
 
+% \usepackage[style=alphabetic,
+%   hyperref=auto,
+%   url=true,
+%   isbn=false,
+%   doi=false,
+%   block=none,
+%   maxnames=10,
+% backend=bibtex]{biblatex}
+% \addbibresource{maeda.bib}
+% \renewcommand{\bibfont}{\normalfont\small}
+
 \usepackage{amsmath}
 \usepackage{mathrsfs}
 \usepackage{numprint}
 \usepackage{pgfplots}
+\usepackage{url}
 \usepackage{tmj}
 
 
 \title{Maeda's conjecture}{Experimental evidence for Maeda's conjecture on
 modular forms}
-% \footnote{
-% We thank David Harvey for asking a question that lead us to
-%   drastically improve our Sage implementation, and David Farmer, Gabor Wiese
-% and the referees for very useful comments.}
 
-\author{A.~Ghitza, A.~McAndrew}{
+\author{Ghitza, McAndrew}{
   Alexandru Ghitza\addr{1}
-  % \footnote{
-  % Research of the first author was supported by 
-% a Discovery Grant from the Australian Research Council.
-% Some of the computations described in this paper were performed on the Sage
-% cluster at the University of Washington, partly supported by National 
-% Science Foundation Grant No. DMS-0821725, held by William Stein.}  
 \and 
 Angus McAndrew\addr{1}}
 \address{
@@ -69,7 +71,6 @@ Parkville, Australia}
 \end{abstract}
 
 \metadata{blah}{blah}{blah}
-
 
 \section{Introduction}
 \label{sect:introduction}
@@ -259,7 +260,18 @@ about modular forms of level one.
 We have made the code and data used to verify Theorem~\ref{thm:main} available
 at 
 
-% \centerline{{http://bitbucket.org/aghitza/maeda_data}}
+\centerline{\url{http://bitbucket.org/aghitza/maeda_data}}
+
+\subsection*{Acknowledgements}
+We thank David Harvey for asking a question that lead us to
+  drastically improve our Sage implementation, and David Farmer, Gabor Wiese
+and the referees for very useful comments.
+  
+Research of the first author was supported by 
+a Discovery Grant from the Australian Research Council.
+Some of the computations described in this paper were performed on the Sage
+cluster at the University of Washington, partly supported by National 
+Science Foundation Grant No. DMS-0821725, held by William Stein.
 
 \section{Polynomial factorization and Frobenius elements}
 \label{sect:frobenius}
@@ -629,7 +641,7 @@ purposes, the following weaker result is sufficient: for all $x>1$ we have
       \log 2
       -\left(\frac{\log^2 2}{2}+\frac{11}{10}\right)\frac{1}{\log d-\log
       2}\right.\\
-      &\left.\phantom{\frac{1}{\log d-\log 2}} 
+      &\left.%\phantom{\frac{1}{\log d-\log 2}} 
       -\left(\frac{4}{15}-\frac{\log^3 2}{3}\right)\frac{1}{(\log d-\log 2)^2}
       -\frac{\log^4 2}{4}\frac{1}{(\log d-\log 2)^3}
       \right]\\
@@ -742,7 +754,7 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
 
 \begin{figure}[h]
   \begin{center}
-  \raisebox{3.3cm}{
+  \raisebox{2.5cm}{
   \begin{tabular}{lrr}
     & consec & random\\
     min & $1.85$ & $0.01$\\
@@ -752,8 +764,8 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
   \end{tabular}}\qquad
   \begin{tikzpicture}
     \begin{axis}[
-        height=7cm,
-        width=10cm,
+        height=5cm,
+        width=7cm,
         mark size=0.3pt,
     ]
     \addplot file {rh1};
@@ -764,7 +776,7 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
     \end{axis}
   \end{tikzpicture}
 
-  \raisebox{3.3cm}{
+  \raisebox{2.5cm}{
   \begin{tabular}{lrr}
     & consec & random\\
     min & $0.93$ & $0.03$\\
@@ -774,8 +786,8 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
   \end{tabular}}\qquad
   \begin{tikzpicture}
     \begin{axis}[
-        height=7cm,
-        width=10cm,
+        height=5cm,
+        width=7cm,
         mark size=0.3pt,
     ]
     \addplot file {rh2};
@@ -786,7 +798,7 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
     \end{axis}
   \end{tikzpicture}
 
-  \raisebox{3.3cm}{
+  \raisebox{2.5cm}{
   \begin{tabular}{lrr}
     & consec & random\\
     min & $4.00$ & $0.12$\\
@@ -796,8 +808,8 @@ computation of the characteristic polynomial of $T_2$ took about 1 hour.
   \end{tabular}}\qquad
   \begin{tikzpicture}
     \begin{axis}[
-        height=7cm,
-        width=10cm,
+        height=5cm,
+        width=7cm,
         mark size=0.3pt,
     ]
     \addplot file {rh3};
@@ -955,7 +967,150 @@ $\numprint{10000}$.}:
 
 
 
-% \printbibliography
+\begin{thebibliography}{10}
+
+\bibitem{Ahlgren}
+Scott Ahlgren.
+\newblock On the irreducibility of {H}ecke polynomials.
+\newblock {\em Math. Comp.}, 77(263):1725--1731, 2008.
+
+\bibitem{BabaMurty}
+Srinath Baba and M.~Ram Murty.
+\newblock Irreducibility of {H}ecke polynomials.
+\newblock {\em Math. Res. Lett.}, 10(5-6):709--715, 2003.
+
+\bibitem{BachShallit}
+Eric Bach and Jeffrey Shallit.
+\newblock {\em Algorithmic number theory. {V}ol. 1}.
+\newblock Foundations of Computing Series. MIT Press, Cambridge, MA, 1996.
+\newblock Efficient algorithms.
+
+\bibitem{BeyerlJamesXue}
+Jeffrey Beyerl, Kevin James, and Hui Xue.
+\newblock Divisibility of an eigenform by another eigenform.
+\newblock 2011.
+
+\bibitem{Buzzard}
+Kevin Buzzard.
+\newblock On the eigenvalues of the {H}ecke operator {$T_2$}.
+\newblock {\em J. Number Theory}, 57(1):130--132, 1996.
+
+\bibitem{ConreyFarmer}
+J.~B. Conrey and D.~W. Farmer.
+\newblock Hecke operators and the nonvanishing of {$L$}-functions.
+\newblock In {\em Topics in number theory ({U}niversity {P}ark, {PA}, 1997)},
+  volume 467 of {\em Math. Appl.}, pages 143--150. Kluwer Acad. Publ.,
+  Dordrecht, 1999.
+
+\bibitem{ConreyFarmerWallace}
+J.~B. Conrey, D.~W. Farmer, and P.~J. Wallace.
+\newblock Factoring {H}ecke polynomials modulo a prime.
+\newblock {\em Pacific J. Math.}, 196(1):123--130, 2000.
+
+\bibitem{Linbox}
+Dumas, Gautier, Giesbrecht, Giorgi, Hovinen, Kaltofen, Saunders, Turner, and
+  Villard.
+\newblock Linbox: a generic library for exact linear algebra.
+\newblock In A.~Cohen, X-S Gao, and N.~Takayama, editors, {\em Mathematical
+  software: ICMS 2002}, pages 40--50, Beijing, 2002. World Scientific.
+
+\bibitem{Dusart}
+Pierre Dusart.
+\newblock Estimates of some functions over primes without {R}.{H},
+\newblock available as arXiv:1002.0442v1, 2010.
+
+\bibitem{OEIS}
+N.~J.~A.~Sloane et~al.
+\newblock The on-line encyclopedia of integer sequences, sequence {A}000246.
+\newblock 2012.
+
+\bibitem{FarmerJames}
+D.~W. Farmer and K.~James.
+\newblock The irreducibility of some level 1 {H}ecke polynomials.
+\newblock {\em Math. Comp.}, 71(239):1263--1270 (electronic), 2002.
+
+\bibitem{Feller}
+William Feller.
+\newblock {\em An Introduction to Probability Theory and Its Applications},
+  volume~1.
+\newblock Wiley, New York, 1968.
+
+\bibitem{Ghitza}
+Alexandru Ghitza.
+\newblock Distinguishing {H}ecke eigenforms.
+\newblock {\em Int. J. Number Theory}, 7(5):1247--1253, 2011.
+
+\bibitem{FLINT}
+William Hart.
+\newblock Fast library for number theory: an introduction.
+\newblock In {\em Mathematical Software -- ICMS 2010}, volume 6327 of {\em
+  Lecture notes in computer science}, pages 88--91. Springer, Heidelberg, 2010.
+
+\bibitem{HidaMaeda}
+Haruzo Hida and Yoshitaka Maeda.
+\newblock Non-abelian base change for totally real fields.
+\newblock {\em Pacific J. Math.}, (Special Issue):189--217, 1997.
+\newblock Olga Taussky-Todd: in memoriam.
+
+\bibitem{Kleinerman}
+Seth Kleinerman.
+\newblock Some computations in support of {M}aeda's conjecture.
+\newblock 2004.
+
+\bibitem{LeeHung}
+Hong-Chang Lee and Wan-Hui Hung.
+\newblock Galois groups of {H}ecke eigenforms.
+\newblock {\em Chinese J. Math.}, 23(4):329--342, 1995.
+
+\bibitem{Lim}
+Chu-Wee Lim.
+\newblock {\em Decomposition of spaces of cusp forms over {Q}, and variants of
+  partial {N}im}.
+\newblock ProQuest LLC, Ann Arbor, MI, 2005.
+\newblock Thesis (Ph.D.)--University of California, Berkeley.
+
+\bibitem{Riordan}
+John Riordan.
+\newblock {\em An introduction to combinatorial analysis}.
+\newblock Wiley Publications in Mathematical Statistics. John Wiley \& Sons
+  Inc., New York, 1958.
+
+\bibitem{Robbins}
+Herbert Robbins.
+\newblock A remark on {S}tirling's formula.
+\newblock {\em Amer. Math. Monthly}, 62:26--29, 1955.
+
+\bibitem{Stanley1}
+Richard~P. Stanley.
+\newblock {\em Enumerative combinatorics. {V}ol. 1}, volume~49 of {\em
+  Cambridge Studies in Advanced Mathematics}.
+\newblock Cambridge University Press, Cambridge, 1997.
+\newblock With a foreword by Gian-Carlo Rota, Corrected reprint of the 1986
+  original.
+
+\bibitem{Stein}
+William Stein.
+\newblock {\em Modular forms, a computational approach}, volume~79 of {\em
+  Graduate Studies in Mathematics}.
+\newblock American Mathematical Society, Providence, RI, 2007.
+\newblock With an appendix by Paul E. Gunnells.
+
+\bibitem{Sage}
+W.\thinspace{}A. Stein et~al.
+\newblock {\em {S}age {M}athematics {S}oftware ({V}ersion 5.0)}.
+\newblock The Sage Development Team, 2012.
+
+\bibitem{StevenhagenLenstra}
+P.~Stevenhagen and H.~W. Lenstra, Jr.
+\newblock Chebotar\"ev and his density theorem.
+\newblock {\em Math. Intelligencer}, 18(2):26--37, 1996.
+
+\bibitem{Tsaknias}
+Panagiotis Tsaknias.
+\newblock A possible generalization of {M}aeda's conjecture,
+\newblock available as arXiv:1205.3420, 2012.
+
+\end{thebibliography}
 
 \end{document}
 
