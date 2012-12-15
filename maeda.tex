@@ -1,51 +1,38 @@
-\documentclass[11pt]{article}
+\documentclass{book}
 
-\usepackage[english]{babel}
-\usepackage{csquotes}
-\usepackage[style=alphabetic, 
-            hyperref=auto,
-            url=true,
-            isbn=false,
-            doi=false,
-            block=none,
-            maxnames=10,
-            backend=bibtex]{biblatex}
-\addbibresource{maeda.bib}
-\renewcommand{\bibfont}{\normalfont\small}
-
-\usepackage{amssymb}
-\usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{mathrsfs}
-
-% \usepackage[pagewise, mathlines]{lineno}
-% \linenumbers
-% \modulolinenumbers[2]
-
-%\usepackage{gitinfo}
-%\usepackage[english]{isodate}
-
-\usepackage[a4paper, top=3cm, bottom=3cm]{geometry}
-\usepackage[a4paper]{geometry}
 \usepackage{numprint}
-\usepackage[pdftex]{graphicx}
 \usepackage{pgfplots}
-%\pgfplotsset{compat=1.6}
+\usepackage{tmj}
 
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
 
-\numberwithin{equation}{section}
-%\numberwithin{table}{section}
+\title{Maeda's conjecture}{Experimental evidence for Maeda's conjecture on
+modular forms}
+% \footnote{
+% We thank David Harvey for asking a question that lead us to
+%   drastically improve our Sage implementation, and David Farmer, Gabor Wiese
+% and the referees for very useful comments.}
+
+\author{A.~Ghitza, A.~McAndrew}{
+  Alexandru Ghitza\addr{1}
+  % \footnote{
+  % Research of the first author was supported by 
+% a Discovery Grant from the Australian Research Council.
+% Some of the computations described in this paper were performed on the Sage
+% cluster at the University of Washington, partly supported by National 
+% Science Foundation Grant No. DMS-0821725, held by William Stein.}  
+\and 
+Angus McAndrew\addr{1}}
+\address{
+Department of Mathematics and Statistics\\
+University of Melbourne\\
+Parkville, Australia}
+\email{aghitza@alum.mit.edu, mcandrew@student.unimelb.edu.au}
+
+\received{} \revised{} \accepted{}
+\volumenumber{?}\volumeyear{????}
+
 \renewcommand{\labelenumi}{(\arabic{enumi})}
 \newcommand{\longto}{\longrightarrow}
 
@@ -66,34 +53,12 @@
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\SL}{\mathrm{SL}}
 
-%\cleanlookdateon
-\title{Experimental evidence for Maeda's conjecture on modular forms
-\footnote{
-We thank David Harvey for asking a question that lead us to
-  drastically improve our Sage implementation, and David Farmer, Gabor Wiese
-and the referees for very useful comments.}
-%\footnote{Commit: \gitAbbrevHash{} on \printdate{\gitAuthorDate{}}}
-}
-\author{
-Alexandru Ghitza\footnote{
-  Research of the first author was supported by 
-a Discovery Grant from the Australian Research Council.
-Some of the computations described in this paper were performed on the Sage
-cluster at the University of Washington, partly supported by National 
-Science Foundation Grant No. DMS-0821725, held by William Stein.}  
-{} and 
-Angus McAndrew\\
-Department of Mathematics and Statistics\\
-University of Melbourne\\
-{\tt aghitza@alum.mit.edu}, {\tt mcandrew@student.unimelb.edu.au}
-}
-\date{}
 
 
 \begin{document}
-\thispagestyle{empty}
 
 \maketitle
+
 \begin{abstract}
   We describe a computational approach to the verification of Maeda's conjecture
   for the Hecke operator $T_2$ on the space of cusp forms of level one. We provide
@@ -102,6 +67,8 @@ University of Melbourne\\
   mathematical software Sage, and the code and resulting data were made
   freely available.
 \end{abstract}
+
+\metadata{blah}{blah}{blah}
 
 
 \section{Introduction}
@@ -292,7 +259,7 @@ about modular forms of level one.
 We have made the code and data used to verify Theorem~\ref{thm:main} available
 at 
 
-\centerline{\url{http://bitbucket.org/aghitza/maeda_data}}
+% \centerline{{http://bitbucket.org/aghitza/maeda_data}}
 
 \section{Polynomial factorization and Frobenius elements}
 \label{sect:frobenius}
@@ -988,7 +955,7 @@ $\numprint{10000}$.}:
 
 
 
-\printbibliography
+% \printbibliography
 
 \end{document}
 

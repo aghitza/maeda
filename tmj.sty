@@ -1,0 +1,463 @@
+%%
+%% This is file `tmj.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% tmj.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2007 by Joel Uckleman
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.2 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of
+%% LaTeX version 1999/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{tmj}[2008/05/02 v4.1 Package for articles to appear in the journal "Tbilisi Mathematical Journal"]
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage[pdftex=true,dvips=true,twoside=true,paperwidth=156mm,paperheight=234mm,bottom=25mm,left=23mm,right=18mm,headsep=7mm,headheight=8pt,top=29mm]{geometry}
+\RequirePackage{lastpage}
+%% \subsubsection{Proof environments}
+
+\newcommand{\OneLine}[1]{%
+   \begingroup
+      \def\\{\unskip{}\space\ignorespaces}%
+      #1%
+   \endgroup}
+
+
+\newcommand{\clearemptydoublepage}%
+   {\newpage\thispagestyle{empty}\cleardoublepage}
+
+\raggedbottom
+
+\renewcommand\frontmatter{\clearemptydoublepage%
+                          \@mainmatterfalse
+                          \pagestyle{headings}
+                          \pagenumbering{arabic}}
+
+\renewcommand\mainmatter{\clearemptydoublepage%
+                         \@mainmattertrue
+                         \pagestyle{headings}}
+
+\renewcommand\backmatter{\clearemptydoublepage%
+                         \@mainmatterfalse}
+
+\newif\ifTitle
+\renewcommand{\thanks}[1]{%
+   \ifTitle{%
+      \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+      \footnote{#1}%
+      \renewcommand{\thefootnote}{\arabic{footnote}}}%
+   \else\null\fi}
+
+\renewcommand{\title}[2]{%
+   \gdef\@title{\OneLine{#2}}
+   \gdef\@titledisplay{#2}
+   \gdef\@shorttitle{#1}
+}
+\def\@title{}
+\def\@titledisplay{}
+\def\@shorttitle{}
+
+\newcounter{@ShowAddrLabel}
+\setcounter{@ShowAddrLabel}{0}
+
+\renewcommand{\author}[2]{%
+  \def\and{\unskip{}\ignorespaces{, }}
+  \def\addr##1{\unskip{}\ignorespaces\ifTitle{$^{##1}$}\else\null\fi
+  \protect\setcounter{@ShowAddrLabel}{1}}
+  \gdef\@author{#2}
+  \gdef\@shortauthor{#1}
+}
+\def\@author{}
+\def\@shortauthor{}
+
+\newcounter{@addr}
+\newcommand{\address}[1]{%
+  \setcounter{@addr}{1}
+  \gdef\@address{%
+    \ifnum\the@ShowAddrLabel >0{%
+      \def\and{\\[2mm]\stepcounter{@addr}$^{\the@addr}$\enspace\ignorespaces}
+      $^{\the@addr}$\enspace\ignorespaces #1}
+    \else{%
+      \def\and{\\[2mm]\ignorespaces}
+      #1}
+    \fi
+  }
+}
+\def\@address{}
+
+\newcommand{\email}[1]{\gdef \@email{\\[1mm] E-mail: \texttt{#1}}}
+\def\@email{}
+
+\renewcommand{\maketitle}{%
+   \clearemptydoublepage
+   \label{FirstPage}
+   \Titletrue
+   \refstepcounter{chapter}
+   \thispagestyle{copy}%
+   \begingroup
+      \parindent 0pt
+      \begin{center}
+      {\Large\textbf{\@titledisplay}
+
+      }
+      \vspace{5mm}
+      {\large\@author}
+      \end{center}
+      \fontsize{8}{9}\selectfont\@address
+      \@email\par
+      \nobreak
+   \endgroup
+   \vspace*{10pt}
+   \@thanks
+   \setcounter{footnote}{0}
+   \Titlefalse
+   \addcontentsline{toc}{chapter}{\@title\protect\\ \emph{\@author}}
+   \main
+   \renewcommand{\leftmark}{\@shortauthor}
+   \renewcommand{\rightmark}{\@shorttitle}
+}
+
+\newif\ifCollection
+
+\def\publisher#1{\gdef\@publisher{#1}}
+\def\@publisher{}
+
+\def\seriestitle#1{\gdef\@seriestitle{#1}}
+\def\@seriestitle{}
+
+\def\editor#1{\gdef\@editor{#1}}
+\def\@editor{}
+
+\def\volumetitle#1{\gdef\@volumetitle{#1}}
+\def\@volumetitle{}
+
+\def\volumetitlesep#1{\gdef\@volumetitlesep{#1}}
+\def\@volumetitlesep{}
+
+\def\volumesubtitle#1{\gdef\@volumesubtitle{#1}}
+\def\@volumesubtitle{}
+
+\def\volumeyear#1{\gdef\@volumeyear{#1}}
+\def\@volumeyear{}
+
+\def\volumenumber#1{\gdef\@volumenumber{#1}}
+\def\@volumenumber{}
+
+
+\def\CopyrightContent{%
+{\parbox[t]{\textwidth}{%
+\scriptsize \textbf{Tbilisi Mathematical Journal}
+\@volumenumber{} (\@volumeyear),
+pp.~\pageref{FirstPage}--\pageref{LastPage}.\\
+National Centre for Science and Technology \& Amsterdam University
+Press.\\[1mm]
+{\tiny \if!\@received!\else{\textsl{Received by the editors:}
+\@received}\fi
+\if!\@revised!\else{; \@revised}\fi\if!\@received!\else{.}\fi\\
+\if!\@accepted!\else{\textsl{Accepted for publication:} \@accepted.}\fi
+
+}}}}%
+
+\def\ps@copy{%
+      \def\@oddfoot{\CopyrightContent}%
+      \def\@evenfoot{\CopyrightContent}%
+      \let\@evenhead\@empty%
+      \let\@oddhead\@empty}
+
+\def\ps@headings{%
+      \let\@oddfoot\@empty%
+      \let\@evenfoot\@empty%
+      \def\@evenhead{\fontsize{8}{9}\selectfont%
+                     \thepage\hfil\leftmark}%
+      \def\@oddhead{\fontsize{8}{9}\selectfont%
+                    \rightmark\hfil\thepage}}
+
+\pagestyle{headings}
+
+\newtheoremstyle{tlg}%        name
+                {\topsep}%    space above
+                {\topsep}%    space below
+                {\rm}%        body text
+                {}%           indent
+                {\bfseries}%  head text
+                {.}%          punctuation after head
+                {0.5em}%      space after head
+                {}%           head spec
+
+\theoremstyle{tlg}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{subclaim}[theorem]{Subclaim}
+\newtheorem{summary}[theorem]{Summary}
+
+\renewcommand\thetheorem{\thesection.\arabic{theorem}}
+
+\def\@removefromreset#1#2{{%
+  \expandafter\let\csname c@#1\endcsname\@removefromreset
+  \def\@elt##1{%
+    \expandafter\ifx\csname c@##1\endcsname\@removefromreset
+    \else
+      \noexpand\@elt{##1}%
+    \fi}%
+  \expandafter\xdef\csname cl@#2\endcsname{%
+    \csname cl@#2\endcsname}}}
+
+\newcommand{\numberbyarticle}{%
+   \@removefromreset{theorem}{section}
+   \renewcommand\thetheorem{\arabic{theorem}}}
+
+\renewcommand{\qedsymbol}{{\footnotesize\textsc{q.e.d.}}}
+\let\@origqedsymbol\qedsymbol
+
+\newenvironment{proofof}[2][Proof]%
+   {\begingroup
+      \renewcommand{\qedsymbol}{{\footnotesize\@origqedsymbol\ (#2)}}
+      \begin{proof}[#1]}
+   {\end{proof}\endgroup}
+
+\renewcommand\contentsname{Table of Contents}
+
+\renewcommand{\tableofcontents}{%
+   \clearemptydoublepage
+   \thispagestyle{empty}
+   \begingroup
+      \vspace*{1em}
+      \parindent 0pt
+      \hrulefill \linebreak \null \vspace{-8pt}\par
+      {\Large\bfseries\contentsname
+
+      }
+      \nobreak
+      \hrulefill \linebreak \null \vspace{-8pt}\par
+   \endgroup
+   \vskip3\baselineskip
+   \@starttoc{toc}
+   \pagestyle{headings}
+   \markboth{\contentsname}{\contentsname}
+   \clearemptydoublepage
+}
+
+
+\def\@makechapterhead#1{%
+   \thispagestyle{empty}
+   \vspace*{1em}
+   \begingroup
+      \parindent 0pt
+      \hrulefill \linebreak \null \vspace{-8pt}\par
+      \ifnum \c@secnumdepth >\m@ne
+         \if@mainmatter
+            {\Large\bfseries \@chapapp\space \thechapter
+
+            }
+         \fi
+      \fi
+      \interlinepenalty\@M
+      {\Large\bfseries #1
+
+      }
+      \nobreak
+      \hrulefill \linebreak \null \vspace{-8pt}\par
+   \endgroup
+   \vskip 40\p@
+   \renewcommand{\leftmark}{\@chapapp\space \thechapter}
+   \renewcommand{\rightmark}{#1}
+}
+
+\def\@makeschapterhead#1{%
+   \thispagestyle{empty}
+   \vspace*{1em}
+   \begingroup
+      \parindent 0pt
+      \hrulefill \linebreak \null \vspace{-8pt}\par
+      {\Large\bfseries #1
+
+      }
+      \nobreak
+      \hrulefill \linebreak \null \vspace{-8pt}\par
+   \endgroup
+   \vskip 40\p@
+   \renewcommand{\leftmark}{#1}
+   \renewcommand{\rightmark}{#1}
+}
+
+\def\l@chapter#1#2{\addpenalty{-\@highpenalty}%
+   \vskip 1.0em plus\p@
+   \@tempdima 1.5em
+   \begingroup
+     \parindent \z@ \rightskip \@pnumwidth
+     \parfillskip -\@pnumwidth
+     \leavevmode
+     #1 \dotfill #2\par
+     \penalty\@highpenalty
+   \endgroup}
+
+\setcounter{secnumdepth}{5}
+
+\def\thesection{\arabic{section}}  % blow away chapter numbers
+
+\def\section{\@startsection{section}{1}{\z@}%
+                           {-2ex plus -.5ex minus -.2ex}%
+                           {.8ex plus .08ex}%
+                           {\raggedright\large\bf}}
+\def\subsection{\@startsection{subsection}{2}{\z@}%
+                              {-1.5ex plus -.25ex minus -.1ex}%
+                              {.6ex plus .06ex}%
+                              {\raggedright\normalsize\bf}}
+
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                 {-1ex plus -.15ex minus -.06ex}%
+                                 {.4ex plus .04ex}%
+                                 {\raggedright\normalsize\bf}}
+
+\def\paragraph{\@startsection{paragraph}{4}{\z@}%
+                             {.5ex plus .05ex minus .025ex}%
+                             {-.66em}%
+                             {\normalsize\bf}}
+
+\def\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                {.25ex plus .01ex minus .005ex}%
+                                {-.66em}%
+                                {\normalsize\bf}}
+
+\renewcommand\appendix{
+\newcounter{appsection}
+\setcounter{appsection}{1}
+\begin{center}{\Large
+\textbf{Appendix}}\end{center}
+   \gdef\thesection{\@Alph\c@appsection}
+\newcommand{\nextappendix}{\stepcounter{appsection}}
+}
+
+\newcommand\main{\par
+   \gdef\thesection{\@arabic\c@section}}
+
+\renewcommand\thefigure{\arabic{figure}}
+
+\renewcommand\thetable{\arabic{table}}
+
+\renewcommand{\bibname}{References}
+
+\renewenvironment{thebibliography}[1]{%
+   \vskip1cm
+   \section*{\bibname}%
+   \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+         \leftmargin\labelwidth
+         \advance\leftmargin\labelsep
+         \@openbib@code
+         \usecounter{enumiv}%
+         \let\p@enumiv\@empty
+         \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+   \sloppy
+   \clubpenalty4000
+   \@clubpenalty \clubpenalty
+   \widowpenalty4000%
+   \sfcode`\.\@m}
+   {\def\@noitemerr
+      {\@latex@warning{Empty `thebibliography' environment}}%
+   \endlist}
+
+\newcommand\receivedtext{%
+   \bigskip\noindent
+   \begingroup
+      \if!\@received!\else{\scriptsize Received: \@received}\\[-.3em] \fi
+      \if!\@revised!\else{\scriptsize Revised: \@revised}\\[-.3em] \fi
+      \if!\@accepted!\else{\scriptsize Accepted: \@accepted} \fi
+    \endgroup
+}
+
+\def\received#1{\gdef\@received{#1}}
+\def\revised#1{\gdef\@revised{#1}}
+\def\accepted#1{\gdef\@accepted{#1}}
+
+\newcommand\abstractname{Abstract}
+
+\newenvironment{abstract}{%
+   \small
+   \begin{center}%
+      {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
+   \end{center}%
+   \quote}
+   {\endquote}
+
+\newcommand{\metadata}[3]
+{{\scriptsize
+\vspace{3mm}
+\noindent\textsl{2000 Mathematics Subject Classification.} \textbf{#1}. #2.\\ \textsl{Keywords.} #3.
+\vspace{3mm}
+
+}}
+
+\long\def\@makecaption#1#2{%
+   \vskip 10\p@
+   \setbox\@tempboxa\hbox{\textsc{#1.} #2}%
+   \ifdim \wd\@tempboxa >\hsize
+       \textsc{#1.} #2\par
+     \else
+       \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+   \fi}
+
+\renewenvironment{quotation}%
+                 {\list{}%
+                    {\listparindent 1.5em%
+                     \itemindent    \listparindent
+                     \rightmargin   \leftmargin
+                     \parsep        \z@ \@plus\p@}%
+                  \small%
+                  \item\relax}%
+                 {\endlist}
+\renewenvironment{quote}%
+                 {\list{}%
+                    {\rightmargin\leftmargin}%
+                  \small%
+                  \item\relax}%
+                 {\endlist}
+
+\renewcommand{\labelitemi}{{\small\textbullet}}
+
+\let\origemptyset\emptyset
+\let\emptyset\varnothing
+\let\origphi\phi
+\let\phi\varphi
+\let\origepsilon\epsilon
+\let\epsilon\varepsilon
+
+\endinput
+%%
+%% End of file `tmj.sty'.
