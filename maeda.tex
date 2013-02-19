@@ -14,10 +14,12 @@
 \usepackage{amsmath}
 \usepackage{mathrsfs}
 \usepackage{numprint}
-\usepackage{pgfplots}
+% \usepackage{pgfplots}
 \usepackage{url}
 \usepackage{tmj}
 
+\usepackage{tikzexternal}
+\tikzexternalize%
 
 \title{Maeda's conjecture}{Experimental evidence for Maeda's conjecture on
 modular forms}
@@ -739,20 +741,9 @@ interpreting the graphs:
     algorithm was about twice as fast as the consecutive one.  
 \end{itemize}
 
-It would be very interesting to understand why small primes are ill-suited for
-the purposes of this multimodular algorithm.  We can only offer a heuristic
-reason: we observed that the discriminant of the Hecke operator $T_2$ tends to
-be highly divisible by a lot of small primes; this means that the
-characteristic polynomial of $T_2$ is not squarefree at these primes, which
-disqualifies them from being primes of types I, II or III.
+% \pagebreak
 
-For weight $k=\numprint{14000}$, the entire verification took about 14 hours.
-The majority (59\%) of the time was spent looking for a prime of type I; this
-required testing \numprint{655} primes, and each test took about 47 seconds.
-The computation of the Victor Miller basis took about 4.9 hours, and the
-computation of the characteristic polynomial of $T_2$ took about 1 hour.
-
-\begin{figure}[h]
+\begin{figure}[!p]
   \begin{center}
   \raisebox{2.5cm}{
   \begin{tabular}{lrr}
@@ -836,6 +827,20 @@ expected number of primes.}
 \label{fig:histogram}
 \end{figure}
 
+% \pagebreak
+
+It would be very interesting to understand why small primes are ill-suited for
+the purposes of this multimodular algorithm.  We can only offer a heuristic
+reason: we observed that the discriminant of the Hecke operator $T_2$ tends to
+be highly divisible by a lot of small primes; this means that the
+characteristic polynomial of $T_2$ is not squarefree at these primes, which
+disqualifies them from being primes of types I, II or III.
+
+For weight $k=\numprint{14000}$, the entire verification took about 14 hours.
+The majority (59\%) of the time was spent looking for a prime of type I; this
+required testing \numprint{655} primes, and each test took about 47 seconds.
+The computation of the Victor Miller basis took about 4.9 hours, and the
+computation of the characteristic polynomial of $T_2$ took about 1 hour.
 
 \section{Some applications}
 \label{sect:applications}
